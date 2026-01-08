@@ -6,14 +6,14 @@ using InteractiveUtils
 
 # ╔═╡ 90964124-d200-4131-96db-e16535fb0f28
 begin
-	using Random
-	using Distributions
-	using LinearAlgebra
-	using BenchmarkTools, Profile, TimerOutputs
-	using Plots, StatsPlots, Plots.PlotMeasures
-	using LaTeXStrings
-	using PlutoUI
-	using ThreadsX
+    using Random
+    using Distributions
+    using LinearAlgebra
+    using BenchmarkTools, Profile, TimerOutputs
+    using Plots, StatsPlots, Plots.PlotMeasures
+    using LaTeXStrings
+    using PlutoUI
+    using ThreadsX
 end
 
 # ╔═╡ e5bb3d96-3982-4fa6-8418-9b9223105d8b
@@ -21,49 +21,51 @@ end
 # ╠═╡ pluto_cell_id = "e5bb3d96-3982-4fa6-8418-9b9223105d8b"
 begin
     corr = "exp"
-	ρ = 0.9
-	p = 1000
-	SNR = 5
-	k⃰ = 20
+    ρ = 0.9
+    p = 1000
+    SNR = 5
+    k⃰ = 20
 end;
 
 # ╔═╡ 816a0d16-1fed-4eaf-808c-4dc6c67fbf72
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "816a0d16-1fed-4eaf-808c-4dc6c67fbf72"
-function variables(; corr = "exp", ρ = 0.9, n = 250, p = 1000, SNR = 5, k⃰ = 20)
-	Σ = corr=="exp" ? [ρ^abs(i-j) for i=1:p, j=1:p] : [1-(1-ρ)*(i!=j) for i=1:p, j=1:p]
-	d = MvNormal(zeros(p), Σ)
-	X = rand(d, n)'
-	for i=1:p; X[:, i] /= norm(X[:, i]); end
-	β⃰ = [1.0*(mod(i, Int(p/k⃰))==0) for i=1:p]
+function variables(; corr="exp", ρ=0.9, n=250, p=1000, SNR=5, k⃰=20)
+    Σ = corr == "exp" ? [ρ^abs(i - j) for i = 1:p, j = 1:p] : [1 - (1 - ρ) * (i != j) for i = 1:p, j = 1:p]
+    d = MvNormal(zeros(p), Σ)
+    X = rand(d, n)'
+    for i = 1:p
+        X[:, i] /= norm(X[:, i])
+    end
+    β⃰ = [1.0 * (mod(i, Int(p / k⃰)) == 0) for i = 1:p]
 
-	σ = sqrt(norm(X*β⃰)^2/(n*SNR))
-	
-	y = X*β⃰+randn(n)*σ
-	yval = X*β⃰+randn(n)*σ
+    σ = sqrt(norm(X * β⃰)^2 / (n * SNR))
 
-	XTX = X'X
+    y = X * β⃰ + randn(n) * σ
+    yval = X * β⃰ + randn(n) * σ
 
-	return X, y, yval, XTX, p, β⃰, k⃰
+    XTX = X'X
+
+    return X, y, yval, XTX, p, β⃰, k⃰
 end;
 
 # ╔═╡ e5e9fb82-9944-44dd-b78c-6698b9d886d7
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "e5e9fb82-9944-44dd-b78c-6698b9d886d7"
 function funcs(X, y, yval, XTX, p, β⃰, k⃰, λ₀)
-	HT = sqrt(2*λ₀)
-	r!(r, β) = (mul!(r, X, β); r .-= y)
-	r(β) = X*β-y
-	f(r) = norm(r)^2/2
-	h(β) = λ₀*norm(β, 0)
-	F(r, β) = f(r)+h(β)
-	∇f!(∇f, r) = mul!(∇f, X', r)
-	∇f(r) = X'r
-	proxl0(x) = (abs(x)>=HT)*x
-	proxl0(x, τ) = (abs.(x).>=sqrt(2λ₀*τ)).*x
-	proxl0VM(x, Uₖ) = (abs.(x).>=sqrt.(2λ₀.*Uₖ)).*x
+    HT = sqrt(2 * λ₀)
+    r!(r, β) = (mul!(r, X, β); r .-= y)
+    r(β) = X * β - y
+    f(r) = norm(r)^2 / 2
+    h(β) = λ₀ * norm(β, 0)
+    F(r, β) = f(r) + h(β)
+    ∇f!(∇f, r) = mul!(∇f, X', r)
+    ∇f(r) = X'r
+    proxl0(x) = (abs(x) >= HT) * x
+    proxl0(x, τ) = (abs.(x) .>= sqrt(2λ₀ * τ)) .* x
+    proxl0VM(x, Uₖ) = (abs.(x) .>= sqrt.(2λ₀ .* Uₖ)) .* x
 
-	return r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX
+    return r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX
 end;
 
 # ╔═╡ dc30376c-3641-4c94-94d0-205d5940b52b
@@ -78,195 +80,195 @@ end;
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "d7fbd2ce-8c0c-45d8-8757-b6a150a2b953"
 function VMSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), µ=10^-3)
-	r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
-	
-	sᵏ = xᵏ⁻¹ = xᵏ = x⁰
-	rᵏ = r(xᵏ)
-	∇fxᵏ⁻¹ = ∇fxᵏ = ∇f(rᵏ)
-	Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
-	r!(rᵏ, x⁰-∇fxᵏ*10^-5)
-	yᵏ = ∇fxᵏ-∇f(rᵏ)
-	yᵏTsᵏ = dot(yᵏ, ∇fxᵏ)
-	nsᵏ = γₖ¹ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/yᵏTsᵏ
-	γₖ² = yᵏTsᵏ*10^-5/dot(yᵏ, yᵏ)
-	Uₖ₋₁ = Uₖ = min.(max.(10^-5*∇fxᵏ.*∇fxᵏ./(∇fxᵏ.*yᵏ), γₖ²), γₖ¹)
-	lastₘ = [Fxᵏ for i = 1:m]
+    r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
-	for k=1:kₘₐₓ
-		Fxₗ₍ₖ₎ = maximum(lastₘ)
-		
-		while true
-			xᵏ = proxl0VM(xᵏ⁻¹-Uₖ.*∇fxᵏ, Uₖ)
-			r!(rᵏ, xᵏ)
-			Fxᵏ = F(rᵏ, xᵏ)
-            sᵏ = xᵏ-xᵏ⁻¹
+    sᵏ = xᵏ⁻¹ = xᵏ = x⁰
+    rᵏ = r(xᵏ)
+    ∇fxᵏ⁻¹ = ∇fxᵏ = ∇f(rᵏ)
+    Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
+    r!(rᵏ, x⁰ - ∇fxᵏ * 10^-5)
+    yᵏ = ∇fxᵏ - ∇f(rᵏ)
+    yᵏTsᵏ = dot(yᵏ, ∇fxᵏ)
+    nsᵏ = γₖ¹ = dot(∇fxᵏ, ∇fxᵏ) * 10^-5 / yᵏTsᵏ
+    γₖ² = yᵏTsᵏ * 10^-5 / dot(yᵏ, yᵏ)
+    Uₖ₋₁ = Uₖ = min.(max.(10^-5 * ∇fxᵏ .* ∇fxᵏ ./ (∇fxᵏ .* yᵏ), γₖ²), γₖ¹)
+    lastₘ = [Fxᵏ for i = 1:m]
 
-			if Fxᵏ+δ*dot(sᵏ, sᵏ./Uₖ)/2 <= Fxₗ₍ₖ₎
+    for k = 1:kₘₐₓ
+        Fxₗ₍ₖ₎ = maximum(lastₘ)
+
+        while true
+            xᵏ = proxl0VM(xᵏ⁻¹ - Uₖ .* ∇fxᵏ, Uₖ)
+            r!(rᵏ, xᵏ)
+            Fxᵏ = F(rᵏ, xᵏ)
+            sᵏ = xᵏ - xᵏ⁻¹
+
+            if Fxᵏ + δ * dot(sᵏ, sᵏ ./ Uₖ) / 2 <= Fxₗ₍ₖ₎
                 break
             end
 
             BLAS.scal!(τ, Uₖ)
 
-			if any(isnan, Uₖ) || any(x -> x<γₘᵢₙ, Uₖ)
+            if any(isnan, Uₖ) || any(x -> x < γₘᵢₙ, Uₖ)
                 break
             end
-		end	
-		
-		if abs(Fxᵏ⁻¹-Fxᵏ)/Fxᵏ<=ϵ
-			return xᵏ, k
-		end
+        end
 
-		popfirst!(lastₘ)
+        if abs(Fxᵏ⁻¹ - Fxᵏ) / Fxᵏ <= ϵ
+            return xᵏ, k
+        end
+
+        popfirst!(lastₘ)
         push!(lastₘ, Fxᵏ)
-		xᵏ⁻¹, Fxᵏ⁻¹ = xᵏ, Fxᵏ
-		∇fxᵏ⁻¹ = copy(∇fxᵏ)
-		∇f!(∇fxᵏ, rᵏ)
-		nsᵏ = dot(sᵏ, sᵏ)
-		yᵏ = ∇fxᵏ-∇fxᵏ⁻¹
-		nyᵏ = dot(yᵏ, yᵏ)
-		yᵏTsᵏ = dot(yᵏ, sᵏ)
-		γₖ¹ = yᵏTsᵏ>0 ? nsᵏ/yᵏTsᵏ : sqrt(nsᵏ/nyᵏ)
-		γₖ² = yᵏTsᵏ>0 ? yᵏTsᵏ/nyᵏ : 1/γₖ¹
-		Uₖ₋₁, Uₖ = Uₖ, min.(max.((sᵏ.*sᵏ+µ.*Uₖ₋₁)./(sᵏ.*yᵏ.+µ), γₖ²), γₖ¹)
-	end
+        xᵏ⁻¹, Fxᵏ⁻¹ = xᵏ, Fxᵏ
+        ∇fxᵏ⁻¹ = copy(∇fxᵏ)
+        ∇f!(∇fxᵏ, rᵏ)
+        nsᵏ = dot(sᵏ, sᵏ)
+        yᵏ = ∇fxᵏ - ∇fxᵏ⁻¹
+        nyᵏ = dot(yᵏ, yᵏ)
+        yᵏTsᵏ = dot(yᵏ, sᵏ)
+        γₖ¹ = yᵏTsᵏ > 0 ? nsᵏ / yᵏTsᵏ : sqrt(nsᵏ / nyᵏ)
+        γₖ² = yᵏTsᵏ > 0 ? yᵏTsᵏ / nyᵏ : 1 / γₖ¹
+        Uₖ₋₁, Uₖ = Uₖ, min.(max.((sᵏ .* sᵏ + µ .* Uₖ₋₁) ./ (sᵏ .* yᵏ .+ µ), γₖ²), γₖ¹)
+    end
 
-	return xᵏ, kₘₐₓ
+    return xᵏ, kₘₐₓ
 end;
 
 # ╔═╡ 2ba39b49-487d-424d-b898-d4c8a76cb4f0
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "2ba39b49-487d-424d-b898-d4c8a76cb4f0"
 function SPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64))
-	r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
+    r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
-	sᵏ = xᵏ⁻¹ = xᵏ = x⁰
-	rᵏ = r(xᵏ)
-	∇fxᵏ⁻¹ = ∇fxᵏ = ∇f(rᵏ)
-	Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
-	r!(rᵏ, x⁰-∇fxᵏ*10^-5)
-	yᵏ = ∇fxᵏ-∇f(rᵏ)
-	yᵏTsᵏ = dot(yᵏ, ∇fxᵏ)
-	nsᵏ = γₖ¹ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/yᵏTsᵏ
-	γₖ² = yᵏTsᵏ*10^-5/dot(yᵏ, yᵏ)
-	γₖ = γₖ¹<2*γₖ² ? γₖ² : γₖ¹-γₖ²/2
-	lastₘ = [Fxᵏ for i = 1:m]
+    sᵏ = xᵏ⁻¹ = xᵏ = x⁰
+    rᵏ = r(xᵏ)
+    ∇fxᵏ⁻¹ = ∇fxᵏ = ∇f(rᵏ)
+    Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
+    r!(rᵏ, x⁰ - ∇fxᵏ * 10^-5)
+    yᵏ = ∇fxᵏ - ∇f(rᵏ)
+    yᵏTsᵏ = dot(yᵏ, ∇fxᵏ)
+    nsᵏ = γₖ¹ = dot(∇fxᵏ, ∇fxᵏ) * 10^-5 / yᵏTsᵏ
+    γₖ² = yᵏTsᵏ * 10^-5 / dot(yᵏ, yᵏ)
+    γₖ = γₖ¹ < 2 * γₖ² ? γₖ² : γₖ¹ - γₖ² / 2
+    lastₘ = [Fxᵏ for i = 1:m]
 
-	for k=1:kₘₐₓ
-		Fxₗ₍ₖ₎ = maximum(lastₘ)
-		
-		while true
-			xᵏ = proxl0(xᵏ⁻¹-γₖ*∇fxᵏ, γₖ)
-			r!(rᵏ, xᵏ)
-			Fxᵏ = F(rᵏ, xᵏ)
-            sᵏ = xᵏ-xᵏ⁻¹
-			nsᵏ = dot(sᵏ, sᵏ)
+    for k = 1:kₘₐₓ
+        Fxₗ₍ₖ₎ = maximum(lastₘ)
 
-			if Fxᵏ+δ*nsᵏ/(2*γₖ) <= Fxₗ₍ₖ₎
+        while true
+            xᵏ = proxl0(xᵏ⁻¹ - γₖ * ∇fxᵏ, γₖ)
+            r!(rᵏ, xᵏ)
+            Fxᵏ = F(rᵏ, xᵏ)
+            sᵏ = xᵏ - xᵏ⁻¹
+            nsᵏ = dot(sᵏ, sᵏ)
+
+            if Fxᵏ + δ * nsᵏ / (2 * γₖ) <= Fxₗ₍ₖ₎
                 break
             end
 
             γₖ *= τ
 
-			if isnan(γₖ) || γₖ < γₘᵢₙ
+            if isnan(γₖ) || γₖ < γₘᵢₙ
                 break
             end
-		end	
-		
-		if abs(Fxᵏ⁻¹-Fxᵏ)/Fxᵏ<=ϵ
-			return xᵏ, k
-		end
+        end
 
-		popfirst!(lastₘ)
+        if abs(Fxᵏ⁻¹ - Fxᵏ) / Fxᵏ <= ϵ
+            return xᵏ, k
+        end
+
+        popfirst!(lastₘ)
         push!(lastₘ, Fxᵏ)
-		xᵏ⁻¹, Fxᵏ⁻¹ = xᵏ, Fxᵏ
-		∇fxᵏ⁻¹ = copy(∇fxᵏ)
-		∇f!(∇fxᵏ, rᵏ)
-		yᵏ = ∇fxᵏ-∇fxᵏ⁻¹
-		nyᵏ = dot(yᵏ, yᵏ)
-		yᵏTsᵏ = dot(yᵏ, sᵏ)
-		γₖ¹ = yᵏTsᵏ>0 ? nsᵏ/yᵏTsᵏ : sqrt(nsᵏ/nyᵏ)
-		γₖ² = yᵏTsᵏ>0 ? yᵏTsᵏ/nyᵏ : 1/γₖ¹
-        γₖ = γₖ¹<2*γₖ² ? γₖ² : γₖ¹-γₖ²/2
-	end
+        xᵏ⁻¹, Fxᵏ⁻¹ = xᵏ, Fxᵏ
+        ∇fxᵏ⁻¹ = copy(∇fxᵏ)
+        ∇f!(∇fxᵏ, rᵏ)
+        yᵏ = ∇fxᵏ - ∇fxᵏ⁻¹
+        nyᵏ = dot(yᵏ, yᵏ)
+        yᵏTsᵏ = dot(yᵏ, sᵏ)
+        γₖ¹ = yᵏTsᵏ > 0 ? nsᵏ / yᵏTsᵏ : sqrt(nsᵏ / nyᵏ)
+        γₖ² = yᵏTsᵏ > 0 ? yᵏTsᵏ / nyᵏ : 1 / γₖ¹
+        γₖ = γₖ¹ < 2 * γₖ² ? γₖ² : γₖ¹ - γₖ² / 2
+    end
 
-	return xᵏ, kₘₐₓ
+    return xᵏ, kₘₐₓ
 end;
 
 # ╔═╡ 196b60fd-6d2e-4083-867f-844b3cdd187d
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "196b60fd-6d2e-4083-867f-844b3cdd187d"
 function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0)
-	r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
+    r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
-	sᵏ = xᵏ⁻¹ = xᵏ = x⁰
-	rᵏ = r(xᵏ)
-	∇fxᵏ⁻¹ = ∇fxᵏ = ∇f(rᵏ)
-	Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
-	if iszero(γₖ)
-		r!(rᵏ, x⁰-∇fxᵏ*10^-5)
-		γₖ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/dot(∇fxᵏ-∇f(rᵏ), ∇fxᵏ)
-	end
-	nsᵏ = γₖ
-	lastₘ = [Fxᵏ for i = 1:m]
+    sᵏ = xᵏ⁻¹ = xᵏ = x⁰
+    rᵏ = r(xᵏ)
+    ∇fxᵏ⁻¹ = ∇fxᵏ = ∇f(rᵏ)
+    Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
+    if iszero(γₖ)
+        r!(rᵏ, x⁰ - ∇fxᵏ * 10^-5)
+        γₖ = dot(∇fxᵏ, ∇fxᵏ) * 10^-5 / dot(∇fxᵏ - ∇f(rᵏ), ∇fxᵏ)
+    end
+    nsᵏ = γₖ
+    lastₘ = [Fxᵏ for i = 1:m]
 
-	for k=1:kₘₐₓ
-		Fxₗ₍ₖ₎ = maximum(lastₘ)
-		
-		while true
-			xᵏ = proxl0(xᵏ⁻¹-γₖ*∇fxᵏ, γₖ)
-			r!(rᵏ, xᵏ)
-			Fxᵏ = F(rᵏ, xᵏ)
-            sᵏ = xᵏ-xᵏ⁻¹
-			nsᵏ = dot(sᵏ, sᵏ)
+    for k = 1:kₘₐₓ
+        Fxₗ₍ₖ₎ = maximum(lastₘ)
 
-			if Fxᵏ+δ*nsᵏ/(2*γₖ) <= Fxₗ₍ₖ₎
+        while true
+            xᵏ = proxl0(xᵏ⁻¹ - γₖ * ∇fxᵏ, γₖ)
+            r!(rᵏ, xᵏ)
+            Fxᵏ = F(rᵏ, xᵏ)
+            sᵏ = xᵏ - xᵏ⁻¹
+            nsᵏ = dot(sᵏ, sᵏ)
+
+            if Fxᵏ + δ * nsᵏ / (2 * γₖ) <= Fxₗ₍ₖ₎
                 break
             end
 
             γₖ *= τ
 
-			if isnan(γₖ) || γₖ < γₘᵢₙ
+            if isnan(γₖ) || γₖ < γₘᵢₙ
                 break
             end
-		end	
-		
-		if abs(Fxᵏ⁻¹-Fxᵏ)/Fxᵏ<=ϵ
-			return xᵏ, k
-		end
-
-		popfirst!(lastₘ)
-        push!(lastₘ, Fxᵏ)
-		xᵏ⁻¹, Fxᵏ⁻¹ = xᵏ, Fxᵏ
-		∇fxᵏ⁻¹ = copy(∇fxᵏ)
-		∇f!(∇fxᵏ, rᵏ)
-		
-		yᵏ = ∇fxᵏ-∇fxᵏ⁻¹
-		γₖ = nsᵏ/dot(∇fxᵏ-∇fxᵏ⁻¹, sᵏ)
-        if γₖ > γₘₐₓ || γₖ < γₘᵢₙ
-            γₖ = sqrt(nsᵏ/dot(yᵏ, yᵏ))
         end
-	end
 
-	return xᵏ, kₘₐₓ
+        if abs(Fxᵏ⁻¹ - Fxᵏ) / Fxᵏ <= ϵ
+            return xᵏ, k
+        end
+
+        popfirst!(lastₘ)
+        push!(lastₘ, Fxᵏ)
+        xᵏ⁻¹, Fxᵏ⁻¹ = xᵏ, Fxᵏ
+        ∇fxᵏ⁻¹ = copy(∇fxᵏ)
+        ∇f!(∇fxᵏ, rᵏ)
+
+        yᵏ = ∇fxᵏ - ∇fxᵏ⁻¹
+        γₖ = nsᵏ / dot(∇fxᵏ - ∇fxᵏ⁻¹, sᵏ)
+        if γₖ > γₘₐₓ || γₖ < γₘᵢₙ
+            γₖ = sqrt(nsᵏ / dot(yᵏ, yᵏ))
+        end
+    end
+
+    return xᵏ, kₘₐₓ
 end;
 
 # ╔═╡ 3c06123a-f43e-4df5-8f28-838ee68b9712
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "3c06123a-f43e-4df5-8f28-838ee68b9712"
-function CDSS(x⁰, funcs; sortperc=1/4)
+function CDSS(x⁰, funcs; sortperc=1 / 4)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
     xᵏ = copy(x⁰)
-    
-    rᵏ = -r(xᵏ)      
+
+    rᵏ = -r(xᵏ)
 
     Fxᵏ⁻¹ = F(rᵏ, xᵏ)
-    
-    ksort = round(Int64, length(x⁰)*sortperc)
+
+    ksort = round(Int64, length(x⁰) * sortperc)
     greedy = partialsortperm(abs.(∇f(rᵏ)), 1:ksort, rev=true)
     greedy = vcat(greedy, setdiff(1:p, greedy))
 
-    for k=1:kₘₐₓ
+    for k = 1:kₘₐₓ
         @inbounds for i in greedy
             xi = proxl0(dot(rᵏ, view(X, :, i)) + xᵏ[i])
             if xi != xᵏ[i]
@@ -289,60 +291,60 @@ end;
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "737b576a-dc16-4c1e-ab15-bd8f193f77f4"
 function SPGpCDSS(x⁰, funcs)
-	x, k = SPG(x⁰, funcs)
-	x, k2 = CDSS(x, funcs)
-	
-	return x, k+k2
+    x, k = SPG(x⁰, funcs)
+    x, k2 = CDSS(x, funcs)
+
+    return x, k + k2
 end;
 
 # ╔═╡ 740c7450-a0c6-4f9e-878a-6d383e184671
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "740c7450-a0c6-4f9e-878a-6d383e184671"
 function PSI1(xˡ, funcs)
-	r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
+    r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
-	r⃰ = -X'r(xˡ) 
-	
-	for i=findall(!iszero, xˡ)
-		jₘₐₓ = 0
-		v⃰ₘₐₓ = 0.0
-		
-		for j=findall(iszero, xˡ)
-			v⃰ = proxl0(r⃰[j]+XTX[i, j]*xˡ[i])
+    r⃰ = -X'r(xˡ)
 
-			if abs(v⃰)>abs(v⃰ₘₐₓ)
-				v⃰ₘₐₓ = v⃰
-				jₘₐₓ = j
-			end
-		end
-		
-		if abs(v⃰ₘₐₓ)>abs(xˡ[i])
-			xˡ[i] = 0.0
-			xˡ[jₘₐₓ] = v⃰ₘₐₓ
-			
-			return xˡ, false
-		end
-	end
+    for i = findall(!iszero, xˡ)
+        jₘₐₓ = 0
+        v⃰ₘₐₓ = 0.0
 
-	return xˡ, true
+        for j = findall(iszero, xˡ)
+            v⃰ = proxl0(r⃰[j] + XTX[i, j] * xˡ[i])
+
+            if abs(v⃰) > abs(v⃰ₘₐₓ)
+                v⃰ₘₐₓ = v⃰
+                jₘₐₓ = j
+            end
+        end
+
+        if abs(v⃰ₘₐₓ) > abs(xˡ[i])
+            xˡ[i] = 0.0
+            xˡ[jₘₐₓ] = v⃰ₘₐₓ
+
+            return xˡ, false
+        end
+    end
+
+    return xˡ, true
 end;
 
 # ╔═╡ 96eab8b9-4f88-4575-99e6-3d032d76dddd
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "96eab8b9-4f88-4575-99e6-3d032d76dddd"
 function SolverPSI1(solver, x⁰, funcs; γₖ=0.0)
-	β = x⁰
-	kᵢ = kₒ = 0
-	isPSI1 = false
-	
-	while !isPSI1 && kₒ<kₘₐₓ
-		kₒ += 1
-		β, k = solver(β, funcs)
-		kᵢ += k
-		β, isPSI1 = PSI1(β, funcs)
-	end
+    β = x⁰
+    kᵢ = kₒ = 0
+    isPSI1 = false
 
-	return β, kᵢ, kₒ
+    while !isPSI1 && kₒ < kₘₐₓ
+        kₒ += 1
+        β, k = solver(β, funcs)
+        kᵢ += k
+        β, isPSI1 = PSI1(β, funcs)
+    end
+
+    return β, kᵢ, kₒ
 end;
 
 # ╔═╡ 0467f015-bd57-4379-b192-367a5287d31c
@@ -350,53 +352,53 @@ end;
 # ╠═╡ pluto_cell_id = "0467f015-bd57-4379-b192-367a5287d31c"
 function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
-    suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p)/max(k⃰, norm(β, 0))
-	predval(β) = norm(X*β.-yval)^2/norm(yval)^2
-    
+    suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
+    predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
+
     mse_results = Float64[]
     β = β_best = zeros(p)
-	best = best_λ = Inf
+    best = best_λ = Inf
 
-	if SPG
-		#∇fxᵏ = -X'y
-		#γₖ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/dot(∇fxᵏ+X'*(y+X*∇fxᵏ*10^-5), ∇fxᵏ)
-		#λ = 1.01*γₖ*ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j=1:p)
-		λ = 1.01*ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j=1:p)
-	else
-    	λ = 1.01*ThreadsX.maximum(abs(dot(X[:, j], y)) for j=1:p)^2/2
-	end
-	λ_min = λ*λ_min_ratio
+    if SPG
+        #∇fxᵏ = -X'y
+        #γₖ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/dot(∇fxᵏ+X'*(y+X*∇fxᵏ*10^-5), ∇fxᵏ)
+        #λ = 1.01*γₖ*ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j=1:p)^2/2
+        λ = 1.01 * ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j = 1:p)^2 / 2
+    else
+        λ = 1.01 * ThreadsX.maximum(abs(dot(X[:, j], y)) for j = 1:p)^2 / 2
+    end
+    λ_min = λ * λ_min_ratio
 
-	i=1
-    while λ>λ_min
-		@show λ
-		
-		# Run solver
-		β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, p, β⃰, k⃰, λ))
-		
-        push!(mse_results, norm(yval .- X*β))
-		if mse_results[end]<best
-			β_best = β
-			best = mse_results[i]
-			best_λ = λ
-		end
+    i = 1
+    while λ > λ_min
+        @show λ
 
-		β = zeros(p)
-		
-		if SPG
-			#∇fxᵏ = X'*(X*β-y)
-			#γₖ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/dot(∇fxᵏ+X'*(y-X*(β-∇fxᵏ*10^-5)), ∇fxᵏ)
-			#λ = norm(β, 0)!=p ? 0.9*γₖ*min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), X*β-y)) for j=1:p if iszero(β[j]))^2/2) : 0.0
-			λ = norm(β, 0)!=p ? 0.9*min(λ, ThreadsX.maximum(abs(dot(X[:, j], y)) for j=1:p if iszero(β[j]))^2/2) : 0.0
-		else
-			λ = norm(β, 0)!=p ? 0.9*min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), X*β-y)) for j=1:p if iszero(β[j]))^2/2) : 0.0
-		end
-		i+=1
+        # Run solver
+        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, p, β⃰, k⃰, λ))
+
+        push!(mse_results, norm(yval .- X * β))
+        if mse_results[end] < best
+            β_best = β
+            best = mse_results[i]
+            best_λ = λ
+        end
+
+        β = zeros(p)
+
+        if SPG
+            #∇fxᵏ = X'*(X*β-y)
+            #γₖ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/dot(∇fxᵏ+X'*(y-X*(β-∇fxᵏ*10^-5)), ∇fxᵏ)
+            #λ = norm(β, 0)!=p ? 0.9*γₖ*min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), X*β-y)) for j=1:p if iszero(β[j]))^2/2) : 0.0
+            λ = norm(β, 0) != p ? 0.9 * min(λ, ThreadsX.maximum(abs(dot(X[:, j], y)) for j = 1:p if iszero(β[j]))^2 / 2) : 0.0
+        else
+            λ = norm(β, 0) != p ? 0.9 * min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), X * β - y)) for j = 1:p if iszero(β[j]))^2 / 2) : 0.0
+        end
+        i += 1
     end
 
     β_best, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ))
-    
-    return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best-β⃰, Inf)
+
+    return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
 end;
 
 # ╔═╡ 0d883a10-c092-4913-8e60-59a164f8069b
@@ -404,49 +406,49 @@ end;
 # ╠═╡ pluto_cell_id = "0d883a10-c092-4913-8e60-59a164f8069b"
 begin
     x⁰ = zeros(Float64, p)
-    ns=100:100:1000;
-    T=10
+    ns = 100:100:1000
+    T = 10
 end;
 
 # ╔═╡ e4e94a69-5f99-43cb-85f8-ed021d6ae802
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "e4e94a69-5f99-43cb-85f8-ed021d6ae802"
-begin 
-	Predhist = zeros(length(ns), 3)
-	SUPhist = zeros(length(ns), 3)
-	Infhist = zeros(length(ns), 3)
-	Simhist = zeros(length(ns), 3)
-	
-	for (t, n)=enumerate(ns)	
-		@info "Starting experiment for n = $n"
-		
-		for i=1:T
-			vars = variables(corr = corr, ρ = ρ, n = n, p = p, SNR = SNR, k⃰ = k⃰)
-	
-			β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f)->SolverPSI1(CDSS, x, f), vars)
-			SUPhist[t, 1] += SUP
-			Predhist[t, 1] += Pred
-			Simhist[t, 1] += Sim
-			Infhist[t, 1] += Infv
-	
-			β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f)->SolverPSI1(SPG, x, f), vars, SPG=true)
-			SUPhist[t, 2] += SUP
-			Predhist[t, 2] += Pred
-			Simhist[t, 2] += Sim
-			Infhist[t, 2] += Infv
-	
-			β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f)->SolverPSI1(SPGpCDSS, x, f), vars, SPG=true)
-			SUPhist[t, 3] += SUP
-			Predhist[t, 3] += Pred
-			Simhist[t, 3] += Sim
-			Infhist[t, 3] += Infv
- 		end
-	end
+begin
+    Predhist = zeros(length(ns), 3)
+    SUPhist = zeros(length(ns), 3)
+    Infhist = zeros(length(ns), 3)
+    Simhist = zeros(length(ns), 3)
 
-	SUPhist ./= T
-	Predhist ./= T
-	Simhist ./= T
-	Infhist ./= T
+    for (t, n) = enumerate(ns)
+        @info "Starting experiment for n = $n"
+
+        for i = 1:T
+            vars = variables(corr=corr, ρ=ρ, n=n, p=p, SNR=SNR, k⃰=k⃰)
+
+            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(CDSS, x, f), vars)
+            SUPhist[t, 1] += SUP
+            Predhist[t, 1] += Pred
+            Simhist[t, 1] += Sim
+            Infhist[t, 1] += Infv
+
+            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(SPG, x, f), vars, SPG=true)
+            SUPhist[t, 2] += SUP
+            Predhist[t, 2] += Pred
+            Simhist[t, 2] += Sim
+            Infhist[t, 2] += Infv
+
+            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(SPGpCDSS, x, f), vars, SPG=true)
+            SUPhist[t, 3] += SUP
+            Predhist[t, 3] += Pred
+            Simhist[t, 3] += Sim
+            Infhist[t, 3] += Infv
+        end
+    end
+
+    SUPhist ./= T
+    Predhist ./= T
+    Simhist ./= T
+    Infhist ./= T
 end;
 
 # ╔═╡ 29fdb407-e14e-4f09-833d-59741b7cd580
@@ -457,7 +459,7 @@ SUPhist
 # ╔═╡ 26d22c97-3636-4821-a6cf-f9958f09a3b1
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "26d22c97-3636-4821-a6cf-f9958f09a3b1"
-names =  ["Greedy CD" "NSPG" "NSPG+CD"];
+names = ["Greedy CD" "NSPG" "NSPG+CD"];
 
 # ╔═╡ 219e1960-8477-48c5-942a-e05d8827369f
 # ╠═╡ show_logs = false

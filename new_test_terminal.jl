@@ -453,12 +453,16 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false)
     β = β_best = zeros(p)
     best = best_λ = Inf
 
+    ∇fxᵏ = -X'y
+    correlations = abs.(∇fxᵏ)
+
     if SPG
-        λ = 1.01 * ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j = 1:p)
+        #γₖ = dot(∇fxᵏ, ∇fxᵏ) * 10^-5 / dot(∇fxᵏ + X' * (y + X * ∇fxᵏ * 10^-5), ∇fxᵏ)
+        #λ = 1.01 * γₖ * ThreadsX.maximum(correlations)^2 / 2
+        λ = 1.01 * ThreadsX.maximum(correlations)^2 / 2
     else
-        λ = 1.01 * ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j = 1:p)^2 / 2
+        λ = 1.01 * ThreadsX.maximum(correlations)^2 / 2
     end
-    @debug "Cross-validation starting" λ₀ = λ λ_min = λ * λ_min_ratio SPG
     λ_min = λ * λ_min_ratio
 
     i = 1
@@ -473,16 +477,90 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false)
             best_λ = λ
         end
 
-        β = zeros(p)
+        #β = zeros(p)
 
         if SPG
-            λ = norm(β, 0) != p ? 0.9 * min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j = 1:p if iszero(β[j]))^2 / 2) : 0.0
+            #∇fxᵏ = X' * (X * β - y)
+            #γₖ = dot(∇fxᵏ, ∇fxᵏ) * 10^-5 / dot(∇fxᵏ + X' * (y - X * (β - ∇fxᵏ * 10^-5)), ∇fxᵏ)
+            #λ = norm(β, 0) != p ? 0.9 * γₖ * min(λ, ThreadsX.maximum(abs(∇fxᵏ[j]) for j = 1:p if iszero(β[j]))^2 / 2) : 0.0
+            λ = norm(β, 0) != p ? 0.9 * min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), X * β - y)) for j = 1:p if iszero(β[j]))^2 / 2) : 0.0
         else
             λ = norm(β, 0) != p ? 0.9 * min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), X * β - y)) for j = 1:p if iszero(β[j]))^2 / 2) : 0.0
         end
         i += 1
     end
 
+    β_best, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ))
+
+    return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
+end
+
+# ============================================================================
+# Inverse Cross Validation (lambda grows instead of shrinks)
+# ============================================================================
+
+function inverse_cross_validation(solver, vars; λ_max_ratio=floatmax(), SPG=false)
+    X, y, yval, XTX, p, β⃰, k⃰ = vars
+    suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
+    predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
+
+    mse_results = Float64[]
+    β = β_best = zeros(p)
+    best = best_λ = Inf
+
+    # Compute initial residual correlations (residual = y when β = 0)
+    ∇fxᵏ = -X'y
+    correlations = abs.(∇fxᵏ)
+
+    # Initial λ: 1.01^-1 times the smallest nonzero correlation squared / 2
+    min_corr = ThreadsX.minimum(correlations)
+
+    if SPG
+        γₖ = dot(∇fxᵏ, ∇fxᵏ) * 10^-5 / dot(∇fxᵏ + X' * (y + X * ∇fxᵏ * 10^-5), ∇fxᵏ)
+        λ = (1.01^-1) * γₖ * min_corr^2 / 2
+        #λ = (1.01^-1) * min_corr^2 / 2
+    else
+        λ = (1.01^-1) * min_corr^2 / 2
+    end
+
+    λ_max = λ * λ_max_ratio
+
+    i = 1
+    while λ < λ_max
+        # Ensure λ stays positive to avoid sqrt domain errors
+        λ = max(λ, eps())
+
+        # Run solver
+        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, p, β⃰, k⃰, λ))
+
+        push!(mse_results, norm(yval .- X * β))
+        is_new_best = mse_results[end] < best
+        if is_new_best
+            β_best = copy(β)
+            best = mse_results[i]
+            best_λ = λ
+        end
+
+        #β = zeros(p)
+
+        # Check for edge cases: all zeros or all nonzero
+        if norm(β, 0) == 0
+            break  # All components are zero, no nonzero entries to compute minimum from
+        end
+
+        if SPG
+            ∇fxᵏ = X' * (X * β - y)
+            γₖ = dot(∇fxᵏ, ∇fxᵏ) * 10^-5 / dot(∇fxᵏ + X' * (y - X * (β - ∇fxᵏ * 10^-5)), ∇fxᵏ)
+            λ = (0.9^-1) * max(λ, ThreadsX.minimum(abs(β[j] - γₖ * ∇fxᵏ[j]) for j = 1:p if !iszero(β[j]))^2 / 2) / γₖ
+            #λ = (0.9^-1) * max(λ, ThreadsX.minimum(abs(β[j] - dot(view(X, :, j), X * β - y)) for j = 1:p if !iszero(β[j]))^2 / 2)
+        else
+            λ = (0.9^-1) * max(λ, ThreadsX.minimum(abs(β[j] - dot(view(X, :, j), X * β - y)) for j = 1:p if !iszero(β[j]))^2 / 2)
+        end
+
+        i += 1
+    end
+
+    # Final refinement with best λ
     β_best, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ))
 
     return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
@@ -558,7 +636,7 @@ function main()
     # Plot settings
     names = ["Greedy CD" "NSPG" "NSPG+CD"]
     plotname = "$(corr)-$(ρ)-$(p)-$(SNR)-$(k⃰)-$(T)-$(first(ns))_$(step(ns))_$(last(ns))"
-    specifics = "_allzero_not"
+    specifics = "_zerolast_not"
 
     # Create and save plots
     println("\nGenerating plots...")
