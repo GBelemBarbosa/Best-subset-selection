@@ -15,8 +15,8 @@ flush(stdout)
 
 # ============================================================================
 # Parameters (can be overridden via command-line arguments)
-# Usage: julia script.jl [corr] [ρ] [p] [SNR] [k⃰] [ns_start:ns_step:ns_end] [algo]
-# Example: julia script.jl const 0.9 1000 5 20 100:100:1000 CDSS
+# Usage: julia script.jl [corr] [ρ] [p] [SNR] [k⃰] [ns_start:ns_step:ns_end] [algo] [T]
+# Example: julia script.jl const 0.9 1000 5 20 100:100:1000 CDSS 10
 # algo options: CDSS, SPG, SPGpCDSS
 # ============================================================================
 
@@ -42,7 +42,10 @@ end
 algo_name = length(ARGS) >= 7 ? ARGS[7] : "CDSS"
 use_SPG = algo_name in ["SPG", "SPGpCDSS"]  # SPG step logic
 
-@info "Parameters" corr ρ p SNR k⃰ ns_range algo = algo_name use_SPG
+# Parse T (number of trials)
+T = length(ARGS) >= 8 ? parse(Int, ARGS[8]) : 10
+
+@info "Parameters" corr ρ p SNR k⃰ ns_range algo = algo_name use_SPG T
 flush(stdout)
 
 kₘₐₓ = 1000
@@ -548,7 +551,6 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
     best = best_λ = Inf
 
     ∇fxᵏ = -X'y
-    correlations = abs.(∇fxᵏ)
 
     if SPG
         # ε = 10^-5, sᵏ = ε∇f
@@ -561,7 +563,7 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
     end
 
     # λ formula always uses γₖ (computed SPG val or 1.0)
-    λ = 1.01 * γₖ * ThreadsX.maximum(correlations)^2 / 2
+    λ = 1.01 * γₖ * ThreadsX.maximum(abs(∇fxᵏ[j]) for j = 1:p)^2 / 2
     λ_min = λ * λ_min_ratio
 
     i = 1
@@ -592,8 +594,10 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
             #@info "Update γₖ (Cross Validation)" γₖ
         end
 
-        # Compute new λ from formula
-        computed_λ = norm(β, 0) != p ? 0.9 * γₖ * ThreadsX.maximum(abs(dot(view(X, :, j), X * β - y)) for j = 1:p if iszero(β[j]))^2 / 2 : 0.0
+        # Compute new λ from formula - with min to previous λ for consistency
+        # The 0.9 multiplier is OUTSIDE the min for monotonic decrease
+        raw_λ = norm(β, 0) != p ? γₖ * ThreadsX.maximum(abs(dot(view(X, :, j), X * β - y)) for j = 1:p if iszero(β[j]))^2 / 2 : 0.0
+        computed_λ = 0.9 * min(prev_computed_λ, raw_λ)
 
         if stagnation_handling
             # Check if formula is stagnant (computing same value repeatedly)
@@ -639,11 +643,10 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
 
     # Compute initial residual correlations (residual = y when β = 0)
     ∇fxᵏ = -X'y
-    correlations = abs.(∇fxᵏ)
 
     # Initial λ: use max_corr for inverse CV (we start low and go high)
     # Using min_corr fails for exp correlation where min_corr ≈ 0
-    min_corr = ThreadsX.minimum(correlations)
+    min_corr = ThreadsX.minimum(abs(∇fxᵏ[j]) for j = 1:p)
 
     if SPG
         # ε = 10^-5, sᵏ = ε∇f
@@ -651,7 +654,6 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
         # γₖ = ε‖∇f‖² / ⟨yᵏ, ∇f⟩ = ε‖∇f‖² / (ε⟨X'X∇f,∇f⟩)
         XTX∇fxᵏ = X' * X * ∇fxᵏ
         γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
-        #@info "Initial γₖ (Inverse CV)" γₖ
     else
         γₖ = 1.0
     end
@@ -693,8 +695,10 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
             γₖ = 1.0
         end
 
-        # Compute new λ from formula - ensure monotonic increase for inverse CV
-        computed_λ = (0.9^-1) * ThreadsX.minimum(abs(β[j] - γₖ * dot(view(X, :, j), X * β - y)) for j = 1:p if !iszero(β[j]))^2 / (2 * γₖ)
+        # Compute new λ from formula - with max to previous λ for monotonic increase
+        # The 0.9^-1 multiplier is OUTSIDE the max
+        raw_λ = ThreadsX.minimum(abs(β[j] - γₖ * dot(view(X, :, j), X * β - y)) for j = 1:p if !iszero(β[j]))^2 / (2 * γₖ)
+        computed_λ = (0.9^-1) * max(prev_λ, raw_λ)
 
         if stagnation_handling
             # Stagnation detection: if λ isn't increasing, force it up
@@ -801,14 +805,16 @@ function smart_adaptive_cross_validation(solver, vars;
             SUP = Int(norm(current_β, 0))
             rᵏ = X * current_β - y
             val = SUP == 0 ? 0.0 : ThreadsX.minimum(abs(current_β[j] - γₖ * dot(view(X, :, j), rᵏ)) for j = 1:p if !iszero(current_β[j]))
-            computed_λ = (0.9^-1) * val^2 / (2 * γₖ)
+            raw_λ = val^2 / (2 * γₖ)
+            # max with previous λ, THEN multiply by 0.9^-1
+            computed_λ = (0.9^-1) * max(current_λ, raw_λ)
         else # :decrease
             SUP = Int(norm(current_β, 0))
             rᵏ = X * current_β - y
             val = SUP == p ? 0.0 : ThreadsX.maximum(abs(dot(view(X, :, j), rᵏ)) for j = 1:p if iszero(current_β[j]))
-            raw_λ = 0.9 * γₖ * val^2 / 2
-            # CRITICAL: For decrease direction, computed_λ MUST be smaller than current_λ
-            computed_λ = min(raw_λ, current_λ * 0.9)
+            raw_λ = γₖ * val^2 / 2
+            # min with previous λ, THEN multiply by 0.9
+            computed_λ = 0.9 * min(current_λ, raw_λ)
         end
 
         # Stagnation Handling
@@ -861,12 +867,14 @@ function smart_adaptive_cross_validation(solver, vars;
                 SUP = Int(norm(current_β, 0))
                 rᵏ = X * current_β - y
                 val = SUP == 0 ? 0.0 : ThreadsX.minimum(abs(current_β[j] - γₖ * dot(view(X, :, j), rᵏ)) for j = 1:p if !iszero(current_β[j]))
-                alt_λ = (0.9^-1) * val^2 / (2 * γₖ)
+                raw_λ = val^2 / (2 * γₖ)
+                alt_λ = (0.9^-1) * max(current_λ, raw_λ)
             else # :decrease
                 SUP = Int(norm(current_β, 0))
                 rᵏ = X * current_β - y
                 val = SUP == p ? 0.0 : ThreadsX.maximum(abs(dot(view(X, :, j), rᵏ)) for j = 1:p if iszero(current_β[j]))
-                alt_λ = 0.9 * γₖ * val^2 / 2
+                raw_λ = γₖ * val^2 / 2
+                alt_λ = 0.9 * min(current_λ, raw_λ)
             end
 
             alt_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, p, β⃰, k⃰, alt_λ); γₖ=SPG ? γₖ : 0.0)
@@ -927,7 +935,6 @@ end
 
 function main()
     x⁰ = zeros(Float64, p)
-    T = 5
 
     # Resolve algorithm function here (after definitions are loaded)
     algo_func = algo_name == "SPG" ? SPG : (algo_name == "SPGpCDSS" ? SPGpCDSS : CDSS)
