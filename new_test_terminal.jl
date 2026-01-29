@@ -1003,6 +1003,10 @@ function main()
     names = ["Greedy CD" "NSPG" "NSPG+CD"]
     plotname = "$(corr)-$(ρ)-$(p)-$(SNR)-$(k⃰)-$(T)-$(first(ns_range))_$(step(ns_range))_$(last(ns_range))"
     specifics = "_bestlast_tridiagonal"
+    
+    # Global plot theme settings for "popy" look
+    theme(:seaborn_bright)
+    default(lw=3)
 
     # Create and save plots
     println("\nGenerating plots...")

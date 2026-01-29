@@ -1058,6 +1058,10 @@ function main()
     # Plot settings
     names = reshape(algo_names, 1, :)
     plotname = "L0Hybrid_bestlast_$(corr)-$(ρ)-$(p)-$(SNR)-$(k⃰)-$(T)-$(first(ns_range))_$(step(ns_range))_$(last(ns_range))"
+    
+    # Global plot theme settings for "popy" look
+    theme(:seaborn_bright)
+    default(lw=3)
 
     # Create and save plots
     println("\nGenerating plots...")
@@ -1085,7 +1089,7 @@ function main()
     # NEW: Execution Time plot
     pTime = plot(ns_final, Timehist, labels=names, xlabel=L"n", 
                  ylabel="Execution Time (s)", 
-                 dpi=600, legend=:topleft, lw=2)
+                 dpi=600, legend=:topleft)
     savefig(pTime, "$(plotname)_Time.png")
 
     @info "Plots saved" files = [

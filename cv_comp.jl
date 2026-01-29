@@ -1034,6 +1034,10 @@ function main()
     names = strategies |> permutedims
     plotname = "$(algo_name)_Comparison_$(corr)-$(ρ)-$(p)-$(SNR)-$(k⃰)"
 
+    # Global plot theme settings for "popy" look
+    theme(:seaborn_bright)
+    default(lw=3)
+
     println("\nGenerating comparison plots...")
     pPred = plot(ns_completed, Predhist, labels=names, xlabel=L"n", ylabel=L"\frac{\Vert Ax-b\Vert^2}{\Vert b\Vert^2}", left_margin=5mm, dpi=600)
     savefig(pPred, "Comp_Pred-$(plotname).png")
