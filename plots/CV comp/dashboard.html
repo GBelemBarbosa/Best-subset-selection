@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Performance Dashboard - Dual Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --text: #e2e8f0;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.1);
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --winner-acc: #f59e0b;
+            --winner-eff: #818cf8;
+        }
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; font-family: 'Outfit', sans-serif; 
+            background: var(--bg); color: var(--text);
+            background-image: radial-gradient(circle at top right, #1e293b, transparent), 
+                             radial-gradient(circle at bottom left, #0f172a, transparent);
+            background-attachment: fixed;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; margin-bottom: 60px; }
+        h1 { font-size: 3rem; font-weight: 700; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+        .subtitle { color: #94a3b8; font-size: 1.2rem; font-weight: 300; }
+        
+        .card { 
+            background: var(--card-bg); backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border); border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            margin-bottom: 40px; overflow: hidden;
+        }
+        .card-header { padding: 20px 30px; border-bottom: 1px solid var(--card-border); background: rgba(0,0,0,0.1); }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 15px; background: rgba(0,0,0,0.2); font-weight: 600; color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 18px 15px; border-bottom: 1px solid var(--card-border); font-size: 0.9rem; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+        
+        .param-tag { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 0.75rem; }
+        
+        .winner-label { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+        .winner-label.acc { background: rgba(245, 158, 11, 0.15); color: var(--winner-acc); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .winner-label.eff { background: rgba(129, 140, 248, 0.15); color: var(--winner-eff); border: 1px solid rgba(129, 140, 248, 0.3); }
+        
+        .stat-cell.success { color: var(--success); font-weight: 700; }
+        
+        .plot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px; padding: 30px; }
+        .plot-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; text-align: center; }
+        .plot-box img { width: 100%; border-radius: 8px; transition: 0.3s; }
+        .plot-box img:hover { transform: translateY(-5px); }
+        .plot-box p { margin-top: 15px; color: #94a3b8; font-size: 0.85rem; }
+        
+        .legend { display: flex; gap: 30px; margin-top: 20px; font-size: 0.85rem; color: #94a3b8; }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        
+        footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.8rem; border-top: 1px solid var(--card-border); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Experiment Dashboard</h1>
+            <p class="subtitle">Dual-Winner Analysis: Pure Accuracy vs. Efficiency (95% Sim Threshold)</p>
+        </header>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 style="margin:0; font-size: 1.2rem;">Comparative Performance Matrix</h2>
+                <div class="legend">
+                    <div class="legend-item"><span class="dot" style="background: var(--winner-acc);"></span> Pure Accuracy (Max Sim)</div>
+                    <div class="legend-item"><span class="dot" style="background: var(--winner-eff);"></span> Efficient (Fastest within 5% of Max Sim)</div>
+                </div>
+            </div>
+            <div style="padding:0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Configuration</th>
+                            <th>Accuracy Winner</th>
+                            <th>Efficiency Winner</th>
+                            <th>Best Sim</th>
+                            <th>Eff. Time</th>
+                            <th>Z-Wins</th>
+                            <th>Improvs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+    <td>SPG</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell ">0.218</td>
+    <td>6.7s</td>
+    <td>2</td>
+    <td>2</td>
+</tr>
+<tr>
+    <td>SPG</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.174</td>
+    <td>0.1s</td>
+    <td>0</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>SPG</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell success">1.000</td>
+    <td>5.7s</td>
+    <td>5</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>SPG</td>
+    <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell success">1.000</td>
+    <td>0.7s</td>
+    <td>5</td>
+    <td>4</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.172</td>
+    <td>4.1s</td>
+    <td>5</td>
+    <td>3</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.129</td>
+    <td>0.5s</td>
+    <td>1</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Regular CV</span></td>
+    <td class="stat-cell success">1.000</td>
+    <td>3.8s</td>
+    <td>4</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell success">1.000</td>
+    <td>6.8s</td>
+    <td>3</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>L0LearnPSI1</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Regular CV</span></td>
+    <td class="stat-cell ">0.190</td>
+    <td>70.7s</td>
+    <td>0</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>L0LearnPSI1</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell ">0.116</td>
+    <td>0.9s</td>
+    <td>0</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>L0LearnPSI1</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell success">1.000</td>
+    <td>2.6s</td>
+    <td>0</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>L0LearnPSI1</td>
+    <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell success">0.907</td>
+    <td>2.4s</td>
+    <td>0</td>
+    <td>0</td>
+</tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 style="margin: 60px 0 20px 0; font-size: 1.4rem; color: var(--accent);">Visual Evidence Gallery</h2>
+        <div class="card plot-group" id="const-05-2000-100-100">
+    <div class="card-header">
+        <h3>SPG &mdash; const-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPG/const-0.5-2000-10.0-100/Comp_Sim-SPG_Comparison_const-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPG/const-0.5-2000-10.0-100/Comp_Refinement-SPG_Comparison_const-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="const-09-1000-50-20">
+    <div class="card-header">
+        <h3>SPG &mdash; const-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPG/const-0.9-1000-5.0-20/Comp_Sim-SPG_Comparison_const-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPG/const-0.9-1000-5.0-20/Comp_Refinement-SPG_Comparison_const-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="exp-05-2000-100-100">
+    <div class="card-header">
+        <h3>SPG &mdash; exp-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPG/exp-0.5-2000-10.0-100/Comp_Sim-SPG_Comparison_exp-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPG/exp-0.5-2000-10.0-100/Comp_Refinement-SPG_Comparison_exp-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="exp-09-1000-50-20">
+    <div class="card-header">
+        <h3>SPG &mdash; exp-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPG/exp-0.9-1000-5.0-20/Comp_Sim-SPG_Comparison_exp-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPG/exp-0.9-1000-5.0-20/Comp_Refinement-SPG_Comparison_exp-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="const-05-2000-100-100">
+    <div class="card-header">
+        <h3>SPGpCDSS &mdash; const-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpCDSS/const-0.5-2000-10.0-100/Comp_Sim-SPGpCDSS_Comparison_const-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpCDSS/const-0.5-2000-10.0-100/Comp_Refinement-SPGpCDSS_Comparison_const-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="const-09-1000-50-20">
+    <div class="card-header">
+        <h3>SPGpCDSS &mdash; const-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpCDSS/const-0.9-1000-5.0-20/Comp_Sim-SPGpCDSS_Comparison_const-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpCDSS/const-0.9-1000-5.0-20/Comp_Refinement-SPGpCDSS_Comparison_const-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="exp-05-2000-100-100">
+    <div class="card-header">
+        <h3>SPGpCDSS &mdash; exp-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpCDSS/exp-0.5-2000-10.0-100/Comp_Sim-SPGpCDSS_Comparison_exp-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpCDSS/exp-0.5-2000-10.0-100/Comp_Refinement-SPGpCDSS_Comparison_exp-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="exp-09-1000-50-20">
+    <div class="card-header">
+        <h3>SPGpCDSS &mdash; exp-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpCDSS/exp-0.9-1000-5.0-20/Comp_Sim-SPGpCDSS_Comparison_exp-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpCDSS/exp-0.9-1000-5.0-20/Comp_Refinement-SPGpCDSS_Comparison_exp-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="const-05-2000-100-100">
+    <div class="card-header">
+        <h3>L0LearnPSI1 &mdash; const-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="L0LearnPSI1/const-0.5-2000-10.0-100/Comp_Sim-L0LearnPSI1_Comparison_const-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="L0LearnPSI1/const-0.5-2000-10.0-100/Comp_Refinement-L0LearnPSI1_Comparison_const-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="const-09-1000-50-20">
+    <div class="card-header">
+        <h3>L0LearnPSI1 &mdash; const-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="L0LearnPSI1/const-0.9-1000-5.0-20/Comp_Sim-L0LearnPSI1_Comparison_const-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="L0LearnPSI1/const-0.9-1000-5.0-20/Comp_Refinement-L0LearnPSI1_Comparison_const-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="exp-05-2000-100-100">
+    <div class="card-header">
+        <h3>L0LearnPSI1 &mdash; exp-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="L0LearnPSI1/exp-0.5-2000-10.0-100/Comp_Sim-L0LearnPSI1_Comparison_exp-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="L0LearnPSI1/exp-0.5-2000-10.0-100/Comp_Refinement-L0LearnPSI1_Comparison_exp-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="exp-09-1000-50-20">
+    <div class="card-header">
+        <h3>L0LearnPSI1 &mdash; exp-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="L0LearnPSI1/exp-0.9-1000-5.0-20/Comp_Sim-L0LearnPSI1_Comparison_exp-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity (Recovery Rate)</p>
+        </div>
+        <div class="plot-box">
+            <img src="L0LearnPSI1/exp-0.9-1000-5.0-20/Comp_Refinement-L0LearnPSI1_Comparison_exp-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+
+        
+        <footer>
+            Dashboard generated at 2026-02-01 20:08 &bull; Best Selection Projects
+        </footer>
+    </div>
+</body>
+</html>
+

@@ -624,7 +624,7 @@ end
 # Cross Validation
 # ============================================================================
 
-function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true, lambda_val=nothing)
+function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true, lambda_val=nothing, use_refinement=false)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -699,8 +699,10 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
 
     # Final refinement with best λ
     β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+    if use_refinement
+        β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+        β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+    end
 
     return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
 end
@@ -709,7 +711,7 @@ end
 # Inverse Cross Validation (lambda grows instead of shrinks)
 # ============================================================================
 
-function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, stagnation_handling=true)
+function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, stagnation_handling=true, use_refinement=false)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -732,6 +734,21 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
 
     # Initial λ for inverse CV: start SMALL to get high support, then increase
     λ = (1.01^-1) * γₖ * min_corr^2 / 2
+
+    # --- PRE-LOOP WARMUP: Reduce λ until we get non-zero support ---
+    # For L0Learn with const correlation, the initial λ may be too large.
+    β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+    warmup_iters = 0
+    while iszero(norm(β_warmup, 0)) && warmup_iters < 50
+        λ *= 0.9
+        β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+        warmup_iters += 1
+    end
+    if warmup_iters >= 50 && iszero(norm(β_warmup, 0))
+        @warn "Inverse CV warmup failed: could not find non-zero beta after 50 iterations (final λ=$λ)"
+    end
+    β = β_warmup
+    # --- END WARMUP ---
 
     λ_max = λ * λ_max_ratio
 
@@ -795,8 +812,10 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
 
     # Final refinement with best λ
     β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+    if use_refinement
+        β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+        β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+    end
     return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
 end
 
@@ -805,7 +824,8 @@ function smart_adaptive_cross_validation(solver, vars;
     λ_max_ratio=floatmax(),
     SPG=false,
     stagnation_handling=true,
-    lambda_val=nothing)
+    lambda_val=nothing,
+    use_refinement=false)
 
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
@@ -830,6 +850,20 @@ function smart_adaptive_cross_validation(solver, vars;
 
     # Probe Low
     β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
+    
+    # --- PRE-LOOP WARMUP: Reduce λ_low until we get non-zero support ---
+    # For L0Learn with const correlation, λ_low may still be too large.
+    warmup_iters = 0
+    while iszero(norm(β_low, 0)) && warmup_iters < 50
+        λ_low *= 0.9
+        β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
+        warmup_iters += 1
+    end
+    if warmup_iters >= 50 && iszero(norm(β_low, 0))
+        @warn "Smart Adaptive CV warmup failed: could not find non-zero beta_low after 50 iterations (final λ_low=$λ_low)"
+    end
+    # --- END WARMUP ---
+    
     mse_low = calc_mse(β_low)
 
     # Probe High
@@ -991,8 +1025,12 @@ function smart_adaptive_cross_validation(solver, vars;
 
     # Final refinement with best λ
     β_best, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    best_β = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+    if use_refinement
+        β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+        best_β = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+    else
+        best_β = β_best
+    end
 
     return best_β, best_λ, norm(best_β, 0), predval(best_β), suppsim(best_β), norm(best_β - β⃰, Inf)
 end
@@ -1006,7 +1044,7 @@ function main()
     consecutive_perfect_recoveries = 0
     last_completed_idx = 0
 
-    algo_names = ["SPG", "SPGpCDSS", "L0Hybrid", "L0Learn"]
+    algo_names = ["SPG+PSI1", "SPGpCDSS+PSI1", "L0LearnPSI1", "L0LearnPSI1 Val"]
     n_algos = length(algo_names)
     @info "Experiment configuration" samples = ns_range trials = T algorithms = algo_names
 
@@ -1023,38 +1061,38 @@ function main()
         for i = 1:T
             vars = variables(corr=corr, ρ=ρ, n=n, p=p, SNR=SNR, k⃰=k⃰, is_tridiagonal=is_tridiagonal)
 
-            # 1. SPG (Standard Cross Validation)
+            # 1. SPG+PSI1 (Standard Cross Validation)
             trial_start = time()
             β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f; kw...) -> SolverPSI1(SPG, x, f; kw...), vars; SPG=true)
             dt = time() - trial_start
             SUPhist[t, 1] += SUP; Predhist[t, 1] += Pred; Simhist[t, 1] += Sim; Infhist[t, 1] += Infv; Timehist[t, 1] += dt
-            @show "SPG" SUP Pred Sim Infv round(dt, digits=1)
+            @show "SPG+PSI1" SUP Pred Sim Infv round(dt, digits=1)
 
-            # 2. SPGpCDSS (Smart Adaptive CV)
+            # 2. SPGpCDSS+PSI1 (Smart Adaptive CV)
             trial_start = time()
             β, best_λ, SUP, Pred, Sim, Infv = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars, SPG=true)
             dt = time() - trial_start
             SUPhist[t, 2] += SUP; Predhist[t, 2] += Pred; Simhist[t, 2] += Sim; Infhist[t, 2] += Infv; Timehist[t, 2] += dt
-            @show "SPGpCDSS" SUP Pred Sim Infv round(dt, digits=1)
+            @show "SPGpCDSS+PSI1" SUP Pred Sim Infv round(dt, digits=1)
 
             if L0LEARN_AVAILABLE
-                # Sync data to R once per trial if needed for L0Hybrid/L0Learn
+                # Sync data to R once per trial if needed for L0LearnPSI1/L0LearnPSI1 Val
                 RCall.globalEnv[:X_train] = collect(vars[1])
                 RCall.globalEnv[:y_train] = collect(vars[2])
 
-                # 3. L0Hybrid (Standard Cross Validation - Best strategy found)
+                # 3. L0LearnPSI1 (Standard Cross Validation with L0LearnStep)
                 trial_start = time()
                 β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f; kw...) -> SolverPSI1(L0LearnStep, x, f; kw...), vars; lambda_val=nothing)
                 dt = time() - trial_start
                 SUPhist[t, 3] += SUP; Predhist[t, 3] += Pred; Simhist[t, 3] += Sim; Infhist[t, 3] += Infv; Timehist[t, 3] += dt
-                @show "L0Hybrid" SUP Pred Sim Infv round(dt, digits=1)
+                @show "L0LearnPSI1" SUP Pred Sim Infv round(dt, digits=1)
 
-                # 4. Pure L0Learn (Internal CV)
+                # 4. L0LearnPSI1 Val (Pure L0Learn with Internal CV, includes validation)
                 trial_start = time()
                 β, best_λ, SUP, Pred, Sim, Infv = pure_l0learn_solver(vars)
                 dt = time() - trial_start
                 SUPhist[t, 4] += SUP; Predhist[t, 4] += Pred; Simhist[t, 4] += Sim; Infhist[t, 4] += Infv; Timehist[t, 4] += dt
-                @show "L0Learn" SUP Pred Sim Infv round(dt, digits=1)
+                @show "L0LearnPSI1 Val" SUP Pred Sim Infv round(dt, digits=1)
             end
 
             @info "Trial $i/$T completed"

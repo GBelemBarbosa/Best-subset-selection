@@ -734,6 +734,21 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
     # Use a fraction of max_corr^2 to start in the dense regime
     λ = (1.01^-1) * γₖ * min_corr^2 / 2  # Small multiplier to ensure high initial support
 
+    # --- PRE-LOOP WARMUP: Reduce λ until we get non-zero support ---
+    # For L0Learn with const correlation, the initial λ may be too large.
+    β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+    warmup_iters = 0
+    while iszero(norm(β_warmup, 0)) && warmup_iters < 50
+        λ *= 0.9
+        β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+        warmup_iters += 1
+    end
+    if warmup_iters >= 50 && iszero(norm(β_warmup, 0))
+        @warn "Inverse CV warmup failed: could not find non-zero beta after 50 iterations (final λ=$λ)"
+    end
+    β = β_warmup  # Start main loop with the warmed-up solution
+    # --- END WARMUP ---
+
     λ_max = λ * λ_max_ratio
 
     i = 1
@@ -843,6 +858,20 @@ function smart_adaptive_cross_validation(solver, vars;
 
     # Probe Low
     β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
+    
+    # --- PRE-LOOP WARMUP: Reduce λ_low until we get non-zero support ---
+    # For L0Learn with const correlation, λ_low may still be too large.
+    warmup_iters = 0
+    while iszero(norm(β_low, 0)) && warmup_iters < 50
+        λ_low *= 0.9
+        β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
+        warmup_iters += 1
+    end
+    if warmup_iters >= 50 && iszero(norm(β_low, 0))
+        @warn "Smart Adaptive CV warmup failed: could not find non-zero beta_low after 50 iterations (final λ_low=$λ_low)"
+    end
+    # --- END WARMUP ---
+    
     mse_low = calc_mse(β_low)
 
     # Probe High

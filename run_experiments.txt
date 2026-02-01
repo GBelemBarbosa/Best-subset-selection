@@ -38,19 +38,19 @@ tmux new -s cv_spgpcdss_exp_0.5_p2000 -d "julia --project=. -t 8 cv_comp.jl exp 
 tmux new -s cv_spgpcdss_const_0.5_p2000 -d "julia --project=. -t 8 cv_comp.jl const 0.5 2000 10.0 100 200:200:2000 SPGpCDSS 10 false > cv_spgpcdss_const_0.5_p2000.log 2>&1" ✅
 
 # L0Learn (The winning balanced algo)
-tmux new -s cv_l0learn_exp_0.5_p2000 -d "julia --project=. -t 8 cv_comp.jl exp 0.5 2000 10.0 100 200:200:2000 L0Learn 10 false > cv_l0learn_exp_0.5_p2000.log 2>&1" [ ]
-tmux new -s cv_l0learn_const_0.5_p2000 -d "julia --project=. -t 8 cv_comp.jl const 0.5 2000 10.0 100 200:200:2000 L0Learn 10 false > cv_l0learn_const_0.5_p2000.log 2>&1" [ ]
+tmux new -s cv_l0learn_exp_0.5_p2000 -d "julia --project=. -t 8 cv_comp.jl exp 0.5 2000 10.0 100 200:200:2000 L0Learn 10 false > cv_l0learn_exp_0.5_p2000.log 2>&1" ✅
+tmux new -s cv_l0learn_const_0.5_p2000 -d "julia --project=. -t 8 cv_comp.jl const 0.5 2000 10.0 100 200:200:2000 L0Learn 10 false > cv_l0learn_const_0.5_p2000.log 2>&1" ✅
 
 
 # SCENARIO B: p=1000, k=20, SNR=5.0
 # SPG
-tmux new -s cv_spg_exp_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl exp 0.9 1000 5.0 20 100:100:1000 SPG 10 false > cv_spg_exp_0.9_p1000.log 2>&1" [ ]
-tmux new -s cv_spg_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl const 0.9 1000 5.0 20 100:100:1000 SPG 10 false > cv_spg_const_0.9_p1000.log 2>&1" [ ]
+tmux new -s cv_spg_exp_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl exp 0.9 1000 5.0 20 100:100:1000 SPG 10 false > cv_spg_exp_0.9_p1000.log 2>&1" ✅
+tmux new -s cv_spg_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl const 0.9 1000 5.0 20 100:100:1000 SPG 10 false > cv_spg_const_0.9_p1000.log 2>&1" ✅
 
 # SPGpCDSS
-tmux new -s cv_spgpcdss_exp_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl exp 0.9 1000 5.0 20 100:100:1000 SPGpCDSS 10 false > cv_spgpcdss_exp_0.9_p1000.log 2>&1" [ ]
-tmux new -s cv_spgpcdss_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl const 0.9 1000 5.0 20 100:100:1000 SPGpCDSS 10 false > cv_spgpcdss_const_0.9_p1000.log 2>&1" [ ]
+tmux new -s cv_spgpcdss_exp_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl exp 0.9 1000 5.0 20 100:100:1000 SPGpCDSS 10 false > cv_spgpcdss_exp_0.9_p1000.log 2>&1" ✅
+tmux new -s cv_spgpcdss_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl const 0.9 1000 5.0 20 100:100:1000 SPGpCDSS 10 false > cv_spgpcdss_const_0.9_p1000.log 2>&1" ✅
 
 # L0Learn (The winning balanced algo)
-tmux new -s cv_l0learn_exp_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl exp 0.9 1000 5.0 20 100:100:1000 L0Learn 10 false > cv_l0learn_exp_0.9_p1000.log 2>&1" [ ]
-tmux new -s cv_l0learn_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl const 0.9 1000 5.0 20 100:100:1000 L0Learn 10 false > cv_l0learn_const_0.9_p1000.log 2>&1" [ ]
+tmux new -s cv_l0learn_exp_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl exp 0.9 1000 5.0 20 100:100:1000 L0Learn 10 false > cv_l0learn_exp_0.9_p1000.log 2>&1" ✅
+tmux new -s cv_l0learn_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl const 0.9 1000 5.0 20 100:100:1000 L0Learn 10 false > cv_l0learn_const_0.9_p1000.log 2>&1" ✅
