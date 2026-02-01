@@ -9,6 +9,21 @@ using BenchmarkTools, Profile, TimerOutputs
 using Plots, StatsPlots, Plots.PlotMeasures
 using LaTeXStrings
 using ThreadsX
+include("l0learn_julia.jl")
+# Try to load RCall for L0Learn comparison
+L0LEARN_AVAILABLE = false
+try
+    @eval using RCall
+    # Add local library path to check too
+    rcall(:eval, rparse(".libPaths(c('~/R_libs', .libPaths()))"))
+    rcall(:library, "L0Learn")
+    global L0LEARN_AVAILABLE = true
+    @info "L0Learn R package loaded successfully"
+catch e
+    @warn "L0Learn not available. Error: $e"
+    @warn "Install with: R -e 'install.packages(\"L0Learn\")' and Julia Pkg.add(\"RCall\")"
+end
+
 @info "Packages loaded successfully"
 
 # ============================================================================
@@ -38,7 +53,10 @@ end
 # Parse T (number of trials)
 T = length(ARGS) >= 7 ? parse(Int, ARGS[7]) : 10
 
-@info "Parameters" corr ρ p SNR k⃰ ns_range T
+# Parse tridiagonal flag
+is_tridiagonal = length(ARGS) >= 8 ? parse(Bool, ARGS[8]) : false
+
+@info "Parameters" corr ρ p SNR k⃰ ns_range T is_tridiagonal L0LEARN_AVAILABLE
 flush(stdout)
 
 kₘₐₓ = 1000
@@ -48,30 +66,30 @@ kₘₐₓ = 1000
 # Variable Generation
 # ============================================================================
 
-function variables(; corr="exp", ρ=0.9, n=250, p=1000, SNR=5, k⃰=20)
+function variables(; corr="exp", ρ=0.9, n=250, p=1000, SNR=5, k⃰=20, is_tridiagonal=is_tridiagonal)
     Σ = corr == "exp" ? [ρ^abs(i - j) for i = 1:p, j = 1:p] : [1 - (1 - ρ) * (i != j) for i = 1:p, j = 1:p]
     d = MvNormal(zeros(p), Σ)
     X = rand(d, n)'
-    # Enforce stepped full tridiagonal block structure
-    # Row i covers Block i-1 (Sub), Block i (Main), and Block i+1 (Super).
-    # Range: [start of Block i-1, end of Block i+1]
-    # Block i start: (i-1)*ratio + 1
-    # Block i-1 start: (i-2)*ratio + 1
-    ratio = p / n
-    for i in 1:n
-        start_col = floor(Int, (i - 2) * ratio) + 1
-        end_col = floor(Int, (i + 1) * ratio)
-        
-        # Ensure we cover everything and don't go out of bounds
-        start_col = max(1, start_col)
-        end_col = min(p, end_col)
-        
-        for j in 1:p
-            if j < start_col || j > end_col
-                X[i, j] = 0.0
+    
+    # Enforce stepped full tridiagonal block structure if requested
+    if is_tridiagonal
+        ratio = p / n
+        for i in 1:n
+            start_col = floor(Int, (i - 2) * ratio) + 1
+            end_col = floor(Int, (i + 1) * ratio)
+            
+            # Ensure we cover everything and don't go out of bounds
+            start_col = max(1, start_col)
+            end_col = min(p, end_col)
+            
+            for j in 1:p
+                if j < start_col || j > end_col
+                    X[i, j] = 0.0
+                end
             end
         end
     end
+    # End of tridiagonal modification
     for i = 1:p
         X[:, i] /= iszero(X[:, i]) ? 1.0 : norm(view(X, :, i))
     end
@@ -91,7 +109,7 @@ end
 # Function Definitions
 # ============================================================================
 
-function funcs(X, y, yval, XTX, p, β⃰, k⃰, λ₀)
+function funcs(X, y, yval, XTX, λ₀)
     HT = sqrt(2 * λ₀)
     r!(r, β) = (mul!(r, X, β); r .-= y)
     r(β) = X * β - y
@@ -378,66 +396,109 @@ function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ
 end
 
 # ============================================================================
-# CDSS Algorithm with Active Set Convergence
-# Based on L0Learn paper: Hazimeh & Mazumder (2018)
-# Active Set Strategy: Full cycles until support stabilizes, then active set only,
-# then verify with CW minimum check on coordinates outside support.
+# RCall Integration for L0Learn
 # ============================================================================
 
-function CDSS(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
-    r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
+const R_SOLVE_SCRIPT_REF = Ref{Any}(nothing)
 
-    xᵏ = copy(x⁰)
-    rᵏ = -r(xᵏ)
-    Fxᵏ⁻¹ = F(rᵏ, xᵏ)
-
-    n_vars = length(x⁰)
-    ksort = round(Int64, n_vars * sortperc)
-
-    # Initial greedy ordering based on correlations (computed ONCE)
-    greedy = partialsortperm(abs.(∇f(rᵏ)), 1:ksort, rev=true)
-    greedy = vcat(greedy, setdiff(1:n_vars, greedy))
-
-    # Active set tracking (per L0Learn's RestrictSupport)
-    xᵏ⁻¹ = copy(xᵏ)
-    SameSuppCounter = 0
-    Stabilized = false
-    Order = greedy  # Current sweep order
-
-    for k = 1:kₘₐₓ
-        # RestrictSupport: check if support is same as previous iteration (per L0Learn)
-        if !Stabilized
-            if has_same_support(xᵏ, xᵏ⁻¹)
-                SameSuppCounter += 1
-                if SameSuppCounter == ActiveSetNum - 1
-                    # Switch to active set mode (nonzero indices only)
-                    Order = findall(!iszero, xᵏ)
-                    Stabilized = true
-                end
-            else
-                SameSuppCounter = 0
-            end
-        end
-
-        copyto!(xᵏ⁻¹, xᵏ)
-
-        @inbounds for i in Order
-            xi = proxl0(dot(rᵏ, view(X, :, i)) + xᵏ[i])
-            if xi != xᵏ[i]
-                BLAS.axpy!(xᵏ[i] - xi, view(X, :, i), rᵏ)
-                xᵏ[i] = xi
-            end
-        end
-
-        Fxᵏ = F(rᵏ, xᵏ)
-        if (Fxᵏ⁻¹ - Fxᵏ) / Fxᵏ <= ϵ
-            return xᵏ, k
-        end
-
-        Fxᵏ⁻¹ = Fxᵏ
+function get_r_solve_script()
+    if R_SOLVE_SCRIPT_REF[] === nothing
+        R_SOLVE_SCRIPT_REF[] = RCall.rparse(raw"""
+            # Ensure library is loaded including local lib if exists
+            if (dir.exists("~/R_libs")) {
+                .libPaths(c("~/R_libs", .libPaths()))
+            }
+            suppressMessages(library(L0Learn))
+            
+            fit <- L0Learn.fit(X_train, y_train, penalty="L0", lambdaGrid=list(c(lambda_val)), maxSuppSize=maxSuppSize, intercept=FALSE)
+            
+            if (length(fit$lambda[[1]]) > 0) {
+                # Get coefficients for the first lambda/gamma
+                beta <- coef(fit, lambda=fit$lambda[[1]][1], gamma=0)
+                beta_vec <- as.numeric(beta)
+            } else {
+                beta_vec <- rep(0, ncol(X_train))
+            }
+            beta_vec
+        """)
     end
+    return R_SOLVE_SCRIPT_REF[]
+end
 
-    return xᵏ, kₘₐₓ
+function solve_l0_single_lambda_R(lambda_val, x_init; maxSuppSize=length(x_init))
+    try
+        RCall.globalEnv[:lambda_val] = lambda_val
+        RCall.globalEnv[:maxSuppSize] = maxSuppSize
+        RCall.globalEnv[:beta_init] = x_init
+        
+        # Run the pre-parsed script
+        beta_vec = RCall.rcopy(RCall.reval(get_r_solve_script()))
+        return beta_vec
+    catch e
+        @warn "L0Learn R solve failed: $e"
+        return zeros(length(x_init))
+    end
+end
+
+function L0LearnStep(xᵏ, funcs; lambda_val=nothing, X_data=nothing, y_data=nothing, kwargs...)
+    if lambda_val === nothing
+        return xᵏ, 0
+    end
+    
+    # Use the Julia implementation instead of RCall
+    X = X_data !== nothing ? X_data : funcs[11]
+    y = y_data !== nothing ? y_data : nothing
+
+    if y === nothing
+        beta_new = solve_l0_single_lambda_R(lambda_val, xᵏ)
+    else
+        beta_new = l0learn_fit_julia(X, y, lambda_val; beta_init=xᵏ)
+    end
+    
+    return beta_new, 1
+end
+
+# Pure L0Learn wrapper for comparison (Full fit)
+function pure_l0learn_solver(vars; maxSuppSize=size(vars[1], 2))
+    X, y, yval, XTX, p, β⃰, k⃰ = vars
+    RCall.globalEnv[:X_train] = X
+    RCall.globalEnv[:y_train] = y
+    RCall.globalEnv[:X_val] = X # Use same for simple comparison or yval if desired
+    RCall.globalEnv[:y_val] = yval
+    RCall.globalEnv[:maxSuppSize] = maxSuppSize
+
+    try
+        r_code = raw"""
+        if (dir.exists("~/R_libs")) .libPaths(c("~/R_libs", .libPaths()))
+        library(L0Learn)
+        fit <- L0Learn.fit(X_train, y_train, penalty="L0", maxSuppSize=maxSuppSize, intercept=FALSE)
+        best_mse <- Inf
+        best_coef <- NULL
+        best_lambda <- 0
+        lambdas <- fit$lambda[[1]]
+        for (i in 1:length(lambdas)) {
+            beta <- as.numeric(coef(fit, lambda=lambdas[i], gamma=0))
+            mse <- mean((y_val - as.numeric(X_val %*% beta))^2)
+            if (mse < best_mse) {
+                best_mse <- mse
+                best_coef <- beta
+                best_lambda <- lambdas[i]
+            }
+        }
+        list(beta=best_coef, lambda=best_lambda)
+        """
+        res = RCall.rcopy(RCall.reval(RCall.rparse(r_code)))
+        β = res[:beta]
+        λ = res[:lambda]
+        
+        suppsim(b) = count(i -> !iszero(β⃰[i]) && !iszero(b[i]), 1:p) / max(k⃰, norm(b, 0))
+        predval(b) = norm(X * b .- yval)^2 / norm(yval)^2
+        
+        return β, λ, norm(β, 0), predval(β), suppsim(β), norm(β - β⃰, Inf)
+    catch e
+        @warn "Pure L0Learn solver failed: $e"
+        return zeros(p), 0.0, 0, 1.0, 0.0, 1.0
+    end
 end
 
 # Helper function matching L0Learn's has_same_support
@@ -455,9 +516,28 @@ end
 # ============================================================================
 
 function SPGpCDSS(x⁰, funcs; γₖ=0.0, kwargs...)
+    # Internal simple CD implementation (since we removed standalone CDSS)
+    function local_cdss(x⁰, funcs; kwargs...)
+        r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
+        x = copy(x⁰)
+        r_res = -r(x)
+        fx_prev = F(r_res, x)
+        for k in 1:1000
+            for i in 1:length(x)
+                xi = proxl0(dot(r_res, view(X, :, i)) + x[i])
+                if xi != x[i]
+                    BLAS.axpy!(x[i] - xi, view(X, :, i), r_res)
+                    x[i] = xi
+                end
+            end
+            fx = F(r_res, x)
+            if (fx_prev - fx) / fx <= 1e-7; break; end
+            fx_prev = fx
+        end
+        return x, 0
+    end
     x, k = SPG(x⁰, funcs; γₖ=γₖ, kwargs...)
-    x, k2 = CDSS(x, funcs; kwargs...)
-
+    x, k2 = local_cdss(x, funcs; kwargs...)
     return x, k + k2
 end
 
@@ -544,7 +624,7 @@ end
 # Cross Validation
 # ============================================================================
 
-function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true)
+function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true, lambda_val=nothing)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -571,7 +651,7 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
 
     while λ > λ_min && norm(β, 0) != p
         # Run solver - only pass γₖ if we are in SPG mode
-        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, p, β⃰, k⃰, λ); γₖ=SPG ? γₖ : 0.0)
+        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
 
         mse = norm(yval .- X * β)
         if mse < best
@@ -618,8 +698,8 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
     end
 
     # Final refinement with best λ
-    β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ); γₖ=SPG ? γₖ : 0.0)
-    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ); γₖ=SPG ? γₖ : 0.0)
+    β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
 
     return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
@@ -664,7 +744,7 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
         λ = max(λ, eps())
 
         # Run solver
-        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, p, β⃰, k⃰, λ); γₖ=SPG ? γₖ : 0.0)
+        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
 
         mse = norm(yval .- X * β)
         if mse < best
@@ -714,8 +794,8 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
 
 
     # Final refinement with best λ
-    β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ); γₖ=SPG ? γₖ : 0.0)
-    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ); γₖ=SPG ? γₖ : 0.0)
+    β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
     return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
 end
@@ -724,7 +804,8 @@ function smart_adaptive_cross_validation(solver, vars;
     λ_min_ratio=10^-5,
     λ_max_ratio=floatmax(),
     SPG=false,
-    stagnation_handling=true)
+    stagnation_handling=true,
+    lambda_val=nothing)
 
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
@@ -748,11 +829,11 @@ function smart_adaptive_cross_validation(solver, vars;
     λ_high = 1.01 * γₖ * max_corr^2 / 2
 
     # Probe Low
-    β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, λ_low); γₖ=SPG ? γₖ : 0.0)
+    β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
     mse_low = calc_mse(β_low)
 
     # Probe High
-    β_high, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, λ_high); γₖ=SPG ? γₖ : 0.0)
+    β_high, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_high); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_high, X_data=X, y_data=y)
     mse_high = calc_mse(β_high)
 
     # Select Best Start
@@ -836,7 +917,7 @@ function smart_adaptive_cross_validation(solver, vars;
 
         # B. Probe Next Step
         probe_λ = computed_λ
-        probe_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, p, β⃰, k⃰, probe_λ); γₖ=SPG ? γₖ : 0.0)
+        probe_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, probe_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=probe_λ, X_data=X, y_data=y)
         probe_mse = calc_mse(probe_β)
 
         # C. Check Improvement
@@ -860,7 +941,7 @@ function smart_adaptive_cross_validation(solver, vars;
                 alt_λ = 0.9 * min(current_λ, raw_λ)
             end
 
-            alt_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, p, β⃰, k⃰, alt_λ); γₖ=SPG ? γₖ : 0.0)
+            alt_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, alt_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=alt_λ, X_data=X, y_data=y)
             alt_mse = calc_mse(alt_β)
 
             # Pick whichever direction gives the smaller MSE
@@ -909,8 +990,8 @@ function smart_adaptive_cross_validation(solver, vars;
     end
 
     # Final refinement with best λ
-    β_best, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ); γₖ=SPG ? γₖ : 0.0)
-    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, p, β⃰, k⃰, best_λ); γₖ=SPG ? γₖ : 0.0)
+    β_best, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     best_β = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
 
     return best_β, best_λ, norm(best_β, 0), predval(best_β), suppsim(best_β), norm(best_β - β⃰, Inf)
@@ -925,43 +1006,56 @@ function main()
     consecutive_perfect_recoveries = 0
     last_completed_idx = 0
 
-    @info "Experiment configuration" samples = ns_range trials = T algorithms = ["Greedy CD", "NSPG", "NSPG+CD"]
+    algo_names = ["SPG", "SPGpCDSS", "L0Hybrid", "L0Learn"]
+    n_algos = length(algo_names)
+    @info "Experiment configuration" samples = ns_range trials = T algorithms = algo_names
 
-    Predhist = zeros(length(ns_range), 3)
-    SUPhist = zeros(length(ns_range), 3)
-    Infhist = zeros(length(ns_range), 3)
-    Simhist = zeros(length(ns_range), 3)
+    Predhist = zeros(length(ns_range), n_algos)
+    SUPhist = zeros(length(ns_range), n_algos)
+    Infhist = zeros(length(ns_range), n_algos)
+    Simhist = zeros(length(ns_range), n_algos)
+    Timehist = zeros(length(ns_range), n_algos)
 
     for (t, n) in enumerate(ns_range)
         @info "Sample size n=$n" progress = "$(t)/$(length(ns_range))"
         total_start = time()
 
         for i = 1:T
-            vars = variables(corr=corr, ρ=ρ, n=n, p=p, SNR=SNR, k⃰=k⃰)
+            vars = variables(corr=corr, ρ=ρ, n=n, p=p, SNR=SNR, k⃰=k⃰, is_tridiagonal=is_tridiagonal)
 
+            # 1. SPG (Standard Cross Validation)
             trial_start = time()
-            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f; kw...) -> SolverPSI1(CDSS, x, f; kw...), vars)
-            SUPhist[t, 1] += SUP
-            Predhist[t, 1] += Pred
-            Simhist[t, 1] += Sim
-            Infhist[t, 1] += Infv
-            @show SUP Pred Sim Infv round(time() - trial_start, digits=1)
+            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f; kw...) -> SolverPSI1(SPG, x, f; kw...), vars; SPG=true)
+            dt = time() - trial_start
+            SUPhist[t, 1] += SUP; Predhist[t, 1] += Pred; Simhist[t, 1] += Sim; Infhist[t, 1] += Infv; Timehist[t, 1] += dt
+            @show "SPG" SUP Pred Sim Infv round(dt, digits=1)
 
-            trial_start = time()
-            β, best_λ, SUP, Pred, Sim, Infv = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPG, x, f; kw...), vars, SPG=true)
-            SUPhist[t, 2] += SUP
-            Predhist[t, 2] += Pred
-            Simhist[t, 2] += Sim
-            Infhist[t, 2] += Infv
-            @show SUP Pred Sim Infv round(time() - trial_start, digits=1)
-
+            # 2. SPGpCDSS (Smart Adaptive CV)
             trial_start = time()
             β, best_λ, SUP, Pred, Sim, Infv = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars, SPG=true)
-            SUPhist[t, 3] += SUP
-            Predhist[t, 3] += Pred
-            Simhist[t, 3] += Sim
-            Infhist[t, 3] += Infv
-            @show SUP Pred Sim Infv round(time() - trial_start, digits=1)
+            dt = time() - trial_start
+            SUPhist[t, 2] += SUP; Predhist[t, 2] += Pred; Simhist[t, 2] += Sim; Infhist[t, 2] += Infv; Timehist[t, 2] += dt
+            @show "SPGpCDSS" SUP Pred Sim Infv round(dt, digits=1)
+
+            if L0LEARN_AVAILABLE
+                # Sync data to R once per trial if needed for L0Hybrid/L0Learn
+                RCall.globalEnv[:X_train] = collect(vars[1])
+                RCall.globalEnv[:y_train] = collect(vars[2])
+
+                # 3. L0Hybrid (Standard Cross Validation - Best strategy found)
+                trial_start = time()
+                β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f; kw...) -> SolverPSI1(L0LearnStep, x, f; kw...), vars; lambda_val=nothing)
+                dt = time() - trial_start
+                SUPhist[t, 3] += SUP; Predhist[t, 3] += Pred; Simhist[t, 3] += Sim; Infhist[t, 3] += Infv; Timehist[t, 3] += dt
+                @show "L0Hybrid" SUP Pred Sim Infv round(dt, digits=1)
+
+                # 4. Pure L0Learn (Internal CV)
+                trial_start = time()
+                β, best_λ, SUP, Pred, Sim, Infv = pure_l0learn_solver(vars)
+                dt = time() - trial_start
+                SUPhist[t, 4] += SUP; Predhist[t, 4] += Pred; Simhist[t, 4] += Sim; Infhist[t, 4] += Infv; Timehist[t, 4] += dt
+                @show "L0Learn" SUP Pred Sim Infv round(dt, digits=1)
+            end
 
             @info "Trial $i/$T completed"
         end
@@ -992,6 +1086,7 @@ function main()
     Predhist = Predhist[1:last_completed_idx, :] ./ T
     Simhist = Simhist[1:last_completed_idx, :] ./ T
     Infhist = Infhist[1:last_completed_idx, :] ./ T
+    Timehist = Timehist[1:last_completed_idx, :] ./ T
 
     # Display results
     println("\n" * "="^60)
@@ -1000,9 +1095,9 @@ function main()
     println("\nSupport Size History (SUPhist):")
     display(SUPhist)
 
-    names = ["Greedy CD" "NSPG" "NSPG+CD"]
-    plotname = "$(corr)-$(ρ)-$(p)-$(SNR)-$(k⃰)-$(T)-$(first(ns_range))_$(step(ns_range))_$(last(ns_range))"
-    specifics = "_bestlast_tridiagonal"
+    names = reshape(algo_names, 1, :)
+    plotname = "NewTerminal_$(corr)-$(ρ)-$(p)-$(SNR)-$(k⃰)-$(T)-$(first(ns_range))_$(step(ns_range))_$(last(ns_range))"
+    specifics = is_tridiagonal ? "_tridiagonal" : "_standard"
     
     # Global plot theme settings for "popy" look
     theme(:seaborn_bright)
@@ -1011,22 +1106,26 @@ function main()
     # Create and save plots
     println("\nGenerating plots...")
 
-    pPred = plot(ns_final, Predhist, labels=names, xlabel=L"n", ylabel=L"\frac{\Vert Ax-b\Vert^2}{\Vert b\Vert^2}", left_margin=5mm, dpi=600)
+    pPred = plot(ns_final, Predhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|Ax-b\|^2 / \|b\|^2"), left_margin=5mm, dpi=600)
     savefig(pPred, "pnPred-$(plotname)$(specifics).png")
 
-    pSim = plot(ns_final, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|Supp(x)\cap Supp(x^\dagger)|}{\max\{|Supp(x)|,k^\dagger\}}", left_margin=5mm, dpi=600)
+    pSim = plot(ns_final, Simhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"|S \cap S^*| / \max(|S|, k^*)"), left_margin=5mm, dpi=600)
     savefig(pSim, "pnSim-$(plotname)$(specifics).png")
 
-    pInf = plot(ns_final, Infhist, labels=names, xlabel=L"n", ylabel=L"\Vert x-x^\dagger\Vert_\infty", dpi=600)
+    pInf = plot(ns_final, Infhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|x-x^*\|_\infty"), dpi=600)
     savefig(pInf, "pnInf-$(plotname)$(specifics).png")
 
-    pSUP = plot(ns_final, SUPhist, labels=names, xlabel=L"n", ylabel=L"\Vert x\Vert_0", dpi=600)
+    pSUP = plot(ns_final, SUPhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|x\|_0",), dpi=600)
     savefig(pSUP, "pnSUP-$(plotname)$(specifics).png")
+
+    pTime = plot(ns_final, Timehist, labels=names, xlabel=LaTeXString(raw"n"), ylabel="Execution Time (s)", dpi=600)
+    savefig(pTime, "pnTime-$(plotname)$(specifics).png")
 
     @info "Plots saved" files = ["pnPred-$(plotname)$(specifics).png",
         "pnSim-$(plotname)$(specifics).png",
         "pnInf-$(plotname)$(specifics).png",
-        "pnSUP-$(plotname)$(specifics).png"]
+        "pnSUP-$(plotname)$(specifics).png",
+        "pnTime-$(plotname)$(specifics).png"]
 
     println("\n" * "="^60)
     println("All experiments completed successfully!")

@@ -1,0 +1,1760 @@
+"CDSS" = "CDSS"
+SUP = 18.0
+Pred = 0.14809915073510496
+Sim = 0.01
+Infv = 12.066014758284924
+round(elapsed, digits = 2) = 3.96
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 18.0
+Pred = 0.14809915073510496
+Sim = 0.01
+Infv = 12.066014758284924
+round(elapsed, digits = 2) = 3.17
+refinement_change = 0.00017289595063507161
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 73.0
+Pred = 0.16403126431804668
+Sim = 0.07
+Infv = 31.455135899077195
+round(elapsed, digits = 2) = 1.26
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 13
+predval_l0 = 0.16101789413349862
+sim_l0 = 0.0
+inf_l0 = 12.690870860896352
+round(elapsed, digits = 2) = 0.36
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.23440319505312374
+Sim = 0.0
+Infv = 27.20249149625583
+round(elapsed, digits = 2) = 17.77
+"CDSS" = "CDSS"
+SUP = 6.0
+Pred = 0.14864313430930956
+Sim = 0.01
+Infv = 17.73321808080668
+round(elapsed, digits = 2) = 3.4
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 6.0
+Pred = 0.14864313430930956
+Sim = 0.01
+Infv = 17.73321808080668
+round(elapsed, digits = 2) = 3.81
+refinement_change = 0.0001379247965674401
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 95.0
+Pred = 0.1939056608084793
+Sim = 0.08
+Infv = 41.21566563274032
+round(elapsed, digits = 2) = 0.25
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 18
+predval_l0 = 0.1613754910789806
+sim_l0 = 0.05
+inf_l0 = 14.486256977381888
+round(elapsed, digits = 2) = 0.04
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.21196086054333688
+Sim = 0.0
+Infv = 27.332177933999038
+round(elapsed, digits = 2) = 15.63
+"CDSS" = "CDSS"
+SUP = 9.0
+Pred = 0.15028368164143163
+Sim = 0.02
+Infv = 17.512944161231413
+round(elapsed, digits = 2) = 2.57
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 9.0
+Pred = 0.15028368164143163
+Sim = 0.02
+Infv = 17.512944161231413
+round(elapsed, digits = 2) = 2.86
+refinement_change = 0.00011618159430118761
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 43.0
+Pred = 0.16215764987913026
+Sim = 0.05
+Infv = 8.988366040766447
+round(elapsed, digits = 2) = 0.22
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 11
+predval_l0 = 0.1652226935207622
+sim_l0 = 0.01
+inf_l0 = 21.188480306083157
+round(elapsed, digits = 2) = 0.04
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.26988334890205334
+Sim = 0.0
+Infv = 30.133980507552064
+round(elapsed, digits = 2) = 17.92
+"CDSS" = "CDSS"
+SUP = 25.0
+Pred = 0.13636600426289383
+Sim = 0.03
+Infv = 10.567349599983835
+round(elapsed, digits = 2) = 3.12
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 25.0
+Pred = 0.13636600426289383
+Sim = 0.03
+Infv = 10.567349599983835
+round(elapsed, digits = 2) = 2.44
+refinement_change = 0.00013673708089684904
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 63.0
+Pred = 0.15036406506864342
+Sim = 0.05
+Infv = 38.941187759393245
+round(elapsed, digits = 2) = 0.48
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 19
+predval_l0 = 0.14014892898457554
+sim_l0 = 0.03
+inf_l0 = 16.19790270568368
+round(elapsed, digits = 2) = 0.04
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.21489269606398065
+Sim = 0.0
+Infv = 30.14590703668015
+round(elapsed, digits = 2) = 19.74
+"CDSS" = "CDSS"
+SUP = 19.0
+Pred = 0.13625403719410686
+Sim = 0.02
+Infv = 10.668991143484696
+round(elapsed, digits = 2) = 4.55
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 19.0
+Pred = 0.13625403719410686
+Sim = 0.02
+Infv = 10.668991143484696
+round(elapsed, digits = 2) = 7.44
+refinement_change = 0.00016781657918243334
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 86.0
+Pred = 0.14636919885543595
+Sim = 0.05
+Infv = 34.63955378400227
+round(elapsed, digits = 2) = 0.79
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 16
+predval_l0 = 0.13769027696073832
+sim_l0 = 0.03
+inf_l0 = 13.236479289636003
+round(elapsed, digits = 2) = 0.09
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.21803136721158048
+Sim = 0.01
+Infv = 28.317905016140585
+round(elapsed, digits = 2) = 17.57
+"CDSS" = "CDSS"
+SUP = 11.0
+Pred = 0.12909326425503387
+Sim = 0.0
+Infv = 13.568935086424137
+round(elapsed, digits = 2) = 7.54
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 12.0
+Pred = 0.13369953916036187
+Sim = 0.01
+Infv = 11.664225185873281
+round(elapsed, digits = 2) = 4.74
+refinement_change = 0.00016314446218186588
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 44.0
+Pred = 0.14712546562898887
+Sim = 0.02
+Infv = 10.279818288767862
+round(elapsed, digits = 2) = 0.34
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 21
+predval_l0 = 0.13518640487488257
+sim_l0 = 0.01
+inf_l0 = 14.043497001293542
+round(elapsed, digits = 2) = 0.04
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.22361567685958209
+Sim = 0.0
+Infv = 27.3957821314385
+round(elapsed, digits = 2) = 17.97
+"CDSS" = "CDSS"
+SUP = 9.0
+Pred = 0.17111837855261053
+Sim = 0.01
+Infv = 13.38162591308745
+round(elapsed, digits = 2) = 2.65
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 7.0
+Pred = 0.18581940889491724
+Sim = 0.02
+Infv = 16.25037574167121
+round(elapsed, digits = 2) = 2.58
+refinement_change = 0.00015710689436543047
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 74.0
+Pred = 0.2026889381892481
+Sim = 0.02
+Infv = 28.432113724754327
+round(elapsed, digits = 2) = 0.51
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 9
+predval_l0 = 0.1609487403043078
+sim_l0 = 0.0
+inf_l0 = 17.438912863661088
+round(elapsed, digits = 2) = 0.08
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.21854367782264894
+Sim = 0.0
+Infv = 27.587873808846542
+round(elapsed, digits = 2) = 15.49
+"CDSS" = "CDSS"
+SUP = 10.0
+Pred = 0.1325942740741358
+Sim = 0.01
+Infv = 10.668369360323785
+round(elapsed, digits = 2) = 2.92
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 8.0
+Pred = 0.14782097133264782
+Sim = 0.01
+Infv = 14.322471510218623
+round(elapsed, digits = 2) = 3.95
+refinement_change = 0.00011506631863997051
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 64.0
+Pred = 0.1824843690142768
+Sim = 0.03
+Infv = 24.053815030032183
+round(elapsed, digits = 2) = 0.23
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 15
+predval_l0 = 0.15223526176068983
+sim_l0 = 0.02
+inf_l0 = 14.079488012340489
+round(elapsed, digits = 2) = 0.07
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.22824102993957537
+Sim = 0.0
+Infv = 27.184602599751116
+round(elapsed, digits = 2) = 17.62
+"CDSS" = "CDSS"
+SUP = 10.0
+Pred = 0.15166758693101465
+Sim = 0.0
+Infv = 13.330818538701623
+round(elapsed, digits = 2) = 2.99
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 10.0
+Pred = 0.15166758693101465
+Sim = 0.0
+Infv = 13.330818538701623
+round(elapsed, digits = 2) = 4.13
+refinement_change = 0.00014283551033169643
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 71.0
+Pred = 0.19020752898705356
+Sim = 0.07
+Infv = 22.304593587716543
+round(elapsed, digits = 2) = 0.96
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 13
+predval_l0 = 0.1513738882649667
+sim_l0 = 0.0
+inf_l0 = 18.402030302147214
+round(elapsed, digits = 2) = 0.07
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2624358419262993
+Sim = 0.0
+Infv = 30.75495384097415
+round(elapsed, digits = 2) = 17.64
+"CDSS" = "CDSS"
+SUP = 10.0
+Pred = 0.15002578896257368
+Sim = 0.02
+Infv = 14.219846636458605
+round(elapsed, digits = 2) = 2.92
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 10.0
+Pred = 0.15002578896257368
+Sim = 0.02
+Infv = 14.219846636458605
+round(elapsed, digits = 2) = 2.81
+refinement_change = 0.00016738065284293215
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 84.0
+Pred = 0.197244801498022
+Sim = 0.02
+Infv = 32.291626886069054
+round(elapsed, digits = 2) = 0.33
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 14
+predval_l0 = 0.15319823531119844
+sim_l0 = 0.0
+inf_l0 = 13.64760263390405
+round(elapsed, digits = 2) = 0.04
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.21186700608800063
+Sim = 0.01
+Infv = 25.856622844482143
+round(elapsed, digits = 2) = 18.95
+"CDSS" = "CDSS"
+SUP = 17.0
+Pred = 0.1327212480197643
+Sim = 0.02
+Infv = 7.664262383304206
+round(elapsed, digits = 2) = 5.77
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 17.0
+Pred = 0.1327212480197643
+Sim = 0.02
+Infv = 7.664262383304206
+round(elapsed, digits = 2) = 7.42
+refinement_change = 0.00024237578417770196
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 81.0
+Pred = 0.15329709465631977
+Sim = 0.07
+Infv = 8.84990645697994
+round(elapsed, digits = 2) = 2.09
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 17
+predval_l0 = 0.1357843676187266
+sim_l0 = 0.02
+inf_l0 = 11.69368942267887
+round(elapsed, digits = 2) = 0.12
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.22393668069426112
+Sim = 0.0
+Infv = 22.235206278331454
+round(elapsed, digits = 2) = 10.23
+"CDSS" = "CDSS"
+SUP = 22.0
+Pred = 0.12247085288552538
+Sim = 0.03
+Infv = 7.426807734974024
+round(elapsed, digits = 2) = 6.77
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 22.0
+Pred = 0.12247085288552538
+Sim = 0.03
+Infv = 7.426807734974024
+round(elapsed, digits = 2) = 7.82
+refinement_change = 0.00023624142105713893
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 85.0
+Pred = 0.16052819428426643
+Sim = 0.06
+Infv = 13.824925330311352
+round(elapsed, digits = 2) = 1.51
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 30
+predval_l0 = 0.144804813834945
+sim_l0 = 0.01
+inf_l0 = 7.744221524575049
+round(elapsed, digits = 2) = 0.12
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.24471085648358562
+Sim = 0.0
+Infv = 22.063888052062133
+round(elapsed, digits = 2) = 9.89
+"CDSS" = "CDSS"
+SUP = 18.0
+Pred = 0.12233615326599251
+Sim = 0.03
+Infv = 8.354525533021743
+round(elapsed, digits = 2) = 6.87
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 18.0
+Pred = 0.12233615326599251
+Sim = 0.03
+Infv = 8.354525533021743
+round(elapsed, digits = 2) = 7.97
+refinement_change = 0.00025169295907362756
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 67.0
+Pred = 0.14383643968802906
+Sim = 0.01
+Infv = 10.259290315370722
+round(elapsed, digits = 2) = 1.1
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 20
+predval_l0 = 0.1301148984451033
+sim_l0 = 0.01
+inf_l0 = 7.634317085408851
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2558370072236284
+Sim = 0.0
+Infv = 26.432163381884543
+round(elapsed, digits = 2) = 8.39
+"CDSS" = "CDSS"
+SUP = 27.0
+Pred = 0.12940557608198675
+Sim = 0.05
+Infv = 8.729040050522402
+round(elapsed, digits = 2) = 5.45
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 15.0
+Pred = 0.13683886813460228
+Sim = 0.03
+Infv = 10.745701712951519
+round(elapsed, digits = 2) = 6.08
+refinement_change = 0.00021827679045920202
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 72.0
+Pred = 0.14797728573581134
+Sim = 0.03
+Infv = 11.302223490640678
+round(elapsed, digits = 2) = 1.84
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 21
+predval_l0 = 0.13900078041432143
+sim_l0 = 0.01
+inf_l0 = 10.29401580809858
+round(elapsed, digits = 2) = 0.1
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.253108320887268
+Sim = 0.0
+Infv = 28.767604773140746
+round(elapsed, digits = 2) = 8.92
+"CDSS" = "CDSS"
+SUP = 17.0
+Pred = 0.1402495001827486
+Sim = 0.04
+Infv = 7.863461858138787
+round(elapsed, digits = 2) = 6.57
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 17.0
+Pred = 0.1402495001827486
+Sim = 0.04
+Infv = 7.863461858138787
+round(elapsed, digits = 2) = 5.78
+refinement_change = 0.00022213414442687863
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 75.0
+Pred = 0.15398700021223202
+Sim = 0.07
+Infv = 10.585625339321094
+round(elapsed, digits = 2) = 0.87
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 20
+predval_l0 = 0.1306431802218927
+sim_l0 = 0.01
+inf_l0 = 8.239930495074109
+round(elapsed, digits = 2) = 0.06
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.28098045080680556
+Sim = 0.0
+Infv = 28.035344583769565
+round(elapsed, digits = 2) = 8.39
+"CDSS" = "CDSS"
+SUP = 24.0
+Pred = 0.1325892023736868
+Sim = 0.03
+Infv = 8.249774137669009
+round(elapsed, digits = 2) = 5.94
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 17.0
+Pred = 0.13326974620671936
+Sim = 0.01
+Infv = 8.537478461876391
+round(elapsed, digits = 2) = 6.31
+refinement_change = 0.00022284614825663612
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 85.0
+Pred = 0.15667252927969855
+Sim = 0.09
+Infv = 13.0659161766266
+round(elapsed, digits = 2) = 0.95
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 20
+predval_l0 = 0.14112380592967333
+sim_l0 = 0.01
+inf_l0 = 7.523255440732569
+round(elapsed, digits = 2) = 0.07
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.2290107570740907
+Sim = 0.01
+Infv = 20.98630547971381
+round(elapsed, digits = 2) = 9.08
+"CDSS" = "CDSS"
+SUP = 13.0
+Pred = 0.13547175322590838
+Sim = 0.01
+Infv = 9.264137757634044
+round(elapsed, digits = 2) = 11.12
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 11.0
+Pred = 0.13708002005463438
+Sim = 0.0
+Infv = 10.396693227113769
+round(elapsed, digits = 2) = 11.49
+refinement_change = 0.00020372448682588168
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 85.0
+Pred = 0.173738657812384
+Sim = 0.06
+Infv = 15.711440293395926
+round(elapsed, digits = 2) = 1.37
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 20
+predval_l0 = 0.13871181194215387
+sim_l0 = 0.01
+inf_l0 = 8.551409873805163
+round(elapsed, digits = 2) = 0.09
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.24156458377158235
+Sim = 0.0
+Infv = 22.49031103531364
+round(elapsed, digits = 2) = 11.22
+"CDSS" = "CDSS"
+SUP = 30.0
+Pred = 0.1379731496162957
+Sim = 0.01
+Infv = 6.696731787032836
+round(elapsed, digits = 2) = 5.59
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 30.0
+Pred = 0.1379731496162957
+Sim = 0.01
+Infv = 6.696731787032836
+round(elapsed, digits = 2) = 5.0
+refinement_change = 0.00020258987745398795
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 76.0
+Pred = 0.1539159932004381
+Sim = 0.02
+Infv = 7.146263413087824
+round(elapsed, digits = 2) = 0.93
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 19
+predval_l0 = 0.13422867909253264
+sim_l0 = 0.0
+inf_l0 = 8.331488938863671
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.23781225332835992
+Sim = 0.01
+Infv = 26.86310674295557
+round(elapsed, digits = 2) = 9.46
+"CDSS" = "CDSS"
+SUP = 19.0
+Pred = 0.1282560803297362
+Sim = 0.01
+Infv = 7.183435533613521
+round(elapsed, digits = 2) = 9.75
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 15.0
+Pred = 0.1297683747339631
+Sim = 0.01
+Infv = 8.257239790742746
+round(elapsed, digits = 2) = 6.67
+refinement_change = 0.00021204276994032825
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 71.0
+Pred = 0.15321063144735464
+Sim = 0.09
+Infv = 7.254195391755636
+round(elapsed, digits = 2) = 0.98
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 16
+predval_l0 = 0.1237621652542174
+sim_l0 = 0.02
+inf_l0 = 8.1675160761926
+round(elapsed, digits = 2) = 0.06
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2564075883101653
+Sim = 0.0
+Infv = 27.01494675952936
+round(elapsed, digits = 2) = 7.93
+"CDSS" = "CDSS"
+SUP = 15.0
+Pred = 0.1521156142533461
+Sim = 0.01
+Infv = 8.034244388936335
+round(elapsed, digits = 2) = 5.43
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 13.0
+Pred = 0.1612220639377878
+Sim = 0.02
+Infv = 9.369351963152416
+round(elapsed, digits = 2) = 6.96
+refinement_change = 0.0002032175334467687
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 87.0
+Pred = 0.17746330439880173
+Sim = 0.03
+Infv = 14.67937784429745
+round(elapsed, digits = 2) = 1.2
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 15
+predval_l0 = 0.15064343748145878
+sim_l0 = 0.03
+inf_l0 = 7.507895286873634
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.2543687947314901
+Sim = 0.02
+Infv = 20.39809640051756
+round(elapsed, digits = 2) = 15.59
+"CDSS" = "CDSS"
+SUP = 22.0
+Pred = 0.13603483147871012
+Sim = 0.01
+Infv = 6.710154180374699
+round(elapsed, digits = 2) = 21.37
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 22.0
+Pred = 0.13603483147871012
+Sim = 0.01
+Infv = 6.710154180374699
+round(elapsed, digits = 2) = 19.6
+refinement_change = 0.00025884227395294086
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 59.0
+Pred = 0.1409631485302025
+Sim = 0.11
+Infv = 5.354090641809901
+round(elapsed, digits = 2) = 1.63
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 23
+predval_l0 = 0.13137732900010862
+sim_l0 = 0.02
+inf_l0 = 7.015103508082054
+round(elapsed, digits = 2) = 0.12
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.25150238923034185
+Sim = 0.0
+Infv = 22.14653638940505
+round(elapsed, digits = 2) = 22.9
+"CDSS" = "CDSS"
+SUP = 25.0
+Pred = 0.13274081829466358
+Sim = 0.06
+Infv = 7.575863484565183
+round(elapsed, digits = 2) = 24.57
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 25.0
+Pred = 0.13274081829466358
+Sim = 0.06
+Infv = 7.575863484565183
+round(elapsed, digits = 2) = 22.95
+refinement_change = 0.0002653002810686658
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 49.0
+Pred = 0.13668682211047228
+Sim = 0.11
+Infv = 6.187023646953859
+round(elapsed, digits = 2) = 2.16
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 40
+predval_l0 = 0.13087668204425854
+sim_l0 = 0.05
+inf_l0 = 8.37478769080851
+round(elapsed, digits = 2) = 0.09
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.24338008124083568
+Sim = 0.0
+Infv = 22.81909710726948
+round(elapsed, digits = 2) = 21.76
+"CDSS" = "CDSS"
+SUP = 27.0
+Pred = 0.13269075563714894
+Sim = 0.03
+Infv = 6.5581044356566505
+round(elapsed, digits = 2) = 22.57
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 27.0
+Pred = 0.13269075563714894
+Sim = 0.03
+Infv = 6.5581044356566505
+round(elapsed, digits = 2) = 26.03
+refinement_change = 0.00026744094160545916
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 61.0
+Pred = 0.14402065262853378
+Sim = 0.02
+Infv = 5.623128051196583
+round(elapsed, digits = 2) = 2.73
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 26
+predval_l0 = 0.12889354459782723
+sim_l0 = 0.05
+inf_l0 = 6.932755066464596
+round(elapsed, digits = 2) = 0.08
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2709697252681877
+Sim = 0.0
+Infv = 29.186671057817218
+round(elapsed, digits = 2) = 21.92
+"CDSS" = "CDSS"
+SUP = 26.0
+Pred = 0.13380158680636883
+Sim = 0.06
+Infv = 7.715831054229219
+round(elapsed, digits = 2) = 26.51
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 26.0
+Pred = 0.13380158680636883
+Sim = 0.06
+Infv = 7.715831054229219
+round(elapsed, digits = 2) = 26.25
+refinement_change = 0.0002695478123636692
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 82.0
+Pred = 0.14426431933839623
+Sim = 0.1
+Infv = 8.741688428579222
+round(elapsed, digits = 2) = 4.47
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 21
+predval_l0 = 0.12008244617946791
+sim_l0 = 0.03
+inf_l0 = 6.903180961124321
+round(elapsed, digits = 2) = 0.13
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2509468515383057
+Sim = 0.0
+Infv = 25.99902970282747
+round(elapsed, digits = 2) = 21.75
+"CDSS" = "CDSS"
+SUP = 21.0
+Pred = 0.11734501169739806
+Sim = 0.04
+Infv = 7.298344184856226
+round(elapsed, digits = 2) = 22.78
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 21.0
+Pred = 0.11734501169739806
+Sim = 0.04
+Infv = 7.298344184856226
+round(elapsed, digits = 2) = 23.09
+refinement_change = 0.0002605910310717926
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 50.0
+Pred = 0.12325914514353972
+Sim = 0.06
+Infv = 5.593967643098894
+round(elapsed, digits = 2) = 3.05
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 25
+predval_l0 = 0.11933102591097113
+sim_l0 = 0.03
+inf_l0 = 8.546371648280438
+round(elapsed, digits = 2) = 0.18
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.26206130558560004
+Sim = 0.02
+Infv = 26.00137094772932
+round(elapsed, digits = 2) = 19.46
+"CDSS" = "CDSS"
+SUP = 32.0
+Pred = 0.1335526003321883
+Sim = 0.06
+Infv = 5.938556186942137
+round(elapsed, digits = 2) = 20.11
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 22.0
+Pred = 0.1345241129955921
+Sim = 0.04
+Infv = 6.537199295557565
+round(elapsed, digits = 2) = 22.49
+refinement_change = 0.0002841129588714118
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 83.0
+Pred = 0.15865456502999925
+Sim = 0.03
+Infv = 6.889181899015093
+round(elapsed, digits = 2) = 2.35
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 21
+predval_l0 = 0.13405086812323244
+sim_l0 = 0.04
+inf_l0 = 6.847084426919859
+round(elapsed, digits = 2) = 0.19
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2513172921933643
+Sim = 0.0
+Infv = 26.542278916404953
+round(elapsed, digits = 2) = 23.46
+"CDSS" = "CDSS"
+SUP = 25.0
+Pred = 0.13183965609328238
+Sim = 0.04
+Infv = 6.400364069210974
+round(elapsed, digits = 2) = 23.53
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 25.0
+Pred = 0.13183965609328238
+Sim = 0.04
+Infv = 6.400364069210974
+round(elapsed, digits = 2) = 23.12
+refinement_change = 0.00026287549190068135
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 68.0
+Pred = 0.14618717004604015
+Sim = 0.08
+Infv = 5.027851079763263
+round(elapsed, digits = 2) = 1.88
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 24
+predval_l0 = 0.13186754872367465
+sim_l0 = 0.02
+inf_l0 = 6.519524285587241
+round(elapsed, digits = 2) = 0.07
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.28239623923566815
+Sim = 0.0
+Infv = 26.923436385554268
+round(elapsed, digits = 2) = 21.21
+"CDSS" = "CDSS"
+SUP = 19.0
+Pred = 0.13175217790166893
+Sim = 0.06
+Infv = 6.439253678501227
+round(elapsed, digits = 2) = 24.71
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 19.0
+Pred = 0.13175217790166893
+Sim = 0.06
+Infv = 6.439253678501227
+round(elapsed, digits = 2) = 32.38
+refinement_change = 0.0002647220617283186
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 62.0
+Pred = 0.13897366870067118
+Sim = 0.11
+Infv = 5.579451176358554
+round(elapsed, digits = 2) = 2.79
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 24
+predval_l0 = 0.12743490061331475
+sim_l0 = 0.06
+inf_l0 = 7.550479488304732
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.24251814330733376
+Sim = 0.02
+Infv = 22.49734979612315
+round(elapsed, digits = 2) = 17.83
+"CDSS" = "CDSS"
+SUP = 26.0
+Pred = 0.1310682921094228
+Sim = 0.02
+Infv = 6.366980657460976
+round(elapsed, digits = 2) = 27.64
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 26.0
+Pred = 0.1310682921094228
+Sim = 0.02
+Infv = 6.366980657460976
+round(elapsed, digits = 2) = 27.65
+refinement_change = 0.00026697566870153655
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 55.0
+Pred = 0.13495780511956335
+Sim = 0.03
+Infv = 6.114634174728611
+round(elapsed, digits = 2) = 2.39
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 28
+predval_l0 = 0.13030263198077094
+sim_l0 = 0.03
+inf_l0 = 7.491885113783106
+round(elapsed, digits = 2) = 0.06
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2590905399293195
+Sim = 0.0
+Infv = 28.729921828698632
+round(elapsed, digits = 2) = 24.15
+"CDSS" = "CDSS"
+SUP = 28.0
+Pred = 0.11884172727783289
+Sim = 0.05
+Infv = 5.535116676587702
+round(elapsed, digits = 2) = 27.6
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 28.0
+Pred = 0.11884172727783289
+Sim = 0.05
+Infv = 5.535116676587702
+round(elapsed, digits = 2) = 26.57
+refinement_change = 0.0002899032068741284
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 66.0
+Pred = 0.13656837725813822
+Sim = 0.08
+Infv = 5.892364550246588
+round(elapsed, digits = 2) = 2.72
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 29
+predval_l0 = 0.1268511774103051
+sim_l0 = 0.04
+inf_l0 = 8.11487329263107
+round(elapsed, digits = 2) = 0.1
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2534731643211382
+Sim = 0.0
+Infv = 28.361256569695257
+round(elapsed, digits = 2) = 21.19
+"CDSS" = "CDSS"
+SUP = 35.0
+Pred = 0.1227755101673342
+Sim = 0.03
+Infv = 5.297677364788179
+round(elapsed, digits = 2) = 69.01
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 35.0
+Pred = 0.1227755101673342
+Sim = 0.03
+Infv = 5.297677364788179
+round(elapsed, digits = 2) = 67.45
+refinement_change = 0.0002972546745086128
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 67.0
+Pred = 0.1305702136359381
+Sim = 0.07
+Infv = 5.387706817742528
+round(elapsed, digits = 2) = 5.37
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 33
+predval_l0 = 0.11910963977376712
+sim_l0 = 0.04
+inf_l0 = 6.183696866674542
+round(elapsed, digits = 2) = 0.21
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.24396985892093956
+Sim = 0.01
+Infv = 21.034360219877378
+round(elapsed, digits = 2) = 40.93
+"CDSS" = "CDSS"
+SUP = 24.0
+Pred = 0.1249205909701637
+Sim = 0.05
+Infv = 5.510200219975962
+round(elapsed, digits = 2) = 49.29
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 24.0
+Pred = 0.1249205909701637
+Sim = 0.05
+Infv = 5.510200219975962
+round(elapsed, digits = 2) = 56.08
+refinement_change = 0.0003222896119306313
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 66.0
+Pred = 0.1363555683489763
+Sim = 0.06
+Infv = 5.3510258548010645
+round(elapsed, digits = 2) = 3.11
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 33
+predval_l0 = 0.12709719453510526
+sim_l0 = 0.03
+inf_l0 = 6.692116837434257
+round(elapsed, digits = 2) = 0.13
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2737155390540433
+Sim = 0.01
+Infv = 26.864773301953903
+round(elapsed, digits = 2) = 21.17
+"CDSS" = "CDSS"
+SUP = 20.0
+Pred = 0.12561518463191831
+Sim = 0.04
+Infv = 6.264500666358603
+round(elapsed, digits = 2) = 46.43
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 20.0
+Pred = 0.12561518463191831
+Sim = 0.04
+Infv = 6.264500666358603
+round(elapsed, digits = 2) = 41.97
+refinement_change = 0.00029983409364319955
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 37.0
+Pred = 0.12481470736808274
+Sim = 0.06
+Infv = 4.790871765082437
+round(elapsed, digits = 2) = 2.84
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 30
+predval_l0 = 0.12462640306889834
+sim_l0 = 0.06
+inf_l0 = 6.170295637215332
+round(elapsed, digits = 2) = 0.17
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.26107227063892174
+Sim = 0.01
+Infv = 27.058391002347687
+round(elapsed, digits = 2) = 19.79
+"CDSS" = "CDSS"
+SUP = 28.0
+Pred = 0.12616089468151068
+Sim = 0.05
+Infv = 5.141768358740963
+round(elapsed, digits = 2) = 39.12
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 28.0
+Pred = 0.12616089468151068
+Sim = 0.05
+Infv = 5.141768358740963
+round(elapsed, digits = 2) = 42.62
+refinement_change = 0.0003191759816409013
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 61.0
+Pred = 0.13108286011050463
+Sim = 0.05
+Infv = 4.789443451103381
+round(elapsed, digits = 2) = 2.15
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 30
+predval_l0 = 0.1305175054008327
+sim_l0 = 0.02
+inf_l0 = 5.804206746633611
+round(elapsed, digits = 2) = 0.08
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.24320609381934016
+Sim = 0.0
+Infv = 21.7763288698032
+round(elapsed, digits = 2) = 18.62
+"CDSS" = "CDSS"
+SUP = 39.0
+Pred = 0.12709983855413
+Sim = 0.15
+Infv = 5.444743726854696
+round(elapsed, digits = 2) = 46.78
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 39.0
+Pred = 0.12709983855413
+Sim = 0.15
+Infv = 5.444743726854696
+round(elapsed, digits = 2) = 35.52
+refinement_change = 0.0002757294598319035
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 55.0
+Pred = 0.12327205791886059
+Sim = 0.17
+Infv = 4.588927964141781
+round(elapsed, digits = 2) = 1.47
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 23
+predval_l0 = 0.12586261895118742
+sim_l0 = 0.06
+inf_l0 = 6.935415014342416
+round(elapsed, digits = 2) = 0.09
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.29536269278283306
+Sim = 0.0
+Infv = 28.12801683804065
+round(elapsed, digits = 2) = 19.45
+"CDSS" = "CDSS"
+SUP = 26.0
+Pred = 0.12972610450143562
+Sim = 0.04
+Infv = 5.2627105391317635
+round(elapsed, digits = 2) = 34.78
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 26.0
+Pred = 0.12972610450143562
+Sim = 0.04
+Infv = 5.2627105391317635
+round(elapsed, digits = 2) = 33.48
+refinement_change = 0.0003155810056637081
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 57.0
+Pred = 0.13493616375956655
+Sim = 0.05
+Infv = 4.867076711686816
+round(elapsed, digits = 2) = 1.95
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 29
+predval_l0 = 0.1308571103146732
+sim_l0 = 0.02
+inf_l0 = 5.568524238219014
+round(elapsed, digits = 2) = 0.1
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.22188973744205193
+Sim = 0.02
+Infv = 20.889922380309958
+round(elapsed, digits = 2) = 24.56
+"CDSS" = "CDSS"
+SUP = 31.0
+Pred = 0.13239921512854969
+Sim = 0.05
+Infv = 6.094560250692266
+round(elapsed, digits = 2) = 55.79
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 31.0
+Pred = 0.13239921512854969
+Sim = 0.05
+Infv = 6.094560250692266
+round(elapsed, digits = 2) = 37.64
+refinement_change = 0.00028419618998161607
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 45.0
+Pred = 0.13653430808136632
+Sim = 0.03
+Infv = 5.787166465879347
+round(elapsed, digits = 2) = 2.7
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 28
+predval_l0 = 0.13450054492092875
+sim_l0 = 0.03
+inf_l0 = 7.275798298876914
+round(elapsed, digits = 2) = 0.14
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2561934339459427
+Sim = 0.0
+Infv = 26.456934555656158
+round(elapsed, digits = 2) = 22.16
+"CDSS" = "CDSS"
+SUP = 29.0
+Pred = 0.125097541548007
+Sim = 0.06
+Infv = 5.18876953377452
+round(elapsed, digits = 2) = 40.1
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 29.0
+Pred = 0.125097541548007
+Sim = 0.06
+Infv = 5.18876953377452
+round(elapsed, digits = 2) = 46.12
+refinement_change = 0.0003142968556368279
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 55.0
+Pred = 0.13056881863584885
+Sim = 0.07
+Infv = 5.185134706169667
+round(elapsed, digits = 2) = 5.3
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 24
+predval_l0 = 0.12514556667982624
+sim_l0 = 0.03
+inf_l0 = 6.583320897386159
+round(elapsed, digits = 2) = 0.28
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.25503789490643
+Sim = 0.01
+Infv = 27.727517282087376
+round(elapsed, digits = 2) = 21.23
+"CDSS" = "CDSS"
+SUP = 35.0
+Pred = 0.12560654203364852
+Sim = 0.09
+Infv = 6.230325613628169
+round(elapsed, digits = 2) = 35.74
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 35.0
+Pred = 0.12560654203364852
+Sim = 0.09
+Infv = 6.230325613628169
+round(elapsed, digits = 2) = 29.58
+refinement_change = 0.00027356322484067694
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 57.0
+Pred = 0.12573531145481895
+Sim = 0.16
+Infv = 4.597717794637467
+round(elapsed, digits = 2) = 1.86
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 29
+predval_l0 = 0.12467655740579033
+sim_l0 = 0.07
+inf_l0 = 6.6770375454752635
+round(elapsed, digits = 2) = 0.09
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.26619619029321095
+Sim = 0.02
+Infv = 27.543377960067083
+round(elapsed, digits = 2) = 23.38
+"CDSS" = "CDSS"
+SUP = 24.0
+Pred = 0.12881548001288975
+Sim = 0.02
+Infv = 5.0207656699136
+round(elapsed, digits = 2) = 39.82
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 24.0
+Pred = 0.12881548001288975
+Sim = 0.02
+Infv = 5.0207656699136
+round(elapsed, digits = 2) = 44.22
+refinement_change = 0.0003183341992857804
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 51.0
+Pred = 0.1360174791856061
+Sim = 0.08
+Infv = 4.857997928564703
+round(elapsed, digits = 2) = 2.55
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 36
+predval_l0 = 0.13503629719797455
+sim_l0 = 0.05
+inf_l0 = 5.836877675511801
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2809904733407881
+Sim = 0.0
+Infv = 26.98696356854543
+round(elapsed, digits = 2) = 19.28
+"CDSS" = "CDSS"
+SUP = 32.0
+Pred = 0.12218349778983176
+Sim = 0.09
+Infv = 5.839162364581115
+round(elapsed, digits = 2) = 70.84
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 32.0
+Pred = 0.12218349778983176
+Sim = 0.09
+Infv = 5.839162364581115
+round(elapsed, digits = 2) = 72.43
+refinement_change = 0.0003028409509926129
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 37.0
+Pred = 0.12067756140846599
+Sim = 0.09
+Infv = 4.758603213860194
+round(elapsed, digits = 2) = 3.23
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 30
+predval_l0 = 0.1183759755813659
+sim_l0 = 0.09
+inf_l0 = 6.720809710025243
+round(elapsed, digits = 2) = 0.17
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2729141604315954
+Sim = 0.01
+Infv = 27.465497008008363
+round(elapsed, digits = 2) = 28.72
+"CDSS" = "CDSS"
+SUP = 47.0
+Pred = 0.12252904128515658
+Sim = 0.07
+Infv = 4.199659813250708
+round(elapsed, digits = 2) = 80.77
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 27.0
+Pred = 0.12285141737984916
+Sim = 0.05
+Infv = 4.860826945012489
+round(elapsed, digits = 2) = 70.12
+refinement_change = 0.26277264647793414
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 62.0
+Pred = 0.1313300827709461
+Sim = 0.07
+Infv = 4.506125813786536
+round(elapsed, digits = 2) = 2.84
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 41
+predval_l0 = 0.13017332289774333
+sim_l0 = 0.06
+inf_l0 = 5.019179614324379
+round(elapsed, digits = 2) = 0.09
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.23168359583215029
+Sim = 0.01
+Infv = 21.606594337772908
+round(elapsed, digits = 2) = 28.83
+"CDSS" = "CDSS"
+SUP = 28.0
+Pred = 0.10788062531328467
+Sim = 0.1
+Infv = 4.840882057670232
+round(elapsed, digits = 2) = 72.43
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 28.0
+Pred = 0.10788062531328467
+Sim = 0.1
+Infv = 4.840882057670232
+round(elapsed, digits = 2) = 68.67
+refinement_change = 0.00034412289933501253
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 51.0
+Pred = 0.11352856837053792
+Sim = 0.1
+Infv = 4.022330890656191
+round(elapsed, digits = 2) = 4.12
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 33
+predval_l0 = 0.11154741855947072
+sim_l0 = 0.05
+inf_l0 = 4.59463565997952
+round(elapsed, digits = 2) = 0.15
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.21855590826836704
+Sim = 0.01
+Infv = 20.866353896588915
+round(elapsed, digits = 2) = 26.56
+"CDSS" = "CDSS"
+SUP = 37.0
+Pred = 0.12297252482801826
+Sim = 0.05
+Infv = 4.369739599621141
+round(elapsed, digits = 2) = 76.43
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 31.0
+Pred = 0.12873994552713472
+Sim = 0.08
+Infv = 4.757230680485649
+round(elapsed, digits = 2) = 65.86
+refinement_change = 0.0003241648447343571
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 53.0
+Pred = 0.12298404898757653
+Sim = 0.12
+Infv = 4.523415568882835
+round(elapsed, digits = 2) = 2.68
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 29
+predval_l0 = 0.13017012463890681
+sim_l0 = 0.05
+inf_l0 = 4.647940689416589
+round(elapsed, digits = 2) = 0.17
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.2627664453992257
+Sim = 0.0
+Infv = 20.449486737341022
+round(elapsed, digits = 2) = 31.77
+"CDSS" = "CDSS"
+SUP = 32.0
+Pred = 0.11680989185070621
+Sim = 0.1
+Infv = 3.9840420169419275
+round(elapsed, digits = 2) = 93.86
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 23.0
+Pred = 0.12197829837990026
+Sim = 0.07
+Infv = 4.744199986597702
+round(elapsed, digits = 2) = 69.3
+refinement_change = 0.0003436043017902399
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 57.0
+Pred = 0.12295781029160324
+Sim = 0.17
+Infv = 4.856493702393965
+round(elapsed, digits = 2) = 2.38
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 33
+predval_l0 = 0.12266017658028171
+sim_l0 = 0.07
+inf_l0 = 4.821468681227804
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.24116880666853585
+Sim = 0.02
+Infv = 21.021383993581008
+round(elapsed, digits = 2) = 28.97
+"CDSS" = "CDSS"
+SUP = 27.0
+Pred = 0.12240662503419078
+Sim = 0.08
+Infv = 4.717136242808084
+round(elapsed, digits = 2) = 79.96
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 27.0
+Pred = 0.12240662503419078
+Sim = 0.08
+Infv = 4.717136242808084
+round(elapsed, digits = 2) = 81.86
+refinement_change = 0.0003714198235794036
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 43.0
+Pred = 0.12421730091992152
+Sim = 0.1
+Infv = 4.665507671080634
+round(elapsed, digits = 2) = 3.45
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 26
+predval_l0 = 0.1263238154373795
+sim_l0 = 0.01
+inf_l0 = 5.382992590353484
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.2399128482700147
+Sim = 0.0
+Infv = 22.105729050531423
+round(elapsed, digits = 2) = 31.26
+"CDSS" = "CDSS"
+SUP = 28.0
+Pred = 0.12377022066038706
+Sim = 0.12
+Infv = 5.243615851377711
+round(elapsed, digits = 2) = 71.68
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 28.0
+Pred = 0.12377022066038706
+Sim = 0.12
+Infv = 5.243615851377711
+round(elapsed, digits = 2) = 74.66
+refinement_change = 0.00032099412901254816
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 37.0
+Pred = 0.12034428844637093
+Sim = 0.1
+Infv = 4.770360634934247
+round(elapsed, digits = 2) = 2.76
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 34
+predval_l0 = 0.12307524643562563
+sim_l0 = 0.1
+inf_l0 = 5.588848277503171
+round(elapsed, digits = 2) = 0.12
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2936742515502788
+Sim = 0.01
+Infv = 27.316560297697873
+round(elapsed, digits = 2) = 29.83
+"CDSS" = "CDSS"
+SUP = 35.0
+Pred = 0.1288967420628806
+Sim = 0.05
+Infv = 5.34725571222107
+round(elapsed, digits = 2) = 66.65
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 35.0
+Pred = 0.1288967420628806
+Sim = 0.05
+Infv = 5.34725571222107
+round(elapsed, digits = 2) = 71.61
+refinement_change = 0.00031463451175078107
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 56.0
+Pred = 0.12812357598298021
+Sim = 0.09
+Infv = 4.389495188103174
+round(elapsed, digits = 2) = 3.7
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 31
+predval_l0 = 0.12334103547849103
+sim_l0 = 0.07
+inf_l0 = 5.696891149902016
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.2662611446561318
+Sim = 0.01
+Infv = 26.48837412772064
+round(elapsed, digits = 2) = 28.29
+"CDSS" = "CDSS"
+SUP = 42.0
+Pred = 0.12156180434030724
+Sim = 0.12
+Infv = 4.476313259399064
+round(elapsed, digits = 2) = 76.73
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 26.0
+Pred = 0.12352849981472105
+Sim = 0.08
+Infv = 4.975422121714953
+round(elapsed, digits = 2) = 76.06
+refinement_change = 0.0002985353450338152
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 56.0
+Pred = 0.12064166722229713
+Sim = 0.12
+Infv = 3.7185696145539877
+round(elapsed, digits = 2) = 3.43
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 38
+predval_l0 = 0.12412473240449183
+sim_l0 = 0.12
+inf_l0 = 5.179158306064763
+round(elapsed, digits = 2) = 0.13
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.28814473736426377
+Sim = 0.01
+Infv = 26.229855341355588
+round(elapsed, digits = 2) = 29.2
+"CDSS" = "CDSS"
+SUP = 26.0
+Pred = 0.12200900436474064
+Sim = 0.08
+Infv = 5.182287875142391
+round(elapsed, digits = 2) = 59.33
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 26.0
+Pred = 0.12200900436474064
+Sim = 0.08
+Infv = 5.182287875142391
+round(elapsed, digits = 2) = 32.83
+refinement_change = 0.000350480915738662
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 51.0
+Pred = 0.13421645704922167
+Sim = 0.09
+Infv = 4.9431471770206725
+round(elapsed, digits = 2) = 1.82
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 38
+predval_l0 = 0.12627528702317553
+sim_l0 = 0.08
+inf_l0 = 5.121341327832421
+round(elapsed, digits = 2) = 0.11
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.28630614746255323
+Sim = 0.01
+Infv = 26.163874182373302
+round(elapsed, digits = 2) = 13.45
+"CDSS" = "CDSS"
+SUP = 29.0
+Pred = 0.11504055177013185
+Sim = 0.1
+Infv = 4.021456915895914
+round(elapsed, digits = 2) = 58.68
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 29.0
+Pred = 0.11504055177013185
+Sim = 0.1
+Infv = 4.021456915895914
+round(elapsed, digits = 2) = 57.89
+refinement_change = 0.0003863179896796967
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 38.0
+Pred = 0.11570097441348189
+Sim = 0.11
+Infv = 3.6873487393693116
+round(elapsed, digits = 2) = 2.01
+spgpcdss_chose_beta = false
+"L0Learn" = "L0Learn"
+supp_l0 = 29
+predval_l0 = 0.1184298234476046
+sim_l0 = 0.07
+inf_l0 = 6.299624055175941
+round(elapsed, digits = 2) = 0.08
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.27478142836514424
+Sim = 0.01
+Infv = 26.859219994331287
+round(elapsed, digits = 2) = 23.61
+"CDSS" = "CDSS"
+SUP = 47.0
+Pred = 0.12220026027567682
+Sim = 0.09
+Infv = 4.265598702362863
+round(elapsed, digits = 2) = 72.3
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 30.0
+Pred = 0.12474223820093149
+Sim = 0.06
+Infv = 4.203398574132437
+round(elapsed, digits = 2) = 74.31
+refinement_change = 0.0003761273643518477
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 50.0
+Pred = 0.11681446564273017
+Sim = 0.11
+Infv = 3.845250293418928
+round(elapsed, digits = 2) = 2.58
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 33
+predval_l0 = 0.12251846203583468
+sim_l0 = 0.05
+inf_l0 = 4.234938498548386
+round(elapsed, digits = 2) = 0.1
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.2554674793421984
+Sim = 0.01
+Infv = 20.682323068258224
+round(elapsed, digits = 2) = 26.85
+"CDSS" = "CDSS"
+SUP = 28.0
+Pred = 0.11653747332038857
+Sim = 0.14
+Infv = 4.5050864305640275
+round(elapsed, digits = 2) = 83.96
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 28.0
+Pred = 0.11653747332038857
+Sim = 0.14
+Infv = 4.5050864305640275
+round(elapsed, digits = 2) = 72.55
+refinement_change = 0.00034554019757565796
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 47.0
+Pred = 0.11446112335800317
+Sim = 0.17
+Infv = 3.5177466452158495
+round(elapsed, digits = 2) = 4.07
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 46
+predval_l0 = 0.11714943702383214
+sim_l0 = 0.15
+inf_l0 = 3.9413202092719537
+round(elapsed, digits = 2) = 0.17
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 3.0
+Pred = 0.28802272582906585
+Sim = 0.01
+Infv = 26.065820581708397
+round(elapsed, digits = 2) = 29.59
+"CDSS" = "CDSS"
+SUP = 27.0
+Pred = 0.11329673151717916
+Sim = 0.08
+Infv = 4.472477137849726
+round(elapsed, digits = 2) = 87.24
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 27.0
+Pred = 0.11329673151717916
+Sim = 0.08
+Infv = 4.472477137849726
+round(elapsed, digits = 2) = 90.06
+refinement_change = 0.00027872704216583077
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 38.0
+Pred = 0.11252434419301342
+Sim = 0.09
+Infv = 4.017002535650026
+round(elapsed, digits = 2) = 4.42
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 39
+predval_l0 = 0.11641394156388234
+sim_l0 = 0.09
+inf_l0 = 4.405614467152942
+round(elapsed, digits = 2) = 0.13
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.2441915354479468
+Sim = 0.01
+Infv = 20.97522543546302
+round(elapsed, digits = 2) = 31.26
+"CDSS" = "CDSS"
+SUP = 30.0
+Pred = 0.11987503487542181
+Sim = 0.09
+Infv = 4.798243575149412
+round(elapsed, digits = 2) = 98.24
+"CDSS (β-only)" = "CDSS (β-only)"
+SUP = 30.0
+Pred = 0.11987503487542181
+Sim = 0.09
+Infv = 4.798243575149412
+round(elapsed, digits = 2) = 95.03
+refinement_change = 0.00036816738277939783
+"SPGpCDSS" = "SPGpCDSS"
+SUP = 39.0
+Pred = 0.12120419979210675
+Sim = 0.08
+Infv = 3.8856822232021875
+round(elapsed, digits = 2) = 3.65
+spgpcdss_chose_beta = true
+"L0Learn" = "L0Learn"
+supp_l0 = 50
+predval_l0 = 0.12493960171227923
+sim_l0 = 0.1
+inf_l0 = 4.654171210078198
+round(elapsed, digits = 2) = 0.13
+"L0Learn+PSI1" = "L0Learn+PSI1"
+SUP = 4.0
+Pred = 0.25516461740116264
+Sim = 0.02
+Infv = 21.698118101154844
+round(elapsed, digits = 2) = 30.15

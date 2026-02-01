@@ -1,0 +1,43 @@
+REFINEMENT STATISTICS
+Parameters: corr=exp, ρ=0.9, p=1000, SNR=5.0, k*=20, T=10
+============================================================
+
+CDSS - β_best chosen percentage (vs zero start):
+  n=100: 90.0%
+  n=200: 60.0%
+  n=300: 50.0%
+  n=400: 80.0%
+  n=500: 70.0%
+  n=600: 40.0%
+  n=700: 40.0%
+  n=800: 80.0%
+  n=900: 50.0%
+  n=1000: 70.0%
+Overall CDSS: 63.0%
+
+SPGpCDSS - β_best chosen percentage (vs zero start):
+  n=100: 80.0%
+  n=200: 60.0%
+  n=300: 70.0%
+  n=400: 40.0%
+  n=500: 50.0%
+  n=600: 40.0%
+  n=700: 60.0%
+  n=800: 60.0%
+  n=900: 70.0%
+  n=1000: 60.0%
+Overall SPGpCDSS: 59.0%
+
+Refinement change magnitude (CDSS w/o refinement variant):
+  n=100: 2.98e-5
+  n=200: 1.8e-5
+  n=300: 1.55e-5
+  n=400: 1.07e-5
+  n=500: 9.03e-6
+  n=600: 9.8e-6
+  n=700: 9.2e-6
+  n=800: 9.75e-6
+  n=900: 8.6e-6
+  n=1000: 7.97e-6
+
+Overall: 1.28e-5
