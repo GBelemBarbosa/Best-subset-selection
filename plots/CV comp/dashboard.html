@@ -1,229 +1,341 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Performance Dashboard - Dual Analysis</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0b0f19;
-            --text: #e2e8f0;
-            --accent: #38bdf8;
-            --accent-soft: rgba(56, 189, 248, 0.1);
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --success: #10b981;
-            --winner-acc: #f59e0b;
-            --winner-eff: #818cf8;
-        }
-        * { box-sizing: border-box; }
-        body { 
-            margin: 0; font-family: 'Outfit', sans-serif; 
-            background: var(--bg); color: var(--text);
-            background-image: radial-gradient(circle at top right, #1e293b, transparent), 
-                             radial-gradient(circle at bottom left, #0f172a, transparent);
-            background-attachment: fixed;
-        }
-        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
-        header { text-align: center; margin-bottom: 60px; }
-        h1 { font-size: 3rem; font-weight: 700; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
-        .subtitle { color: #94a3b8; font-size: 1.2rem; font-weight: 300; }
-        
-        .card { 
-            background: var(--card-bg); backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border); border-radius: 20px;
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-            margin-bottom: 40px; overflow: hidden;
-        }
-        .card-header { padding: 20px 30px; border-bottom: 1px solid var(--card-border); background: rgba(0,0,0,0.1); }
-        
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 15px; background: rgba(0,0,0,0.2); font-weight: 600; color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        td { padding: 18px 15px; border-bottom: 1px solid var(--card-border); font-size: 0.9rem; }
-        tr:hover { background: rgba(255,255,255,0.02); }
-        
-        .param-tag { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 0.75rem; }
-        
-        .winner-label { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
-        .winner-label.acc { background: rgba(245, 158, 11, 0.15); color: var(--winner-acc); border: 1px solid rgba(245, 158, 11, 0.3); }
-        .winner-label.eff { background: rgba(129, 140, 248, 0.15); color: var(--winner-eff); border: 1px solid rgba(129, 140, 248, 0.3); }
-        
-        .stat-cell.success { color: var(--success); font-weight: 700; }
-        
-        .plot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px; padding: 30px; }
-        .plot-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; text-align: center; }
-        .plot-box img { width: 100%; border-radius: 8px; transition: 0.3s; }
-        .plot-box img:hover { transform: translateY(-5px); }
-        .plot-box p { margin-top: 15px; color: #94a3b8; font-size: 0.85rem; }
-        
-        .legend { display: flex; gap: 30px; margin-top: 20px; font-size: 0.85rem; color: #94a3b8; }
-        .legend-item { display: flex; align-items: center; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        
-        footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.8rem; border-top: 1px solid var(--card-border); }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Experiment Dashboard</h1>
-            <p class="subtitle">Dual-Winner Analysis: Pure Accuracy vs. Efficiency (95% Sim Threshold)</p>
-        </header>
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>CV Performance Dashboard - Global Analysis</title>
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+       <style>
+           :root {
+               --bg: #0b0f19;
+               --text: #e2e8f0;
+               --accent: #38bdf8;
+               --accent-soft: rgba(56, 189, 248, 0.1);
+               --card-bg: rgba(30, 41, 59, 0.5);
+               --card-border: rgba(255, 255, 255, 0.1);
+               --success: #10b981;
+               --winner-acc: #f59e0b;
+               --winner-eff: #818cf8;
+           }
+           * { box-sizing: border-box; }
+           body { 
+               margin: 0; font-family: 'Outfit', sans-serif; 
+               background: var(--bg); color: var(--text);
+               background-image: radial-gradient(circle at top right, #1e293b, transparent), 
+                                radial-gradient(circle at bottom left, #0f172a, transparent);
+               background-attachment: fixed;
+           }
+           .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+           header { text-align: center; margin-bottom: 60px; }
+           h1 { font-size: 3rem; font-weight: 700; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+           .subtitle { color: #94a3b8; font-size: 1.2rem; font-weight: 300; }
+           
+           .card { 
+               background: var(--card-bg); backdrop-filter: blur(16px);
+               border: 1px solid var(--card-border); border-radius: 20px;
+               box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+               margin-bottom: 40px; overflow: hidden;
+           }
+           .card-header { padding: 20px 30px; border-bottom: 1px solid var(--card-border); background: rgba(0,0,0,0.1); }
+           
+           table { width: 100%; border-collapse: collapse; }
+           th { text-align: left; padding: 15px; background: rgba(0,0,0,0.2); font-weight: 600; color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+           td { padding: 18px 15px; border-bottom: 1px solid var(--card-border); font-size: 0.9rem; }
+           tr:hover { background: rgba(255,255,255,0.02); }
+           
+           .param-tag { background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.3); color: var(--accent); padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 0.75rem; }
+           
+           .winner-label { padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+           .winner-label.acc { background: rgba(245, 158, 11, 0.15); color: var(--winner-acc); border: 1px solid rgba(245, 158, 11, 0.3); }
+           .winner-label.eff { background: rgba(129, 140, 248, 0.15); color: var(--winner-eff); border: 1px solid rgba(129, 140, 248, 0.3); }
+           
+           .stat-cell.success { color: var(--success); font-weight: 700; }
+           .stat-cell.warning { color: var(--winner-acc); font-weight: 600; }
+           
+           .gain-badge { background: rgba(16, 185, 129, 0.1); color: var(--success); padding: 4px 10px; border-radius: 12px; font-weight: 600; font-size: 0.8rem; border: 1px solid rgba(16, 185, 129, 0.3); }
+           .ref-breakdown { font-family: monospace; font-size: 0.8rem; color: #94a3b8; }
+           
+           .plot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px; padding: 30px; }
+           .plot-box { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; text-align: center; }
+           .plot-box img { width: 100%; border-radius: 8px; transition: 0.3s; }
+           .plot-box img:hover { transform: translateY(-5px); }
+           .plot-box p { margin-top: 15px; color: #94a3b8; font-size: 0.85rem; }
+           
+           .legend { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 20px; font-size: 0.85rem; color: #94a3b8; }
+           .legend-item { display: flex; align-items: center; gap: 8px; }
+           .dot { width: 12px; height: 12px; border-radius: 50%; }
+           
+           footer { text-align: center; padding: 40px; color: #64748b; font-size: 0.8rem; border-top: 1px solid var(--card-border); }
+       </style>
+   </head>
+   <body>
+       <div class="container">
+           <header>
+               <h1>Experiment Dashboard</h1>
+               <p class="subtitle">Aggregate Performance Analysis: Averaged across all Sample Sizes ($n$)</p>
+           </header>
 
-        <div class="card">
-            <div class="card-header">
-                <h2 style="margin:0; font-size: 1.2rem;">Comparative Performance Matrix</h2>
-                <div class="legend">
-                    <div class="legend-item"><span class="dot" style="background: var(--winner-acc);"></span> Pure Accuracy (Max Sim)</div>
-                    <div class="legend-item"><span class="dot" style="background: var(--winner-eff);"></span> Efficient (Fastest within 5% of Max Sim)</div>
-                </div>
-            </div>
-            <div style="padding:0;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Algorithm</th>
-                            <th>Configuration</th>
-                            <th>Accuracy Winner</th>
-                            <th>Efficiency Winner</th>
-                            <th>Best Sim</th>
-                            <th>Eff. Time</th>
-                            <th>Z-Wins</th>
-                            <th>Improvs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
+           <div class="card">
+               <div class="card-header">
+                   <h2 style="margin:0; font-size: 1.2rem;">Global Comparative Matrix</h2>
+                   <div class="legend">
+                       <div class="legend-item"><span class="dot" style="background: var(--winner-acc);"></span> <b>Pure Accuracy</b>: Highest mean Sim across all $n$</div>
+                       <div class="legend-item"><span class="dot" style="background: var(--winner-eff);"></span> <b>Efficient</b>: Fastest total Time within 5% of Max Sim</div>
+                       <div class="legend-item"><span class="dot" style="background: var(--success);"></span> <b>Gain</b>: Efficiency speedup (Ratio of total experiment sums)</div>
+                       <div class="legend-item"><b>Sim Gain</b>: Accuracy tradeoff (AccWinner.Sim - EffWinner.Sim)</div>
+                       <div class="legend-item"><b>Refinement Impact</b>: [Better] / [Tied] / [Worse] similarity (Total experiment counts)</div>
+                   </div>
+               </div>
+               <div style="padding:0;">
+                   <table>
+                       <thead>
+                           <tr>
+                               <th>Algorithm</th>
+                               <th>Configuration</th>
+                               <th>Accuracy Winner</th>
+                               <th>Efficiency Winner</th>
+                               <th>Best Sim</th>
+                               <th>Sim Gain</th>
+                               <th>Gain</th>
+                               <th>Eff. Time</th>
+                               <th>Sim Improv</th>
+                               <th>Refinement Impact</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
     <td>SPG</td>
     <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
     <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
     <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
-    <td class="stat-cell ">0.218</td>
-    <td>6.7s</td>
-    <td>2</td>
-    <td>2</td>
+    <td class="stat-cell ">0.123</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>4.16s/n</td>
+    <td class="stat-cell success">18</td>
+    <td class="ref-breakdown">30 Wins</td>
 </tr>
 <tr>
     <td>SPG</td>
     <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
-    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
     <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
-    <td class="stat-cell ">0.174</td>
-    <td>0.1s</td>
-    <td>0</td>
-    <td>0</td>
+    <td class="stat-cell ">0.079</td>
+    <td class="stat-cell warning">+0.002</td>
+    <td><span class="gain-badge">1.9x Faster</span></td>
+    <td>0.14s/n</td>
+    <td class="stat-cell success">3</td>
+    <td class="ref-breakdown">8 Wins</td>
 </tr>
 <tr>
     <td>SPG</td>
     <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
     <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
     <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
-    <td class="stat-cell success">1.000</td>
-    <td>5.7s</td>
-    <td>5</td>
-    <td>0</td>
+    <td class="stat-cell ">0.704</td>
+    <td class="stat-cell warning">+0.004</td>
+    <td><span class="gain-badge">2.0x Faster</span></td>
+    <td>1.90s/n</td>
+    <td class="stat-cell success">7</td>
+    <td class="ref-breakdown">27 Wins</td>
 </tr>
 <tr>
     <td>SPG</td>
     <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
-    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
-    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
-    <td class="stat-cell success">1.000</td>
-    <td>0.7s</td>
-    <td>5</td>
-    <td>4</td>
-</tr>
-<tr>
-    <td>SPGpCDSS</td>
-    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
-    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
-    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
-    <td class="stat-cell ">0.172</td>
-    <td>4.1s</td>
-    <td>5</td>
-    <td>3</td>
-</tr>
-<tr>
-    <td>SPGpCDSS</td>
-    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
-    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
-    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
-    <td class="stat-cell ">0.129</td>
-    <td>0.5s</td>
-    <td>1</td>
-    <td>0</td>
-</tr>
-<tr>
-    <td>SPGpCDSS</td>
-    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
     <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
     <td class="winner-cell"><span class="winner-label eff">Regular CV</span></td>
-    <td class="stat-cell success">1.000</td>
-    <td>3.8s</td>
-    <td>4</td>
-    <td>0</td>
+    <td class="stat-cell ">0.812</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>0.97s/n</td>
+    <td class="stat-cell success">15</td>
+    <td class="ref-breakdown">38 Wins</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.107</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>3.14s/n</td>
+    <td class="stat-cell success">21</td>
+    <td class="ref-breakdown">43 Wins</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.077</td>
+    <td class="stat-cell warning">+0.004</td>
+    <td><span class="gain-badge">10.9x Faster</span></td>
+    <td>0.39s/n</td>
+    <td class="stat-cell success">3</td>
+    <td class="ref-breakdown">31 Wins</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell ">0.697</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>5.04s/n</td>
+    <td class="stat-cell success">5</td>
+    <td class="ref-breakdown">23 Wins</td>
 </tr>
 <tr>
     <td>SPGpCDSS</td>
     <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
-    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
     <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
-    <td class="stat-cell success">1.000</td>
-    <td>6.8s</td>
-    <td>3</td>
-    <td>0</td>
+    <td class="stat-cell ">0.861</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>2.77s/n</td>
+    <td class="stat-cell success">11</td>
+    <td class="ref-breakdown">45 Wins</td>
 </tr>
 <tr>
     <td>L0LearnPSI1</td>
     <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
-    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
-    <td class="winner-cell"><span class="winner-label eff">Regular CV</span></td>
-    <td class="stat-cell ">0.190</td>
-    <td>70.7s</td>
-    <td>0</td>
-    <td>0</td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell ">0.098</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>5.74s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
 </tr>
 <tr>
     <td>L0LearnPSI1</td>
     <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
     <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
     <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
-    <td class="stat-cell ">0.116</td>
-    <td>0.9s</td>
-    <td>0</td>
-    <td>0</td>
+    <td class="stat-cell ">0.044</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>0.20s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
 </tr>
 <tr>
     <td>L0LearnPSI1</td>
     <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
-    <td class="winner-cell"><span class="winner-label acc">Regular CV</span></td>
-    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
-    <td class="stat-cell success">1.000</td>
-    <td>2.6s</td>
-    <td>0</td>
-    <td>0</td>
+    <td class="winner-cell"><span class="winner-label acc">Inverse CV</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.816</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>79.19s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
 </tr>
 <tr>
     <td>L0LearnPSI1</td>
     <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
     <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
     <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
-    <td class="stat-cell success">0.907</td>
-    <td>2.4s</td>
-    <td>0</td>
-    <td>0</td>
+    <td class="stat-cell ">0.662</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">Same</span></td>
+    <td>1.31s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
 </tr>
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
 
-        <h2 style="margin: 60px 0 20px 0; font-size: 1.4rem; color: var(--accent);">Visual Evidence Gallery</h2>
-        <div class="card plot-group" id="const-05-2000-100-100">
+           <div class="card">
+               <div class="card-header">
+                   <h2 style="margin:0; font-size: 1.2rem;">CV Strategy Duel: Smart Adaptive vs Inverse</h2>
+                   <p style="color: #94a3b8; font-size: 0.85rem; margin: 10px 0 0 0;">Focused comparison for SPG-based algorithms. <b>Ad</b> = Smart Adaptive, <b>Inv</b> = Inverse CV.</p>
+               </div>
+               <div style="padding:0;">
+                   <table>
+                       <thead>
+                           <tr>
+                               <th>Algorithm</th>
+                               <th>Configuration</th>
+                               <th>Support Sim Δ</th>
+                               <th>Complexity Speedup</th>
+                               <th>Avg. Time/n</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+    <td>SPG</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="stat-cell success">+0.010 (Ad)</td>
+    <td>2.4x (Inv Faster)</td>
+    <td>4.16s vs 1.72s</td>
+</tr>
+<tr>
+    <td>SPG</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="stat-cell success">+0.002 (Ad)</td>
+    <td>1.9x (Inv Faster)</td>
+    <td>0.26s vs 0.14s</td>
+</tr>
+<tr>
+    <td>SPG</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="stat-cell success">+0.003 (Ad)</td>
+    <td>2.7x (Ad Faster)</td>
+    <td>1.90s vs 5.21s</td>
+</tr>
+<tr>
+    <td>SPG</td>
+    <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+    <td class="stat-cell warning">+0.004 (Inv)</td>
+    <td>2.0x (Inv Faster)</td>
+    <td>0.82s vs 0.41s</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="stat-cell warning">+0.000 (Inv)</td>
+    <td>9.1x (Inv Faster)</td>
+    <td>28.72s vs 3.14s</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="stat-cell success">+0.004 (Ad)</td>
+    <td>10.9x (Inv Faster)</td>
+    <td>4.24s vs 0.39s</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="stat-cell success">+0.001 (Ad)</td>
+    <td>1.3x (Ad Faster)</td>
+    <td>5.04s vs 6.79s</td>
+</tr>
+<tr>
+    <td>SPGpCDSS</td>
+    <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+    <td class="stat-cell success">+0.036 (Ad)</td>
+    <td>2.7x (Ad Faster)</td>
+    <td>2.77s vs 7.53s</td>
+</tr>
+
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+
+           <h2 style="margin: 60px 0 20px 0; font-size: 1.4rem; color: var(--accent);">Visual Evidence Gallery</h2>
+           <div class="card plot-group" id="const-05-2000-100-100">
     <div class="card-header">
         <h3>SPG &mdash; const-0.5-2000-10.0-100</h3>
     </div>
@@ -404,11 +516,11 @@
     </div>
 </div>
 
-        
-        <footer>
-            Dashboard generated at 2026-02-01 20:08 &bull; Best Selection Projects
-        </footer>
-    </div>
-</body>
-</html>
-
+           
+           <footer>
+               Dashboard generated at 2026-02-01 21:51 &bull; Best Selection Projects
+           </footer>
+       </div>
+   </body>
+   </html>
+   

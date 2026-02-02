@@ -9,6 +9,7 @@ using BenchmarkTools, Profile, TimerOutputs
 using Plots, StatsPlots, Plots.PlotMeasures
 using LaTeXStrings
 using ThreadsX
+using Printf
 include("l0learn_julia.jl")
 # Try to load RCall for L0Learn comparison
 L0LEARN_AVAILABLE = false
@@ -1023,16 +1024,21 @@ function smart_adaptive_cross_validation(solver, vars;
         i += 1
     end
 
-    # Final refinement with best λ
-    β_best, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    if use_refinement
-        β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-        best_β = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
-    else
-        best_β = β_best
+    if !use_refinement
+        return best_β, best_λ, norm(best_β, 0), predval(best_β), suppsim(best_β), norm(best_β - β⃰, Inf), false, 0
     end
 
-    return best_β, best_λ, norm(best_β, 0), predval(best_β), suppsim(best_β), norm(best_β - β⃰, Inf)
+    # Final refinement with best λ
+    β_best_path, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    
+    zero_won = predval(β_best_zero) < predval(β_best_path)
+    sim_diff = suppsim(β_best_zero) - suppsim(β_best_path)
+    sim_status = zero_won ? (sim_diff > 1e-6 ? 1 : (sim_diff < -1e-6 ? -1 : 0)) : 0
+    
+    β_ref = zero_won ? β_best_zero : β_best_path
+
+    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, sim_status
 end
 
 # ============================================================================
@@ -1052,6 +1058,10 @@ function main()
     SUPhist = zeros(length(ns_range), n_algos)
     Infhist = zeros(length(ns_range), n_algos)
     Simhist = zeros(length(ns_range), n_algos)
+    # Refinement stats: [strategy] -> ZeroWins, ZeroTies, ZeroLosses
+    ZWhist = zeros(Float64, length(ns_range), n_algos)
+    ZThist = zeros(Float64, length(ns_range), n_algos)
+    ZLhist = zeros(Float64, length(ns_range), n_algos)
     Timehist = zeros(length(ns_range), n_algos)
 
     for (t, n) in enumerate(ns_range)
@@ -1061,18 +1071,28 @@ function main()
         for i = 1:T
             vars = variables(corr=corr, ρ=ρ, n=n, p=p, SNR=SNR, k⃰=k⃰, is_tridiagonal=is_tridiagonal)
 
-            # 1. SPG+PSI1 (Standard Cross Validation)
+            # 1. SPG+PSI1 (Smart Adaptive CV)
             trial_start = time()
-            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f; kw...) -> SolverPSI1(SPG, x, f; kw...), vars; SPG=true)
+            β, best_λ, SUP, Pred, Sim, Infv, zw, ss = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPG, x, f; kw...), vars; SPG=true, use_refinement=true)
             dt = time() - trial_start
             SUPhist[t, 1] += SUP; Predhist[t, 1] += Pred; Simhist[t, 1] += Sim; Infhist[t, 1] += Infv; Timehist[t, 1] += dt
+            if zw
+                if ss == 1 ZWhist[t, 1] += 1 end
+                if ss == 0 ZThist[t, 1] += 1 end
+                if ss == -1 ZLhist[t, 1] += 1 end
+            end
             @show "SPG+PSI1" SUP Pred Sim Infv round(dt, digits=1)
 
             # 2. SPGpCDSS+PSI1 (Smart Adaptive CV)
             trial_start = time()
-            β, best_λ, SUP, Pred, Sim, Infv = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars, SPG=true)
+            β, best_λ, SUP, Pred, Sim, Infv, zw, ss = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars; SPG=true, use_refinement=true)
             dt = time() - trial_start
             SUPhist[t, 2] += SUP; Predhist[t, 2] += Pred; Simhist[t, 2] += Sim; Infhist[t, 2] += Infv; Timehist[t, 2] += dt
+            if zw
+                if ss == 1 ZWhist[t, 2] += 1 end
+                if ss == 0 ZThist[t, 2] += 1 end
+                if ss == -1 ZLhist[t, 2] += 1 end
+            end
             @show "SPGpCDSS+PSI1" SUP Pred Sim Infv round(dt, digits=1)
 
             if L0LEARN_AVAILABLE
@@ -1080,11 +1100,16 @@ function main()
                 RCall.globalEnv[:X_train] = collect(vars[1])
                 RCall.globalEnv[:y_train] = collect(vars[2])
 
-                # 3. L0LearnPSI1 (Standard Cross Validation with L0LearnStep)
+                # 3. L0LearnPSI1 (Smart Adaptive CV with L0LearnStep)
                 trial_start = time()
-                β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f; kw...) -> SolverPSI1(L0LearnStep, x, f; kw...), vars; lambda_val=nothing)
+                β, best_λ, SUP, Pred, Sim, Infv, zw, ss = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(L0LearnStep, x, f; kw...), vars; lambda_val=nothing)
                 dt = time() - trial_start
                 SUPhist[t, 3] += SUP; Predhist[t, 3] += Pred; Simhist[t, 3] += Sim; Infhist[t, 3] += Infv; Timehist[t, 3] += dt
+                if zw
+                    if ss == 1 ZWhist[t, 3] += 1 end
+                    if ss == 0 ZThist[t, 3] += 1 end
+                    if ss == -1 ZLhist[t, 3] += 1 end
+                end
                 @show "L0LearnPSI1" SUP Pred Sim Infv round(dt, digits=1)
 
                 # 4. L0LearnPSI1 Val (Pure L0Learn with Internal CV, includes validation)
@@ -1092,6 +1117,7 @@ function main()
                 β, best_λ, SUP, Pred, Sim, Infv = pure_l0learn_solver(vars)
                 dt = time() - trial_start
                 SUPhist[t, 4] += SUP; Predhist[t, 4] += Pred; Simhist[t, 4] += Sim; Infhist[t, 4] += Infv; Timehist[t, 4] += dt
+                # L0LearnPSI1 Val does not return zw, ss, so no refinement stats for it
                 @show "L0LearnPSI1 Val" SUP Pred Sim Infv round(dt, digits=1)
             end
 
@@ -1101,6 +1127,14 @@ function main()
         @info "Completed n=$n in $(round(time() - total_start, digits=1))s"
         
         last_completed_idx = t
+
+        # Per-n Refinement Summary
+        z1_t = Int(ZWhist[t, 1] + ZThist[t, 1] + ZLhist[t, 1])
+        z2_t = Int(ZWhist[t, 2] + ZThist[t, 2] + ZLhist[t, 2])
+        println("\n--- n=$n Refinement Summary ---")
+        println("SPG+PSI1:      Beta Zero Chosen $z1_t / $T times (B: $(Int(ZWhist[t, 1])), T: $(Int(ZThist[t, 1])), W: $(Int(ZLhist[t, 1])))")
+        println("SPGpCDSS+PSI1: Beta Zero Chosen $z2_t / $T times (B: $(Int(ZWhist[t, 2])), T: $(Int(ZThist[t, 2])), W: $(Int(ZLhist[t, 2])))")
+        println("-------------------------------\n")
 
         # Check for early stopping
         avg_sims = Simhist[t, :] ./ T
@@ -1144,33 +1178,58 @@ function main()
     # Create and save plots
     println("\nGenerating plots...")
 
-    pPred = plot(ns_final, Predhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|Ax-b\|^2 / \|b\|^2"), left_margin=5mm, dpi=600)
+    pPred = plot(ns_final, Predhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|Ax-b\|^2 / \|b\|^2"), left_margin=15mm, dpi=600)
     savefig(pPred, "pnPred-$(plotname)$(specifics).png")
 
-    pSim = plot(ns_final, Simhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"|S \cap S^*| / \max(|S|, k^*)"), left_margin=5mm, dpi=600)
+    pSim = plot(ns_final, Simhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"|S \cap S^*| / \max(|S|, k^*)"), left_margin=15mm, dpi=600)
     savefig(pSim, "pnSim-$(plotname)$(specifics).png")
 
-    pInf = plot(ns_final, Infhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|x-x^*\|_\infty"), dpi=600)
-    savefig(pInf, "pnInf-$(plotname)$(specifics).png")
-
-    pSUP = plot(ns_final, SUPhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|x\|_0",), dpi=600)
-    savefig(pSUP, "pnSUP-$(plotname)$(specifics).png")
-
-    pTime = plot(ns_final, Timehist, labels=names, xlabel=LaTeXString(raw"n"), ylabel="Execution Time (s)", dpi=600)
+    pTime = plot(ns_final, Timehist, labels=names, xlabel=LaTeXString(raw"n"), ylabel="Time (s)", left_margin=15mm, dpi=600)
     savefig(pTime, "pnTime-$(plotname)$(specifics).png")
 
-    @info "Plots saved" files = ["pnPred-$(plotname)$(specifics).png",
-        "pnSim-$(plotname)$(specifics).png",
-        "pnInf-$(plotname)$(specifics).png",
-        "pnSUP-$(plotname)$(specifics).png",
-        "pnTime-$(plotname)$(specifics).png"]
+    pInf = plot(ns_final, Infhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|\beta - \beta^*\|_\infty"), left_margin=15mm, dpi=600)
+    savefig(pInf, "pnInf-$(plotname)$(specifics).png")
 
+    # Refinement Plots (Wins, Losses, Choices) - Algo Specific
+    # ZWhist, ZLhist are (n_sizes x n_algos)
+    # Col 1: SPG, Col 2: SPGpCDSS
+    
+    # Choices = Wins + Ties + Losses
+    choices_spg = ZWhist[:,1] .+ ZThist[:,1] .+ ZLhist[:,1]
+    choices_cdss = ZWhist[:,2] .+ ZThist[:,2] .+ ZLhist[:,2]
+    
+    pRef_SPG = plot(ns_final, [choices_spg ZWhist[:,1] ZLhist[:,1]], 
+        label=["Choices" "Wins" "Losses"], 
+        title="SPG Refinement", 
+        xlabel="n", ylabel="Count")
+        
+    pRef_CDSS = plot(ns_final, [choices_cdss ZWhist[:,2] ZLhist[:,2]], 
+        label=["Choices" "Wins" "Losses"], 
+        title="SPGpCDSS Refinement", 
+        xlabel="n", ylabel="Count")
+        
+    pRef = plot(pRef_SPG, pRef_CDSS, layout=(2,1), size=(800, 800), left_margin=15mm, dpi=600)
+    savefig(pRef, "pnRefinement-$(plotname)$(specifics).png")
+
+    println("Plots saved.")
+    
+    # Print Refinement Statistics Summary
     println("\n" * "="^60)
-    println("All experiments completed successfully!")
+    println("REFINEMENT STATISTICS (Aggregated)")
     println("="^60)
-
-    return SUPhist, Predhist, Simhist, Infhist
+    # Sum over all n
+    total_zw1 = sum(ZWhist[:, 1]); total_zt1 = sum(ZThist[:, 1]); total_zl1 = sum(ZLhist[:, 1])
+    total_zw2 = sum(ZWhist[:, 2]); total_zt2 = sum(ZThist[:, 2]); total_zl2 = sum(ZLhist[:, 2])
+    
+    @printf("SPG+PSI1:      %d Better / %d Tied / %d Worse\n", total_zw1, total_zt1, total_zl1)
+    @printf("SPGpCDSS+PSI1: %d Better / %d Tied / %d Worse\n", total_zw2, total_zt2, total_zl2)
+    if L0LEARN_AVAILABLE
+        total_zw3 = sum(ZWhist[:, 3]); total_zt3 = sum(ZThist[:, 3]); total_zl3 = sum(ZLhist[:, 3])
+        @printf("L0LearnPSI1:   %d Better / %d Tied / %d Worse\n", total_zw3, total_zt3, total_zl3)
+    end
+    println("="^60)
 end
 
-# Run the main function
-main()
+if abspath(PROGRAM_FILE) == @__FILE__
+    main()
+end

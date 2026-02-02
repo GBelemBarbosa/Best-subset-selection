@@ -54,3 +54,31 @@ tmux new -s cv_spgpcdss_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl co
 # L0Learn (The winning balanced algo)
 tmux new -s cv_l0learn_exp_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl exp 0.9 1000 5.0 20 100:100:1000 L0Learn 10 false > cv_l0learn_exp_0.9_p1000.log 2>&1" ✅
 tmux new -s cv_l0learn_const_0.9_p1000 -d "julia --project=. -t 8 cv_comp.jl const 0.9 1000 5.0 20 100:100:1000 L0Learn 10 false > cv_l0learn_const_0.9_p1000.log 2>&1" ✅
+
+
+# ------------------------------------------------------------------------------
+# PART 3: ROBUST EXPERIMENTS (new_test_terminal.jl)
+# Strategy: SPG/SPGpCDSS use Smart Adaptive (Refinement Enabled) for robustness.
+# ------------------------------------------------------------------------------
+
+# SCENARIO A: p=2000, k=100, SNR=10.0
+tmux new -s robust_exp_0.5_p2000 -d "julia --project=. -t 8 new_test_terminal.jl exp 0.5 2000 10.0 100 200:200:2000 10 > robust_exp_0.5_p2000.log 2>&1" ✅
+tmux new -s robust_const_0.5_p2000 -d "julia --project=. -t 8 new_test_terminal.jl const 0.5 2000 10.0 100 200:200:2000 10 > robust_const_0.5_p2000.log 2>&1" ✅
+
+# SCENARIO B: p=1000, k=20, SNR=5.0
+tmux new -s robust_exp_0.9_p1000 -d "julia --project=. -t 8 new_test_terminal.jl exp 0.9 1000 5.0 20 100:100:1000 10 > robust_exp_0.9_p1000.log 2>&1" ✅
+tmux new -s robust_const_0.9_p1000 -d "julia --project=. -t 8 new_test_terminal.jl const 0.9 1000 5.0 20 100:100:1000 10 > robust_const_0.9_p1000.log 2>&1" ✅
+
+
+# ------------------------------------------------------------------------------
+# PART 4: ROBUST TRIDIAGONAL EXPERIMENTS (new_test_terminal.jl)
+# Strategy: Same as Part 3 but with is_tridiagonal=true
+# ------------------------------------------------------------------------------
+
+# SCENARIO A: p=2000, k=100, SNR=10.0
+tmux new -s robust_tri_exp_0.5_p2000 -d "julia --project=. -t 8 new_test_terminal.jl exp 0.5 2000 10.0 100 200:200:2000 10 true > robust_tri_exp_0.5_p2000.log 2>&1" ✅
+tmux new -s robust_tri_const_0.5_p2000 -d "julia --project=. -t 8 new_test_terminal.jl const 0.5 2000 10.0 100 200:200:2000 10 true > robust_tri_const_0.5_p2000.log 2>&1" ✅
+
+# SCENARIO B: p=1000, k=20, SNR=5.0
+tmux new -s robust_tri_exp_0.9_p1000 -d "julia --project=. -t 8 new_test_terminal.jl exp 0.9 1000 5.0 20 100:100:1000 10 true > robust_tri_exp_0.9_p1000.log 2>&1"
+tmux new -s robust_tri_const_0.9_p1000 -d "julia --project=. -t 8 new_test_terminal.jl const 0.9 1000 5.0 20 100:100:1000 10 true > robust_tri_const_0.9_p1000.log 2>&1"

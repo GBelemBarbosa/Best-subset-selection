@@ -56,8 +56,9 @@ end
 algo_name = length(ARGS) >= 7 ? ARGS[7] : "CDSS"
 use_SPG = algo_name in ["SPG", "SPGpCDSS"]  # SPG step logic
 T = length(ARGS) >= 8 ? parse(Int, ARGS[8]) : 10
+use_refinement = length(ARGS) >= 9 ? parse(Bool, ARGS[9]) : (use_SPG ? true : false)
 
-@info "Parameters" corr ρ p SNR k⃰ ns_range algo = algo_name use_SPG T
+@info "Parameters" corr ρ p SNR k⃰ ns_range algo = algo_name use_SPG T refine = use_refinement
 flush(stdout)
 
 kₘₐₓ = 1000
@@ -610,7 +611,7 @@ end
 # Cross Validation
 # ============================================================================
 
-function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true)
+function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true, use_refinement=true)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -689,23 +690,28 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
         i += 1
     end
 
+    if !use_refinement
+        return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf), false, 0
+    end
+
     # Final refinement with best λ
     β_best_path, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     zero_won = predval(β_best_zero) < predval(β_best_path)
-    zero_improves_sim = zero_won && (suppsim(β_best_zero) > suppsim(β_best_path))
+    sim_diff = suppsim(β_best_zero) - suppsim(β_best_path)
+    sim_status = zero_won ? (sim_diff > 1e-6 ? 1 : (sim_diff < -1e-6 ? -1 : 0)) : 0
     
     β_ref = zero_won ? β_best_zero : β_best_path
 
-    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, zero_improves_sim
+    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, sim_status
 end
 
 # ============================================================================
 # Inverse Cross Validation (lambda grows instead of shrinks)
 # ============================================================================
 
-function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, stagnation_handling=true)
+function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, stagnation_handling=true, use_refinement=true)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -809,16 +815,21 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
     end
 
 
+    if !use_refinement
+        return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf), false, 0
+    end
+
     # Final refinement with best λ
     β_best_path, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     zero_won = predval(β_best_zero) < predval(β_best_path)
-    zero_improves_sim = zero_won && (suppsim(β_best_zero) > suppsim(β_best_path))
+    sim_diff = suppsim(β_best_zero) - suppsim(β_best_path)
+    sim_status = zero_won ? (sim_diff > 1e-6 ? 1 : (sim_diff < -1e-6 ? -1 : 0)) : 0
     
     β_ref = zero_won ? β_best_zero : β_best_path
 
-    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, zero_improves_sim
+    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, sim_status
 end
 
 # ============================================================================
@@ -833,7 +844,8 @@ function smart_adaptive_cross_validation(solver, vars;
     λ_min_ratio=10^-5,
     λ_max_ratio=floatmax(),
     SPG=false,
-    stagnation_handling=true)
+    stagnation_handling=true,
+    use_refinement=true)
 
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
@@ -1031,16 +1043,21 @@ function smart_adaptive_cross_validation(solver, vars;
         i += 1
     end
 
+    if !use_refinement
+        return best_β, best_λ, norm(best_β, 0), predval(best_β), suppsim(best_β), norm(best_β - β⃰, Inf), false, 0
+    end
+
     # Final refinement with best λ
     β_best_path, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     zero_won = predval(β_best_zero) < predval(β_best_path)
-    zero_improves_sim = zero_won && (suppsim(β_best_zero) > suppsim(β_best_path))
+    sim_diff = suppsim(β_best_zero) - suppsim(β_best_path)
+    sim_status = zero_won ? (sim_diff > 1e-6 ? 1 : (sim_diff < -1e-6 ? -1 : 0)) : 0
     
     β_ref = zero_won ? β_best_zero : β_best_path
 
-    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, zero_improves_sim
+    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, sim_status
 end
 
 function main()
@@ -1065,8 +1082,10 @@ function main()
     Infhist = zeros(length(ns_range), 3)
     Simhist = zeros(length(ns_range), 3)
     Timehist = zeros(length(ns_range), 3)
-    # Refinement stats: [strategy] -> ZeroWins, ZeroSimImprov
+    # Refinement stats: [strategy] -> ZeroWins, ZeroTies, ZeroLosses
     ZWhist = zeros(Float64, length(ns_range), 3)
+    ZThist = zeros(Float64, length(ns_range), 3)
+    ZLhist = zeros(Float64, length(ns_range), 3)
     ZIhist = zeros(Float64, length(ns_range), 3)
 
     # Early stopping tracking
@@ -1084,43 +1103,52 @@ function main()
 
             # 1. Regular CV (Standard cross_validation)
             trial_start = time()
-            β, _, SUP, Pred, Sim, Infv, zw, zi = cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG)
+            β, _, SUP, Pred, Sim, Infv, zw, ss = cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG, use_refinement=use_refinement)
             trial_time = time() - trial_start
             SUPhist[t, 1] += SUP
             Predhist[t, 1] += Pred
             Simhist[t, 1] += Sim
             Infhist[t, 1] += Infv
             Timehist[t, 1] += trial_time
-            ZWhist[t, 1] += zw ? 1.0 : 0.0
-            ZIhist[t, 1] += zi ? 1.0 : 0.0
+            if zw
+                if ss == 1 ZWhist[t, 1] += 1 end
+                if ss == 0 ZThist[t, 1] += 1 end
+                if ss == -1 ZLhist[t, 1] += 1 end
+            end
             @show "Regular" SUP Pred Sim Infv round(trial_time, digits=1)
             flush(stdout)
 
             # 2. Inverse CV (inverse_cross_validation)
             trial_start = time()
-            β, _, SUP, Pred, Sim, Infv, zw, zi = inverse_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG)
+            β, _, SUP, Pred, Sim, Infv, zw, ss = inverse_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG, use_refinement=use_refinement)
             trial_time = time() - trial_start
             SUPhist[t, 2] += SUP
             Predhist[t, 2] += Pred
             Simhist[t, 2] += Sim
             Infhist[t, 2] += Infv
             Timehist[t, 2] += trial_time
-            ZWhist[t, 2] += zw ? 1.0 : 0.0
-            ZIhist[t, 2] += zi ? 1.0 : 0.0
+            if zw
+                if ss == 1 ZWhist[t, 2] += 1 end
+                if ss == 0 ZThist[t, 2] += 1 end
+                if ss == -1 ZLhist[t, 2] += 1 end
+            end
             @show "Inverse" SUP Pred Sim Infv round(trial_time, digits=1)
             flush(stdout)
 
             # 3. Smart Adaptive CV
             trial_start = time()
-            β, _, SUP, Pred, Sim, Infv, zw, zi = smart_adaptive_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG)
+            β, _, SUP, Pred, Sim, Infv, zw, ss = smart_adaptive_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG, use_refinement=use_refinement)
             trial_time = time() - trial_start
             SUPhist[t, 3] += SUP
             Predhist[t, 3] += Pred
             Simhist[t, 3] += Sim
             Infhist[t, 3] += Infv
             Timehist[t, 3] += trial_time
-            ZWhist[t, 3] += zw ? 1.0 : 0.0
-            ZIhist[t, 3] += zi ? 1.0 : 0.0
+            if zw
+                if ss == 1 ZWhist[t, 3] += 1 end
+                if ss == 0 ZThist[t, 3] += 1 end
+                if ss == -1 ZLhist[t, 3] += 1 end
+            end
             @show "Adaptive" SUP Pred Sim Infv round(trial_time, digits=1)
             flush(stdout)
         end
@@ -1128,12 +1156,17 @@ function main()
         last_completed_idx = t
 
         println("\n--- n=$n Results (Avg over $T trials) ---")
-        println("Strategy        | SUP   | Pred    | Sim   | Time (s) | Z-Wins | Z-Improv")
-        println("----------------|-------|---------|-------|----------|--------|---------")
-        println("Regular CV      | $(round(SUPhist[t, 1]/T, digits=1)) | $(round(Predhist[t, 1]/T, digits=4)) | $(round(Simhist[t, 1]/T, digits=3)) | $(round(Timehist[t, 1]/T, digits=1)) | $(Int(ZWhist[t, 1])) | $(Int(ZIhist[t, 1]))")
-        println("Inverse CV      | $(round(SUPhist[t, 2]/T, digits=1)) | $(round(Predhist[t, 2]/T, digits=4)) | $(round(Simhist[t, 2]/T, digits=3)) | $(round(Timehist[t, 2]/T, digits=1)) | $(Int(ZWhist[t, 2])) | $(Int(ZIhist[t, 2]))")
-        println("Smart Adaptive  | $(round(SUPhist[t, 3]/T, digits=1)) | $(round(Predhist[t, 3]/T, digits=4)) | $(round(Simhist[t, 3]/T, digits=3)) | $(round(Timehist[t, 3]/T, digits=1)) | $(Int(ZWhist[t, 3])) | $(Int(ZIhist[t, 3]))")
-        println("----------------------------------------------------------------------\n")
+        println("Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)")
+        println("----------------|-------|---------|-------|----------|------------|-------------------")
+        
+        z1_tot = Int(ZWhist[t, 1] + ZThist[t, 1] + ZLhist[t, 1])
+        z2_tot = Int(ZWhist[t, 2] + ZThist[t, 2] + ZLhist[t, 2])
+        z3_tot = Int(ZWhist[t, 3] + ZThist[t, 3] + ZLhist[t, 3])
+
+        println("Regular CV      | $(round(SUPhist[t, 1]/T, digits=1)) | $(round(Predhist[t, 1]/T, digits=4)) | $(round(Simhist[t, 1]/T, digits=3)) | $(round(Timehist[t, 1]/T, digits=1)) | $z1_tot / $T      | $(Int(ZWhist[t, 1])) / $(Int(ZThist[t, 1])) / $(Int(ZLhist[t, 1]))")
+        println("Inverse CV      | $(round(SUPhist[t, 2]/T, digits=1)) | $(round(Predhist[t, 2]/T, digits=4)) | $(round(Simhist[t, 2]/T, digits=3)) | $(round(Timehist[t, 2]/T, digits=1)) | $z2_tot / $T      | $(Int(ZWhist[t, 2])) / $(Int(ZThist[t, 2])) / $(Int(ZLhist[t, 2]))")
+        println("Smart Adaptive  | $(round(SUPhist[t, 3]/T, digits=1)) | $(round(Predhist[t, 3]/T, digits=4)) | $(round(Simhist[t, 3]/T, digits=3)) | $(round(Timehist[t, 3]/T, digits=1)) | $z3_tot / $T      | $(Int(ZWhist[t, 3])) / $(Int(ZThist[t, 3])) / $(Int(ZLhist[t, 3]))")
+        println("--------------------------------------------------------------------------------------\n")
 
         # Check early stopping: all strategies have perfect support recovery
         avg_sim = Simhist[t, :] ./ T
@@ -1180,26 +1213,43 @@ function main()
     default(lw=3)
 
     println("\nGenerating comparison plots...")
-    pPred = plot(ns_completed, Predhist, labels=names, xlabel=L"n", ylabel=L"\frac{\Vert Ax-b\Vert^2}{\Vert b\Vert^2}", left_margin=5mm, dpi=600)
+    pPred = plot(ns_completed, Predhist, labels=names, xlabel=L"n", ylabel=L"\frac{\Vert Ax-b\Vert^2}{\Vert b\Vert^2}", left_margin=15mm, dpi=600)
     savefig(pPred, "Comp_Pred-$(plotname).png")
 
-    pSim = plot(ns_completed, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|Supp(x)\cap Supp(x^\dagger)|}{\max\{|Supp(x)|,k^\dagger\}}", left_margin=5mm, dpi=600)
+    pSim = plot(ns_completed, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|Supp(x)\cap Supp(x^\dagger)|}{\max\{|Supp(x)|,k^\dagger\}}", left_margin=15mm, dpi=600)
     savefig(pSim, "Comp_Sim-$(plotname).png")
 
-    pSUP = plot(ns_completed, SUPhist, labels=names, xlabel=L"n", ylabel=L"\Vert x\Vert_0", left_margin=5mm, dpi=600)
+    pSUP = plot(ns_completed, SUPhist, labels=names, xlabel=L"n", ylabel=L"\Vert x\Vert_0", left_margin=15mm, dpi=600)
     savefig(pSUP, "Comp_SUP-$(plotname).png")
 
-    pInf = plot(ns_completed, Infhist, labels=names, xlabel=L"n", ylabel=L"\Vert x-x^\dagger\Vert_\infty", left_margin=5mm, dpi=600)
+    pInf = plot(ns_completed, Infhist, labels=names, xlabel=L"n", ylabel=L"\Vert x-x^\dagger\Vert_\infty", left_margin=15mm, dpi=600)
     savefig(pInf, "Comp_Inf-$(plotname).png")
 
-    pTime = plot(ns_completed, Timehist, labels=names, xlabel=L"n", ylabel="Execution Time (s)", left_margin=5mm, dpi=600, legend=:topleft)
+    pTime = plot(ns_completed, Timehist, labels=names, xlabel=L"n", ylabel="Execution Time (s)", left_margin=15mm, dpi=600, legend=:topleft)
     savefig(pTime, "Comp_Time-$(plotname).png")
 
-    pRef = plot(ns_completed, ZWhist, labels=names, xlabel=L"n", ylabel="Rate (Wins / Improvs)", left_margin=5mm, top_margin=10mm, dpi=600, title="Zero-Start Wins (solid) vs \nSim Improvements (dashed)")
-    plot!(pRef, ns_completed, ZIhist, labels="", linestyle=:dash, color=palette(:default)[1:3]')
+    # Refinement Plots - Strategy Specific (Wins, Losses, Choices)
+    # ZWhist, ZLhist are (n_sizes x n_strategies)
+    # Strategies: 1=Regular, 2=Inverse, 3=Smart Adaptive
+    
+    # Choices = Wins + Ties + Losses
+    choices_reg = ZWhist[:,1] .+ ZThist[:,1] .+ ZLhist[:,1]
+    choices_inv = ZWhist[:,2] .+ ZThist[:,2] .+ ZLhist[:,2]
+    choices_smart = ZWhist[:,3] .+ ZThist[:,3] .+ ZLhist[:,3]
+    
+    pRef_Reg = plot(ns_completed, [choices_reg ZWhist[:,1] ZLhist[:,1]], 
+        label=["Choices" "Wins" "Losses"], title="Regular CV Refinement", xlabel="n", ylabel="Count")
+        
+    pRef_Inv = plot(ns_completed, [choices_inv ZWhist[:,2] ZLhist[:,2]], 
+        label=["Choices" "Wins" "Losses"], title="Inverse CV Refinement", xlabel="n", ylabel="Count")
+        
+    pRef_Smart = plot(ns_completed, [choices_smart ZWhist[:,3] ZLhist[:,3]], 
+        label=["Choices" "Wins" "Losses"], title="Smart Adaptive Refinement", xlabel="n", ylabel="Count")
+    
+    pRef = plot(pRef_Reg, pRef_Inv, pRef_Smart, layout=(3,1), size=(800, 1000), left_margin=15mm, dpi=600)
     savefig(pRef, "Comp_Refinement-$(plotname).png")
 
     return SUPhist, Predhist, Simhist, Infhist, Timehist, ZWhist, ZIhist
 end
 
-SUPhist, Predhist, Simhist, Infhist = main()
+SUPhist, Predhist, Simhist, Infhist, Timehist, ZWhist, ZIhist = main()
