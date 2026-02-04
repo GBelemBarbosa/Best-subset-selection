@@ -44,6 +44,15 @@
         
         .col-header { padding-bottom: 10px; border-bottom: 2px solid #334155; }
         .col-header.inv { border-bottom-color: var(--inv-accent); color: var(--inv-accent); }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: var(--card-bg); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 10px; text-align: center; border-bottom: 1px solid #334155; border-right: 1px solid #334155; }
+        th { background: #0f172a; color: var(--accent); font-weight: 600; }
+        th.inv-h { color: var(--inv-accent); }
+        td { font-family: monospace; font-size: 0.9rem; }
+        tr:last-child td { border-bottom: none; }
+        td:last-child, th:last-child { border-right: none; }
+        .best-val { color: #4ade80; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -53,6 +62,81 @@
         Grouped by Metric. <b style="color:var(--accent)">Blue headers = Adaptive</b> (Old). <b style="color:var(--inv-accent)">Pink headers = Inverse</b> (New).
     </p>
 <div class="metric-section">
+    <div class="metric-header"><h2>Performance Summary (Average over all n)</h2></div>
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">Setup</th>
+                <th colspan="4" style="border-bottom: 2px solid var(--accent)">SPG+PSI1 (Time / Sim)</th>
+                <th colspan="4" style="border-bottom: 2px solid var(--inv-accent)">SPGpCDSS+PSI1 (Time / Sim)</th>
+            </tr>
+            <tr>
+                <th>Reg(Ad)</th> <th>Tri(Ad)</th> <th class="inv-h">Reg(Inv)</th> <th class="inv-h">Tri(Inv)</th>
+                <th>Reg(Ad)</th> <th>Tri(Ad)</th> <th class="inv-h">Reg(Inv)</th> <th class="inv-h">Tri(Inv)</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr>
+    <td style="text-align:left; font-weight:bold; color:#cbd5e1">const 0.5 2000 10.0 100 10 200_200_2000</td>
+    <td>1.0s / 0.12</td>
+    <td>14.5s / 0.8</td>
+    <td>0.9s / 0.11</td>
+    <td>10.3s / 0.82</td>
+    
+    <td>18.8s / 0.11</td>
+    <td>3.8s / 0.86</td>
+    <td>1.7s / 0.1</td>
+    <td>67.1s / 0.83</td>
+</tr>
+<tr>
+    <td style="text-align:left; font-weight:bold; color:#cbd5e1">const 0.9 1000 5.0 20 10 100_100_1000</td>
+    <td>0.2s / 0.08</td>
+    <td>1.6s / 0.7</td>
+    <td>0.1s / 0.09</td>
+    <td>1.8s / 0.7</td>
+    
+    <td>1.6s / 0.08</td>
+    <td>0.6s / 0.78</td>
+    <td>0.2s / 0.09</td>
+    <td>7.3s / 0.77</td>
+</tr>
+<tr>
+    <td style="text-align:left; font-weight:bold; color:#cbd5e1">exp 0.5 2000 10.0 100 10 200_200_2000</td>
+    <td>1.6s / 0.79</td>
+    <td>14.1s / 0.81</td>
+    <td>4.9s / 0.81</td>
+    <td>13.3s / 0.81</td>
+    
+    <td>23.9s / 0.8</td>
+    <td>3.6s / 0.86</td>
+    <td>35.6s / 0.79</td>
+    <td>69.4s / 0.83</td>
+</tr>
+<tr>
+    <td style="text-align:left; font-weight:bold; color:#cbd5e1">exp 0.9 1000 5.0 20 10 100_100_1000</td>
+    <td>0.6s / 0.76</td>
+    <td>2.4s / 0.75</td>
+    <td>0.4s / 0.78</td>
+    <td>1.8s / 0.7</td>
+    
+    <td>1.2s / 0.85</td>
+    <td>0.9s / 0.83</td>
+    <td>3.8s / 0.8</td>
+    <td>7.0s / 0.8</td>
+</tr>
+    <tr style="background:rgba(56, 189, 248, 0.1); border-top: 2px solid var(--accent)">
+        <td style="text-align:left; font-weight:bold; color:var(--accent)">AVERAGE</td>
+        <td>0.8s / 0.44</td>
+        <td>8.2s / 0.77</td>
+        <td>1.6s / 0.45</td>
+        <td>6.8s / 0.76</td>
+        
+        <td>11.4s / 0.46</td>
+        <td>2.2s / 0.83</td>
+        <td>10.3s / 0.44</td>
+        <td>37.7s / 0.81</td>
+    </tr>
+</tbody></table></div><div class="metric-section">
     <div class="metric-header">
         <h2>Recovery Rate (Support Similarity)</h2>
     </div>
@@ -605,7 +689,7 @@
     </div>
 </div>
 </div>    <footer>
-        <p style="text-align: center; color: #64748b; margin-top: 60px;">Generated at 2026-02-04 02:17</p>
+        <p style="text-align: center; color: #64748b; margin-top: 60px;">Generated at 2026-02-04 14:56</p>
     </footer>
 </body>
 </html>

@@ -132,3 +132,32 @@ tmux new -s robust_inv_const_0.9_p1000 -d "julia --project=. -t 12 new_test_term
 # Tridiagonal
 tmux new -s robust_inv_tri_exp_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl exp 0.9 1000 5.0 20 100:100:1000 10 true > robust_inv_tri_exp_0.9_p1000.log 2>&1" ✅
 tmux new -s robust_inv_tri_const_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl const 0.9 1000 5.0 20 100:100:1000 10 true > robust_inv_tri_const_0.9_p1000.log 2>&1" ✅
+
+# ------------------------------------------------------------------------------
+# PART 7: EXTENDED MIXED STRATEGY (V2)
+# Strategy: 
+# 1. SPG (Inv)
+# 2. SPGpCDSS (Adapt)
+# 3. L0LearnPSI1 (Pure Val, CDPSI)
+# 4. L0Learn CD (Pure Val, CD)
+# 5. SPGpL0Learn (Hybrid Inv+PSI1)
+# Log suffix: _mixed_v2
+# ------------------------------------------------------------------------------
+
+# SCENARIO A: p=2000, k=100, SNR=10.0
+# Standard
+tmux new -s robust_mixed_v2_exp_0.5_p2000 -d "julia --project=. -t 12 new_test_terminal.jl exp 0.5 2000 10.0 100 200:200:2000 10 false > robust_mixed_v2_exp_0.5_p2000.log 2>&1" ✅
+tmux new -s robust_mixed_v2_const_0.5_p2000 -d "julia --project=. -t 12 new_test_terminal.jl const 0.5 2000 10.0 100 200:200:2000 10 false > robust_mixed_v2_const_0.5_p2000.log 2>&1" ✅
+
+# Tridiagonal
+tmux new -s robust_mixed_v2_tri_exp_0.5_p2000 -d "julia --project=. -t 12 new_test_terminal.jl exp 0.5 2000 10.0 100 200:200:2000 10 true > robust_mixed_v2_tri_exp_0.5_p2000.log 2>&1" ✅
+tmux new -s robust_mixed_v2_tri_const_0.5_p2000 -d "julia --project=. -t 12 new_test_terminal.jl const 0.5 2000 10.0 100 200:200:2000 10 true > robust_mixed_v2_tri_const_0.5_p2000.log 2>&1" ✅
+
+# SCENARIO B: p=1000, k=20, SNR=5.0
+# Standard
+tmux new -s robust_mixed_v2_exp_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl exp 0.9 1000 5.0 20 100:100:1000 10 false > robust_mixed_v2_exp_0.9_p1000.log 2>&1" ✅
+tmux new -s robust_mixed_v2_const_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl const 0.9 1000 5.0 20 100:100:1000 10 false > robust_mixed_v2_const_0.9_p1000.log 2>&1" ✅
+
+# Tridiagonal
+tmux new -s robust_mixed_v2_tri_exp_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl exp 0.9 1000 5.0 20 100:100:1000 10 true > robust_mixed_v2_tri_exp_0.9_p1000.log 2>&1" ✅
+tmux new -s robust_mixed_v2_tri_const_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl const 0.9 1000 5.0 20 100:100:1000 10 true > robust_mixed_v2_tri_const_0.9_p1000.log 2>&1" ✅

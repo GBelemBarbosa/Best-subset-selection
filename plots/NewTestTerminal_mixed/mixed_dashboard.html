@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Strategy Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+         :root { --bg: #0f172a; --text: #e2e8f0; --card-bg: #1e293b; --accent: #818cf8; --row-bg: #15202e; --tri-accent: #f472b6; }
+        body { margin: 0; font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); padding: 20px; }
+        h1 { text-align: center; color: var(--accent); margin-bottom: 60px; font-size: 2.5rem; }
+        
+        .metric-section { margin-bottom: 100px; border: 1px solid #334155; border-radius: 20px; padding: 20px; background: rgba(30, 41, 59, 0.3); }
+        .metric-header { text-align: center; margin-bottom: 40px; }
+        .metric-header h2 { font-size: 1.5rem; background: var(--accent); color: #0f172a; display: inline-block; padding: 10px 30px; border-radius: 30px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: var(--card-bg); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #334155; border-right: 1px solid #334155; }
+        th { background: #0f172a; color: var(--accent); font-weight: 600; }
+        th.tri { color: var(--tri-accent); }
+        td { font-family: monospace; font-size: 0.9rem; }
+        
+        .row-header { text-align: left; font-weight: bold; color: #cbd5e1; white-space: nowrap; }
+        .avg-row { background: rgba(129, 140, 248, 0.1); border-top: 2px solid var(--accent); font-weight: bold; }
+        
+        /* Plots Grid */
+        .plot-row { display: grid; grid-template-columns: 200px 1fr 1fr; gap: 20px; margin-bottom: 40px; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 20px; }
+        .plot-box img { width: 100%; border-radius: 8px; border: 1px solid #334155; transition: transform 0.2s; }
+        .plot-box img:hover { transform: scale(1.8); z-index: 100; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+    </style>
+</head>
+<body>
+    <h1>Mixed Strategy Analysis (Part 7)</h1>
+<div class="metric-section">
+    <div class="metric-header"><h2>Overall Analysis</h2></div>
+    <div style="font-size: 1.1rem; line-height: 1.6; color: #cbd5e1; max_width: 900px; margin: 0 auto;">
+<div style="margin-bottom: 25px; border-left: 4px solid var(--accent); padding-left: 20px;">
+    <h3 style="color:white; margin-top:0;">SPG+PSI1</h3>
+    <p>
+        In <b>Regular</b> setups, this algorithm averaged a recovery rate (Sim) of <b style="color:#4ade80">0.428</b> 
+        with an average execution time of <b>1.3s</b>.
+    </p>
+    <p>
+        In <b>Tridiagonal</b> setups, it averaged a recovery rate of <b style="color:var(--tri-accent)">0.771</b> 
+        with an execution time of <b>16.1s</b>.
+    </p>
+</div>
+<div style="margin-bottom: 25px; border-left: 4px solid var(--accent); padding-left: 20px;">
+    <h3 style="color:white; margin-top:0;">SPGpCDSS+PSI1</h3>
+    <p>
+        In <b>Regular</b> setups, this algorithm averaged a recovery rate (Sim) of <b style="color:#4ade80">0.456</b> 
+        with an average execution time of <b>16.0s</b>.
+    </p>
+    <p>
+        In <b>Tridiagonal</b> setups, it averaged a recovery rate of <b style="color:var(--tri-accent)">0.83</b> 
+        with an execution time of <b>2.9s</b>.
+    </p>
+</div>
+<div style="margin-bottom: 25px; border-left: 4px solid var(--accent); padding-left: 20px;">
+    <h3 style="color:white; margin-top:0;">L0LearnPSI1 val</h3>
+    <p>
+        In <b>Regular</b> setups, this algorithm averaged a recovery rate (Sim) of <b style="color:#4ade80">0.434</b> 
+        with an average execution time of <b>15.9s</b>.
+    </p>
+    <p>
+        In <b>Tridiagonal</b> setups, it averaged a recovery rate of <b style="color:var(--tri-accent)">0.835</b> 
+        with an execution time of <b>2.6s</b>.
+    </p>
+</div>
+</div></div><div class='metric-section'><div class='metric-header'><h2>Visual Comparison</h2></div><div style="display:grid; grid-template-columns: 200px 1fr 1fr; gap:20px; text-align:center; font-weight:bold; margin-bottom:20px;">
+    <div>Metric</div>
+    <div style="color:var(--accent)">Regular</div>
+    <div style="color:var(--tri-accent)">Tridiagonal</div>
+</div>
+<h3 style='text-align:center; margin-top:60px; border-bottom:1px solid #334155;'>Recovery Rate (Support Similarity)</h3><div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/const-0.5-2000-10.0-100-10-200_200_2000_standard/pnSim-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnSim-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/const-0.9-1000-5.0-20-10-100_100_1000_standard/pnSim-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnSim-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/exp-0.5-2000-10.0-100-10-200_200_2000_standard/pnSim-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnSim-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/exp-0.9-1000-5.0-20-10-100_100_1000_standard/pnSim-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnSim-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<h3 style='text-align:center; margin-top:60px; border-bottom:1px solid #334155;'>Prediction Error (MSE)</h3><div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/const-0.5-2000-10.0-100-10-200_200_2000_standard/pnPred-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnPred-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/const-0.9-1000-5.0-20-10-100_100_1000_standard/pnPred-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnPred-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/exp-0.5-2000-10.0-100-10-200_200_2000_standard/pnPred-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnPred-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/exp-0.9-1000-5.0-20-10-100_100_1000_standard/pnPred-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnPred-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<h3 style='text-align:center; margin-top:60px; border-bottom:1px solid #334155;'>Execution Time</h3><div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/const-0.5-2000-10.0-100-10-200_200_2000_standard/pnTime-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnTime-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/const-0.9-1000-5.0-20-10-100_100_1000_standard/pnTime-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnTime-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/exp-0.5-2000-10.0-100-10-200_200_2000_standard/pnTime-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnTime-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/exp-0.9-1000-5.0-20-10-100_100_1000_standard/pnTime-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnTime-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<h3 style='text-align:center; margin-top:60px; border-bottom:1px solid #334155;'>Infinity Norm Error</h3><div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/const-0.5-2000-10.0-100-10-200_200_2000_standard/pnInf-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnInf-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/const-0.9-1000-5.0-20-10-100_100_1000_standard/pnInf-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnInf-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/exp-0.5-2000-10.0-100-10-200_200_2000_standard/pnInf-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnInf-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/exp-0.9-1000-5.0-20-10-100_100_1000_standard/pnInf-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnInf-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<h3 style='text-align:center; margin-top:60px; border-bottom:1px solid #334155;'>Refinement Statistics</h3><div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/const-0.5-2000-10.0-100-10-200_200_2000_standard/pnRefinement-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnRefinement-NewTerminal_const-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">const 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/const-0.9-1000-5.0-20-10-100_100_1000_standard/pnRefinement-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/const-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnRefinement-NewTerminal_const-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.5 2000 10.0 100 10 200_200_2000</div>
+    <div class="plot-box"><img src="Regular/exp-0.5-2000-10.0-100-10-200_200_2000_standard/pnRefinement-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.5-2000-10.0-100-10-200_200_2000_tridiagonal/pnRefinement-NewTerminal_exp-0.5-2000-10.0-100-10-200_200_2000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+<div class="plot-row">
+    <div style="font-family:monospace; font-size:0.85rem;">exp 0.9 1000 5.0 20 10 100_100_1000</div>
+    <div class="plot-box"><img src="Regular/exp-0.9-1000-5.0-20-10-100_100_1000_standard/pnRefinement-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_standard.png" loading="lazy"></div>
+    <div class="plot-box"><img src="Tridiagonal/exp-0.9-1000-5.0-20-10-100_100_1000_tridiagonal/pnRefinement-NewTerminal_exp-0.9-1000-5.0-20-10-100_100_1000_mixed_v2_tridiagonal.png" loading="lazy"></div>
+</div>
+</div></body></html>

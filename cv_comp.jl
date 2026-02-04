@@ -481,7 +481,7 @@ end
 # L0Learn Helper (R integration)
 # ============================================================================
 
-function solve_l0_single_lambda_R(lambda_val, x_init, X_train, y_train; maxSuppSize=size(X_train, 2), algorithm="CD")
+function solve_l0_single_lambda_R(lambda_val, x_init, X_train, y_train; maxSuppSize=size(X_train, 2), algorithm="CDPSI")
     try
         RCall.globalEnv[:X_train] = collect(X_train)
         RCall.globalEnv[:y_train] = collect(y_train)
