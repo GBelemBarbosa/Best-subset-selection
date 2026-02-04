@@ -1,0 +1,2077 @@
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1029.0
+Pred = 0.15821441533095332
+Sim = 0.08357628765792031
+Infv = 1.0790479897852823
+round(dt, digits = 1) = 1.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 102.0
+Pred = 0.15400769414683307
+Sim = 0.27450980392156865
+Infv = 1.4863335567767721
+round(dt, digits = 1) = 0.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 178.0
+Pred = 0.1581132628562326
+Sim = 0.08426966292134831
+Infv = 2.670702688298517
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1627.0
+Pred = 0.2157592832398558
+Sim = 0.05531653349723417
+Infv = 1.0673566272486181
+round(dt, digits = 1) = 0.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1988.0
+Pred = 0.21575917301888542
+Sim = 0.05030181086519115
+Infv = 1.0709319678464855
+round(dt, digits = 1) = 0.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 109.0
+Pred = 0.21134177367134044
+Sim = 0.045871559633027525
+Infv = 2.8815943727447264
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1767.0
+Pred = 0.16954647038624635
+Sim = 0.054895302773061684
+Infv = 1.1702729883147243
+round(dt, digits = 1) = 0.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 734.0
+Pred = 0.16954619675339017
+Sim = 0.10626702997275204
+Infv = 1.1836054860446759
+round(dt, digits = 1) = 0.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 99.0
+Pred = 0.1682547948310245
+Sim = 0.15
+Infv = 2.3668764000089975
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 751.0
+Pred = 0.22617661155982377
+Sim = 0.0985352862849534
+Infv = 1.0
+round(dt, digits = 1) = 0.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1972.0
+Pred = 0.22618187977597135
+Sim = 0.050202839756592295
+Infv = 1.046857176629923
+round(dt, digits = 1) = 0.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 82.0
+Pred = 0.22589823341007945
+Sim = 0.07
+Infv = 3.198217377142483
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1724.0
+Pred = 0.22099454762586793
+Sim = 0.05278422273781903
+Infv = 1.0454035187368924
+round(dt, digits = 1) = 0.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 933.0
+Pred = 0.22099525716748444
+Sim = 0.07609860664523044
+Infv = 1.0
+round(dt, digits = 1) = 0.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 134.0
+Pred = 0.2177728198251358
+Sim = 0.1044776119402985
+Infv = 2.961322686073409
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 588.0
+Pred = 0.15284369357770813
+Sim = 0.09693877551020408
+Infv = 1.0
+round(dt, digits = 1) = 0.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1621.0
+Pred = 0.1528457311872869
+Sim = 0.05737199259716225
+Infv = 1.0431581715122857
+round(dt, digits = 1) = 0.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 152.0
+Pred = 0.15161353079159093
+Sim = 0.06578947368421052
+Infv = 3.0518410448124107
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 147.0
+Pred = 0.1706103866871256
+Sim = 0.23129251700680273
+Infv = 1.155025813513535
+round(dt, digits = 1) = 0.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1999.0
+Pred = 0.17248106145558834
+Sim = 0.05002501250625312
+Infv = 1.0446530984745555
+round(dt, digits = 1) = 0.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 167.0
+Pred = 0.17251337705056538
+Sim = 0.10179640718562874
+Infv = 2.5347466909977885
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 163.0
+Pred = 0.19754940232154852
+Sim = 0.2147239263803681
+Infv = 1.0
+round(dt, digits = 1) = 0.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1836.0
+Pred = 0.1984891157758657
+Sim = 0.05392156862745098
+Infv = 1.1030750684545316
+round(dt, digits = 1) = 0.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 125.0
+Pred = 0.19679274235376543
+Sim = 0.096
+Infv = 2.642284614705723
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1292.0
+Pred = 0.17870780718005694
+Sim = 0.07120743034055728
+Infv = 1.0540857136448518
+round(dt, digits = 1) = 0.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1271.0
+Pred = 0.17870764599804095
+Sim = 0.07159716758457907
+Infv = 1.0620111019103518
+round(dt, digits = 1) = 0.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 132.0
+Pred = 0.17786442169567376
+Sim = 0.10606060606060606
+Infv = 3.1349403133463722
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 141.0
+Pred = 0.17334738963691362
+Sim = 0.16312056737588654
+Infv = 1.0
+round(dt, digits = 1) = 0.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1806.0
+Pred = 0.1741402299425752
+Sim = 0.05370985603543743
+Infv = 1.060017128298811
+round(dt, digits = 1) = 0.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 108.0
+Pred = 0.17341719358877927
+Sim = 0.06481481481481481
+Infv = 2.6501469323230546
+round(dt, digits = 1) = 0.1
+
+--- n=200 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 922.9 | 0.1864  | 0.112 | 0.4      |   4 / 10  | -0.0003  | (2/0/2)
+SPGpCDSS+PSI1   | 1426.2 | 0.1863  | 0.084 | 0.2      |   4 / 10  | 0.0013   | (3/1/0)
+L0LearnPSI1 val | 128.6 | 0.1854  | 0.089 | 0.2      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1914.0
+Pred = 0.17148834265481064
+Sim = 0.0522466039707419
+Infv = 1.0378698647747633
+round(dt, digits = 1) = 1.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 739.0
+Pred = 0.17148551637289225
+Sim = 0.11637347767253045
+Infv = 1.0
+round(dt, digits = 1) = 0.7
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 230.0
+Pred = 0.17131646696988784
+Sim = 0.15217391304347827
+Infv = 2.3577557188168794
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 257.0
+Pred = 0.17778952463567396
+Sim = 0.23735408560311283
+Infv = 1.0397057707058956
+round(dt, digits = 1) = 2.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1287.0
+Pred = 0.1779779010766075
+Sim = 0.07459207459207459
+Infv = 1.051055646044907
+round(dt, digits = 1) = 0.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 212.0
+Pred = 0.17725152757469342
+Sim = 0.1650943396226415
+Infv = 2.3615436327423667
+round(dt, digits = 1) = 0.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 506.0
+Pred = 0.19654372699222275
+Sim = 0.15612648221343872
+Infv = 1.0
+round(dt, digits = 1) = 1.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1122.0
+Pred = 0.19659298610134607
+Sim = 0.08110516934046345
+Infv = 1.0
+round(dt, digits = 1) = 0.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 213.0
+Pred = 0.20521206860795055
+Sim = 0.17370892018779344
+Infv = 1.8511659531428895
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1880.0
+Pred = 0.16575250236420885
+Sim = 0.05319148936170213
+Infv = 1.0548609556537973
+round(dt, digits = 1) = 1.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1623.0
+Pred = 0.16575308342545916
+Sim = 0.06099815157116451
+Infv = 1.0520682482355634
+round(dt, digits = 1) = 0.8
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 215.0
+Pred = 0.16659735943578105
+Sim = 0.16744186046511628
+Infv = 2.056195440412186
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1827.0
+Pred = 0.193685914032889
+Sim = 0.05473453749315818
+Infv = 1.0268456040415168
+round(dt, digits = 1) = 1.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 318.0
+Pred = 0.19349065769523655
+Sim = 0.20440251572327045
+Infv = 1.0
+round(dt, digits = 1) = 0.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 237.0
+Pred = 0.1936113809802709
+Sim = 0.14767932489451477
+Infv = 2.167180693233833
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1680.0
+Pred = 0.1701392445091743
+Sim = 0.05892857142857143
+Infv = 1.0627053746301802
+round(dt, digits = 1) = 1.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1150.0
+Pred = 0.17013984562561799
+Sim = 0.08434782608695653
+Infv = 1.0832896035095843
+round(dt, digits = 1) = 0.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 229.0
+Pred = 0.1660126304083192
+Sim = 0.18777292576419213
+Infv = 1.8136793733836167
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1245.0
+Pred = 0.1787620466991034
+Sim = 0.07550200803212852
+Infv = 1.0
+round(dt, digits = 1) = 2.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1009.0
+Pred = 0.17876475065447606
+Sim = 0.09018830525272548
+Infv = 1.0
+round(dt, digits = 1) = 0.4
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 228.0
+Pred = 0.17476047835523276
+Sim = 0.20175438596491227
+Infv = 2.021744504094867
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1291.0
+Pred = 0.17056489903873107
+Sim = 0.07358636715724244
+Infv = 1.0
+round(dt, digits = 1) = 1.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1296.0
+Pred = 0.17056443804865348
+Sim = 0.07330246913580248
+Infv = 1.0
+round(dt, digits = 1) = 0.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 248.0
+Pred = 0.171014123148799
+Sim = 0.1693548387096774
+Infv = 1.8430513626112897
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 352.0
+Pred = 0.16538462683548413
+Sim = 0.21875
+Infv = 1.0
+round(dt, digits = 1) = 2.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1385.0
+Pred = 0.16656043499613485
+Sim = 0.07003610108303249
+Infv = 1.0703109144639538
+round(dt, digits = 1) = 1.4
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 238.0
+Pred = 0.16751822733492186
+Sim = 0.14705882352941177
+Infv = 2.032851345267567
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 1959.0
+Pred = 0.1693068911982815
+Sim = 0.05104645227156713
+Infv = 1.0833838856482327
+round(dt, digits = 1) = 1.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 680.0
+Pred = 0.1693071466663519
+Sim = 0.125
+Infv = 1.134194435805111
+round(dt, digits = 1) = 1.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 238.0
+Pred = 0.16944412293670946
+Sim = 0.11764705882352941
+Infv = 2.286046152587615
+round(dt, digits = 1) = 0.2
+
+--- n=400 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 1291.1 | 0.1759  | 0.103 | 1.6      |   3 / 10  | 0.0071   | (3/0/0)
+SPGpCDSS+PSI1   | 1060.9 | 0.1761  | 0.098 | 0.7      |   3 / 10  | 0.0024   | (2/0/1)
+L0LearnPSI1 val | 228.8 | 0.1763  | 0.163 | 0.2      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 101.0
+Pred = 0.11590155379095332
+Sim = 0.9900990099009901
+Infv = 0.5082082605981589
+round(dt, digits = 1) = 1.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 124.0
+Pred = 0.14401850475765746
+Sim = 0.7903225806451613
+Infv = 1.0
+round(dt, digits = 1) = 1.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 280.0
+Pred = 0.191168800458743
+Sim = 0.25
+Infv = 1.1509087312362845
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 101.0
+Pred = 0.11062436557451984
+Sim = 0.9900990099009901
+Infv = 0.46299699934861815
+round(dt, digits = 1) = 1.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1547.0
+Pred = 0.17772877733785938
+Sim = 0.06464124111182935
+Infv = 0.927492777010376
+round(dt, digits = 1) = 1.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 281.0
+Pred = 0.1814934766907792
+Sim = 0.2704626334519573
+Infv = 1.0909753779862918
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 113.0
+Pred = 0.12215223240133698
+Sim = 0.8849557522123894
+Infv = 0.542228973632375
+round(dt, digits = 1) = 1.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10944189569417069
+Sim = 1.0
+Infv = 0.3185879267916245
+round(dt, digits = 1) = 1.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 289.0
+Pred = 0.18533907267441108
+Sim = 0.2179930795847751
+Infv = 1.2625634767696234
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 103.0
+Pred = 0.11562089684172823
+Sim = 0.970873786407767
+Infv = 0.5432993761850754
+round(dt, digits = 1) = 1.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 103.0
+Pred = 0.11216012923331148
+Sim = 0.970873786407767
+Infv = 0.5426262678986804
+round(dt, digits = 1) = 1.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 195.0
+Pred = 0.17978785375386472
+Sim = 0.441025641025641
+Infv = 1.015554900701421
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 102.0
+Pred = 0.1068161877462696
+Sim = 0.9803921568627451
+Infv = 0.49679533728292613
+round(dt, digits = 1) = 1.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 106.0
+Pred = 0.11168074269997091
+Sim = 0.9433962264150944
+Infv = 0.5283646149434734
+round(dt, digits = 1) = 1.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 238.0
+Pred = 0.16394661397969898
+Sim = 0.36134453781512604
+Infv = 1.1498590087701888
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 105.0
+Pred = 0.10485347972058659
+Sim = 0.9523809523809523
+Infv = 0.464434971381748
+round(dt, digits = 1) = 1.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 114.0
+Pred = 0.11511040794085788
+Sim = 0.868421052631579
+Infv = 1.0
+round(dt, digits = 1) = 1.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 283.0
+Pred = 0.16931187376292037
+Sim = 0.303886925795053
+Infv = 1.0755554330236812
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 106.0
+Pred = 0.12693792831783313
+Sim = 0.9433962264150944
+Infv = 0.5847604576421351
+round(dt, digits = 1) = 0.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 108.0
+Pred = 0.12873368912666444
+Sim = 0.9259259259259259
+Infv = 0.5936631073295414
+round(dt, digits = 1) = 1.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 226.0
+Pred = 0.1784163618491156
+Sim = 0.3584070796460177
+Infv = 1.1583305228242973
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 101.0
+Pred = 0.09964572218897952
+Sim = 0.9900990099009901
+Infv = 0.5042932488616299
+round(dt, digits = 1) = 1.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 1850.0
+Pred = 0.1709233465419105
+Sim = 0.05405405405405406
+Infv = 0.9707734813211051
+round(dt, digits = 1) = 1.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 258.0
+Pred = 0.16373201604483031
+Sim = 0.3178294573643411
+Infv = 1.2963642291033006
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 103.0
+Pred = 0.1128702996678861
+Sim = 0.970873786407767
+Infv = 0.6015325698430097
+round(dt, digits = 1) = 1.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 99.0
+Pred = 0.11203528231743197
+Sim = 0.99
+Infv = 1.0
+round(dt, digits = 1) = 1.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 217.0
+Pred = 0.1710569495190879
+Sim = 0.3686635944700461
+Infv = 1.1745689804120183
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 321.0
+Pred = 0.1703932534592489
+Sim = 0.2834890965732087
+Infv = 1.0
+round(dt, digits = 1) = 1.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 300.0
+Pred = 0.1730746212832703
+Sim = 0.30333333333333334
+Infv = 1.0
+round(dt, digits = 1) = 1.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 306.0
+Pred = 0.17523788462807938
+Sim = 0.2549019607843137
+Infv = 1.3289840567242535
+round(dt, digits = 1) = 0.2
+
+--- n=600 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 125.6 | 0.1186  | 0.896 | 1.2      |   4 / 10  | 0.0037   | (2/2/0)
+SPGpCDSS+PSI1   | 445.1 | 0.1355  | 0.691 | 1.2      |   3 / 10  | 0.0207   | (3/0/0)
+L0LearnPSI1 val | 257.3 | 0.1759  | 0.314 | 0.2      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09062184494398769
+Sim = 1.0
+Infv = 0.24759326565132778
+round(dt, digits = 1) = 3.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09062143618910125
+Sim = 1.0
+Infv = 0.24763788537205678
+round(dt, digits = 1) = 1.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 119.0
+Pred = 0.10681524537584447
+Sim = 0.8403361344537815
+Infv = 0.5214227237479739
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10147768758622501
+Sim = 1.0
+Infv = 0.28319145519770084
+round(dt, digits = 1) = 1.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10147757664600655
+Sim = 1.0
+Infv = 0.28320931399242744
+round(dt, digits = 1) = 2.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 108.0
+Pred = 0.10876577620920493
+Sim = 0.9259259259259259
+Infv = 0.42254728898076427
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10852091659489606
+Sim = 1.0
+Infv = 0.32376933747855463
+round(dt, digits = 1) = 2.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10851989820711239
+Sim = 1.0
+Infv = 0.3237788356285449
+round(dt, digits = 1) = 1.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 125.0
+Pred = 0.12342097753864971
+Sim = 0.8
+Infv = 0.47149467298771647
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09841865016212348
+Sim = 1.0
+Infv = 0.3343301461624444
+round(dt, digits = 1) = 1.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09842146334980151
+Sim = 1.0
+Infv = 0.33437090005497194
+round(dt, digits = 1) = 1.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09841763002689387
+Sim = 1.0
+Infv = 0.3342406737909458
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.101708032876175
+Sim = 1.0
+Infv = 0.2748642455820297
+round(dt, digits = 1) = 2.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 101.0
+Pred = 0.10226911016857479
+Sim = 0.9900990099009901
+Infv = 0.3529271903073282
+round(dt, digits = 1) = 1.7
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.10478046178250958
+Sim = 0.9900990099009901
+Infv = 0.6684114457745018
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09997249586294503
+Sim = 1.0
+Infv = 0.34620823429996694
+round(dt, digits = 1) = 1.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09997319643894477
+Sim = 1.0
+Infv = 0.3461524336274301
+round(dt, digits = 1) = 1.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 119.0
+Pred = 0.11559575711991135
+Sim = 0.8403361344537815
+Infv = 0.5296611445446632
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10024749544779511
+Sim = 1.0
+Infv = 0.367108467313748
+round(dt, digits = 1) = 3.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10024429141081183
+Sim = 1.0
+Infv = 0.3660228699862229
+round(dt, digits = 1) = 1.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 110.0
+Pred = 0.11036938880042718
+Sim = 0.9090909090909091
+Infv = 0.4725510793532023
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 104.0
+Pred = 0.100488266079275
+Sim = 0.9615384615384616
+Infv = 0.47446493224344977
+round(dt, digits = 1) = 1.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 104.0
+Pred = 0.10048929398468995
+Sim = 0.9615384615384616
+Infv = 0.4742933742205908
+round(dt, digits = 1) = 1.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 124.0
+Pred = 0.11250350107012916
+Sim = 0.8064516129032258
+Infv = 0.715445379806656
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09144399382727143
+Sim = 1.0
+Infv = 0.30160574950969354
+round(dt, digits = 1) = 2.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09144339635121349
+Sim = 1.0
+Infv = 0.3019145757055153
+round(dt, digits = 1) = 1.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 156.0
+Pred = 0.11555677307057884
+Sim = 0.6410256410256411
+Infv = 0.5699680802553234
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 107.0
+Pred = 0.11211591650506061
+Sim = 0.9345794392523364
+Infv = 0.40850459551955337
+round(dt, digits = 1) = 1.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10764321093732326
+Sim = 1.0
+Infv = 0.3158335593578919
+round(dt, digits = 1) = 1.9
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 106.0
+Pred = 0.12081589894691502
+Sim = 0.9339622641509434
+Infv = 1.0
+round(dt, digits = 1) = 0.3
+
+--- n=800 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 101.1 | 0.1005  | 0.990 | 2.1      |   5 / 10  | 0.0061   | (3/2/0)
+SPGpCDSS+PSI1   | 100.5 | 0.1001  | 0.995 | 1.5      |   2 / 10  | 0.0000   | (0/2/0)
+L0LearnPSI1 val | 116.8 | 0.1117  | 0.869 | 0.3      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10497710360478658
+Sim = 1.0
+Infv = 0.24249403421429339
+round(dt, digits = 1) = 4.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10497616642658386
+Sim = 1.0
+Infv = 0.2422835747969636
+round(dt, digits = 1) = 3.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 102.0
+Pred = 0.12048770057982207
+Sim = 0.9803921568627451
+Infv = 0.7890135581690759
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10591000256620758
+Sim = 1.0
+Infv = 0.2263784575694443
+round(dt, digits = 1) = 3.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10590930333638104
+Sim = 1.0
+Infv = 0.22638684631484995
+round(dt, digits = 1) = 2.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.1218520149588683
+Sim = 0.9900990099009901
+Infv = 1.0895209098415672
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10344238637301288
+Sim = 1.0
+Infv = 0.32007921515462434
+round(dt, digits = 1) = 6.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 103.0
+Pred = 0.10602682037865534
+Sim = 0.970873786407767
+Infv = 0.4658647774056403
+round(dt, digits = 1) = 3.9
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.11568144098252524
+Sim = 1.0
+Infv = 0.4055518582223251
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09945015435704312
+Sim = 1.0
+Infv = 0.27150517387305273
+round(dt, digits = 1) = 4.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09944871136048
+Sim = 1.0
+Infv = 0.2714787406957666
+round(dt, digits = 1) = 2.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 121.0
+Pred = 0.11215868302285217
+Sim = 0.8264462809917356
+Infv = 0.38475670730036504
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09656180558355408
+Sim = 1.0
+Infv = 0.3310948014234446
+round(dt, digits = 1) = 5.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09656451616696074
+Sim = 1.0
+Infv = 0.33119808298876374
+round(dt, digits = 1) = 1.9
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.11956925109768468
+Sim = 0.9900990099009901
+Infv = 0.8516007442828103
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09809131643023519
+Sim = 1.0
+Infv = 0.3339027067764073
+round(dt, digits = 1) = 9.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.0980880010915481
+Sim = 1.0
+Infv = 0.33273433462169577
+round(dt, digits = 1) = 2.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 118.0
+Pred = 0.10946477307817816
+Sim = 0.847457627118644
+Infv = 0.4793822955388598
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10122146829598842
+Sim = 1.0
+Infv = 0.24981727944354537
+round(dt, digits = 1) = 1.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10122115245283751
+Sim = 1.0
+Infv = 0.24961268813645976
+round(dt, digits = 1) = 4.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 124.0
+Pred = 0.11246682482746795
+Sim = 0.8064516129032258
+Infv = 0.370582181259232
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09355179124111691
+Sim = 1.0
+Infv = 0.25915385827298276
+round(dt, digits = 1) = 4.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 101.0
+Pred = 0.09525565508424387
+Sim = 0.9900990099009901
+Infv = 0.4129303462583662
+round(dt, digits = 1) = 2.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.09864192325517236
+Sim = 0.9900990099009901
+Infv = 0.6922656112205665
+round(dt, digits = 1) = 0.2
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09703005311226706
+Sim = 1.0
+Infv = 0.2631313681650371
+round(dt, digits = 1) = 3.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09702799236780933
+Sim = 1.0
+Infv = 0.26301029078850136
+round(dt, digits = 1) = 4.8
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 306.0
+Pred = 0.14868823339526002
+Sim = 0.32679738562091504
+Infv = 0.9686882878573962
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10314768157476759
+Sim = 1.0
+Infv = 0.2633058341157881
+round(dt, digits = 1) = 1.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10314782847724785
+Sim = 1.0
+Infv = 0.26332741174671837
+round(dt, digits = 1) = 2.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.1031498305869728
+Sim = 1.0
+Infv = 0.26325801650877767
+round(dt, digits = 1) = 0.4
+
+--- n=1000 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 100.0 | 0.1003  | 1.000 | 4.4      |   2 / 10  | 0.0000   | (0/2/0)
+SPGpCDSS+PSI1   | 100.4 | 0.1008  | 0.996 | 3.0      |   4 / 10  | 0.0000   | (0/4/0)
+L0LearnPSI1 val | 127.4 | 0.1162  | 0.876 | 0.3      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09789568746422464
+Sim = 1.0
+Infv = 0.28680764215998544
+round(dt, digits = 1) = 3.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09789625802719502
+Sim = 1.0
+Infv = 0.2868027984551418
+round(dt, digits = 1) = 6.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 124.0
+Pred = 0.11069562698836223
+Sim = 0.8064516129032258
+Infv = 0.4526473477193035
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10322393930349459
+Sim = 1.0
+Infv = 0.3780373573713742
+round(dt, digits = 1) = 1.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 102.0
+Pred = 0.10469172875694124
+Sim = 0.9803921568627451
+Infv = 0.4029499287388677
+round(dt, digits = 1) = 6.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 136.0
+Pred = 0.12212916574278808
+Sim = 0.7352941176470589
+Infv = 0.4442692965939587
+round(dt, digits = 1) = 0.7
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09417795821472477
+Sim = 1.0
+Infv = 0.24855748507211728
+round(dt, digits = 1) = 2.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09418089671853772
+Sim = 1.0
+Infv = 0.24858184334940137
+round(dt, digits = 1) = 6.7
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09418027207047691
+Sim = 1.0
+Infv = 0.24891643566021138
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09559220057615314
+Sim = 1.0
+Infv = 0.2595114407238046
+round(dt, digits = 1) = 2.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09559243947158153
+Sim = 1.0
+Infv = 0.259503483681085
+round(dt, digits = 1) = 7.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09559245031425298
+Sim = 1.0
+Infv = 0.2595586736346147
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09296781373861555
+Sim = 1.0
+Infv = 0.27385799494215846
+round(dt, digits = 1) = 6.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09297401461115866
+Sim = 1.0
+Infv = 0.27403049429412585
+round(dt, digits = 1) = 5.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09445776099712863
+Sim = 1.0
+Infv = 0.2914433226447506
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09035414419523206
+Sim = 1.0
+Infv = 0.27632993081301405
+round(dt, digits = 1) = 5.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09035669957697179
+Sim = 1.0
+Infv = 0.2762754976830132
+round(dt, digits = 1) = 3.8
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 119.0
+Pred = 0.10003835603606365
+Sim = 0.8403361344537815
+Infv = 0.3757936516943584
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09206328468512785
+Sim = 1.0
+Infv = 0.23577515061357757
+round(dt, digits = 1) = 8.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09206498662850944
+Sim = 1.0
+Infv = 0.23580460275080417
+round(dt, digits = 1) = 4.7
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09395919131838451
+Sim = 1.0
+Infv = 0.303087152729303
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10139167051679022
+Sim = 1.0
+Infv = 0.35946336034525883
+round(dt, digits = 1) = 1.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.101391559882415
+Sim = 1.0
+Infv = 0.3595842371573841
+round(dt, digits = 1) = 5.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 111.0
+Pred = 0.12369115741804272
+Sim = 0.9009009009009009
+Infv = 0.7951138665331071
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09996331650677738
+Sim = 1.0
+Infv = 0.3806405528455039
+round(dt, digits = 1) = 4.8
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09996378630908237
+Sim = 1.0
+Infv = 0.3805340743706751
+round(dt, digits = 1) = 5.7
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 152.0
+Pred = 0.12033619315181314
+Sim = 0.6578947368421053
+Infv = 0.37738703360015596
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09832795708592128
+Sim = 1.0
+Infv = 0.25577797731832497
+round(dt, digits = 1) = 2.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09832751290427984
+Sim = 1.0
+Infv = 0.25579761938324086
+round(dt, digits = 1) = 5.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.10035851947297109
+Sim = 1.0
+Infv = 0.28173395319204364
+round(dt, digits = 1) = 0.4
+
+--- n=1200 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 100.0 | 0.0966  | 1.000 | 4.0      |   5 / 10  | 0.0000   | (0/5/0)
+SPGpCDSS+PSI1   | 100.2 | 0.0967  | 0.998 | 5.6      |   6 / 10  | 0.0000   | (0/6/0)
+L0LearnPSI1 val | 114.2 | 0.1055  | 0.894 | 0.4      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09329702306247499
+Sim = 1.0
+Infv = 0.274919712824631
+round(dt, digits = 1) = 11.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09329684786472445
+Sim = 1.0
+Infv = 0.2748089168686487
+round(dt, digits = 1) = 14.8
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.11036652001260598
+Sim = 1.0
+Infv = 0.49876853062536397
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10113547768540412
+Sim = 1.0
+Infv = 0.2172418798513409
+round(dt, digits = 1) = 7.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10113446189151193
+Sim = 1.0
+Infv = 0.21728765534632477
+round(dt, digits = 1) = 17.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.10113367292509365
+Sim = 1.0
+Infv = 0.21733482504771673
+round(dt, digits = 1) = 0.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09124249103598157
+Sim = 1.0
+Infv = 0.22680793877567473
+round(dt, digits = 1) = 2.8
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09124274703143731
+Sim = 1.0
+Infv = 0.2266650542439792
+round(dt, digits = 1) = 15.4
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09124174551411134
+Sim = 1.0
+Infv = 0.22657943027187644
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10537000495422863
+Sim = 1.0
+Infv = 0.23245203734347997
+round(dt, digits = 1) = 5.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10536991874771477
+Sim = 1.0
+Infv = 0.23244753474842195
+round(dt, digits = 1) = 16.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 103.0
+Pred = 0.12881739163530811
+Sim = 0.970873786407767
+Infv = 0.5772767068792091
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09909523243896037
+Sim = 1.0
+Infv = 0.22921065325902035
+round(dt, digits = 1) = 5.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09909717418133875
+Sim = 1.0
+Infv = 0.22929019074082269
+round(dt, digits = 1) = 13.4
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.10395676206472065
+Sim = 0.9900990099009901
+Infv = 0.7543417502144559
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.0981947225641514
+Sim = 1.0
+Infv = 0.22817003622409648
+round(dt, digits = 1) = 11.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09819488188167982
+Sim = 1.0
+Infv = 0.22820159479425606
+round(dt, digits = 1) = 16.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.10220607002320245
+Sim = 0.9900990099009901
+Infv = 0.3016759995470463
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09877165078368542
+Sim = 1.0
+Infv = 0.2242934771935674
+round(dt, digits = 1) = 6.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.0987717155031491
+Sim = 1.0
+Infv = 0.2242427445840416
+round(dt, digits = 1) = 12.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.10069142713111436
+Sim = 1.0
+Infv = 0.2622707162363239
+round(dt, digits = 1) = 0.8
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09881241397816166
+Sim = 1.0
+Infv = 0.2343385487700329
+round(dt, digits = 1) = 3.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09881524332072893
+Sim = 1.0
+Infv = 0.23439780891051198
+round(dt, digits = 1) = 8.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.09909300395850751
+Sim = 0.9900990099009901
+Infv = 0.30245115086738783
+round(dt, digits = 1) = 1.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10262131155108557
+Sim = 1.0
+Infv = 0.2792321220224274
+round(dt, digits = 1) = 4.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.1026210688122839
+Sim = 1.0
+Infv = 0.2792217341757852
+round(dt, digits = 1) = 14.4
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 136.0
+Pred = 0.11483610274390102
+Sim = 0.7352941176470589
+Infv = 0.3280083235968689
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10245419914890906
+Sim = 1.0
+Infv = 0.2928306481858505
+round(dt, digits = 1) = 2.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.1024545083908033
+Sim = 1.0
+Infv = 0.2929424931153113
+round(dt, digits = 1) = 10.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.10275181348050755
+Sim = 1.0
+Infv = 0.3482298267201851
+round(dt, digits = 1) = 0.3
+
+--- n=1400 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 100.0 | 0.0991  | 1.000 | 6.2      |   6 / 10  | 0.0000   | (0/6/0)
+SPGpCDSS+PSI1   | 100.0 | 0.0991  | 1.000 | 13.9     |   6 / 10  | 0.0000   | (0/6/0)
+L0LearnPSI1 val | 104.2 | 0.1055  | 0.968 | 0.6      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09745476599809716
+Sim = 1.0
+Infv = 0.20484369816054504
+round(dt, digits = 1) = 15.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09745395554899935
+Sim = 1.0
+Infv = 0.20485750185260665
+round(dt, digits = 1) = 40.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09745251385958187
+Sim = 1.0
+Infv = 0.20471997676132148
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09468002603681232
+Sim = 1.0
+Infv = 0.20467902088460255
+round(dt, digits = 1) = 6.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09467988427399913
+Sim = 1.0
+Infv = 0.2046858288044704
+round(dt, digits = 1) = 35.7
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.0945993843223089
+Sim = 0.9900990099009901
+Infv = 0.2918956563544921
+round(dt, digits = 1) = 0.7
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09719983774794286
+Sim = 1.0
+Infv = 0.18298464198909825
+round(dt, digits = 1) = 3.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09720040833880184
+Sim = 1.0
+Infv = 0.18302831812098053
+round(dt, digits = 1) = 29.9
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09800470991520943
+Sim = 1.0
+Infv = 0.22387325436069505
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09760243084457268
+Sim = 1.0
+Infv = 0.2238845436583896
+round(dt, digits = 1) = 2.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09760253047598468
+Sim = 1.0
+Infv = 0.22388367338589665
+round(dt, digits = 1) = 35.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.11670302719982505
+Sim = 0.9900990099009901
+Infv = 0.5510107773934914
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.0973457290618183
+Sim = 1.0
+Infv = 0.2628235877915459
+round(dt, digits = 1) = 8.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09734557743782166
+Sim = 1.0
+Infv = 0.2628211432198111
+round(dt, digits = 1) = 31.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.10112324638937079
+Sim = 0.9900990099009901
+Infv = 0.7335432806960878
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10149592781529457
+Sim = 1.0
+Infv = 0.18592357363656875
+round(dt, digits = 1) = 9.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10149555335580433
+Sim = 1.0
+Infv = 0.18592039686906703
+round(dt, digits = 1) = 38.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 142.0
+Pred = 0.11547107449387878
+Sim = 0.704225352112676
+Infv = 0.3140005511942323
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09377889564584611
+Sim = 1.0
+Infv = 0.2399624294195255
+round(dt, digits = 1) = 26.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09377900214741246
+Sim = 1.0
+Infv = 0.23997263658202517
+round(dt, digits = 1) = 42.7
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.0978109846045439
+Sim = 1.0
+Infv = 0.2964861544299836
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09806173467973137
+Sim = 1.0
+Infv = 0.24383813733094772
+round(dt, digits = 1) = 5.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09806157566699729
+Sim = 1.0
+Infv = 0.2438414725810405
+round(dt, digits = 1) = 36.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 105.0
+Pred = 0.11590834721101426
+Sim = 0.9523809523809523
+Infv = 0.5337536795721116
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09769023957174691
+Sim = 1.0
+Infv = 0.24617860026877703
+round(dt, digits = 1) = 3.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.0976905837527867
+Sim = 1.0
+Infv = 0.24619268276920148
+round(dt, digits = 1) = 29.9
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 190.0
+Pred = 0.12435399011590348
+Sim = 0.5263157894736842
+Infv = 0.3701213175303452
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09778375245472709
+Sim = 1.0
+Infv = 0.24255437203549546
+round(dt, digits = 1) = 3.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09778417079081204
+Sim = 1.0
+Infv = 0.24255933566255483
+round(dt, digits = 1) = 37.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 131.0
+Pred = 0.10787623881927295
+Sim = 0.7633587786259542
+Infv = 0.3088012200363588
+round(dt, digits = 1) = 0.4
+
+--- n=1600 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 100.0 | 0.0973  | 1.000 | 8.4      |   1 / 10  | 0.0000   | (0/1/0)
+SPGpCDSS+PSI1   | 100.0 | 0.0973  | 1.000 | 35.7     |   6 / 10  | 0.0000   | (0/6/0)
+L0LearnPSI1 val | 117.1 | 0.1069  | 0.892 | 0.5      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09867692705034023
+Sim = 1.0
+Infv = 0.24750578039023163
+round(dt, digits = 1) = 7.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09867729881415005
+Sim = 1.0
+Infv = 0.24752081334766007
+round(dt, digits = 1) = 71.8
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 102.0
+Pred = 0.11573412775131747
+Sim = 0.9803921568627451
+Infv = 0.550501692327386
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.10033632438380981
+Sim = 1.0
+Infv = 0.3267390164605559
+round(dt, digits = 1) = 15.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10033626594637644
+Sim = 1.0
+Infv = 0.3266911459595123
+round(dt, digits = 1) = 82.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 105.0
+Pred = 0.11656190205574846
+Sim = 0.9523809523809523
+Infv = 0.6927431705692846
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.1001701913962562
+Sim = 1.0
+Infv = 0.1861929537814595
+round(dt, digits = 1) = 4.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.10017080067782551
+Sim = 1.0
+Infv = 0.1862213135671038
+round(dt, digits = 1) = 86.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 109.0
+Pred = 0.10526550023412366
+Sim = 0.9174311926605505
+Infv = 0.3859764062933355
+round(dt, digits = 1) = 0.7
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09014765136147766
+Sim = 1.0
+Infv = 0.24270238797704324
+round(dt, digits = 1) = 5.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09014693876996518
+Sim = 1.0
+Infv = 0.24274047991632708
+round(dt, digits = 1) = 79.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09053635767764007
+Sim = 1.0
+Infv = 0.2820861363297422
+round(dt, digits = 1) = 0.4
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09201732438591517
+Sim = 1.0
+Infv = 0.20840605808930146
+round(dt, digits = 1) = 26.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09201685261455401
+Sim = 1.0
+Infv = 0.20837618682932257
+round(dt, digits = 1) = 77.8
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 104.0
+Pred = 0.11134286182496729
+Sim = 0.9615384615384616
+Infv = 0.6686991833196436
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.0963661193120016
+Sim = 1.0
+Infv = 0.1875837199862329
+round(dt, digits = 1) = 4.4
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09636612299875492
+Sim = 1.0
+Infv = 0.18757439935010733
+round(dt, digits = 1) = 98.9
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09847125713587693
+Sim = 1.0
+Infv = 0.2629429157428953
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09527666720149428
+Sim = 1.0
+Infv = 0.19974756702659935
+round(dt, digits = 1) = 17.8
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09527662249774126
+Sim = 1.0
+Infv = 0.19972815760424822
+round(dt, digits = 1) = 101.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09865242911080671
+Sim = 1.0
+Infv = 0.37445489419522926
+round(dt, digits = 1) = 1.8
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09849227477903309
+Sim = 1.0
+Infv = 0.21298257923542896
+round(dt, digits = 1) = 3.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09849285293700416
+Sim = 1.0
+Infv = 0.21297609753005808
+round(dt, digits = 1) = 101.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09908985044247041
+Sim = 1.0
+Infv = 0.25478199642519916
+round(dt, digits = 1) = 1.3
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09584958972149685
+Sim = 1.0
+Infv = 0.2283979339656974
+round(dt, digits = 1) = 4.1
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.095849561834089
+Sim = 1.0
+Infv = 0.22847065651983922
+round(dt, digits = 1) = 72.4
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.10004100865500207
+Sim = 1.0
+Infv = 0.29580038142677867
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09288509281627257
+Sim = 1.0
+Infv = 0.2207997859233145
+round(dt, digits = 1) = 7.7
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09288626970521059
+Sim = 1.0
+Infv = 0.22080798497925713
+round(dt, digits = 1) = 92.9
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09407941835511532
+Sim = 1.0
+Infv = 0.2628074181652612
+round(dt, digits = 1) = 0.5
+
+--- n=1800 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 100.0 | 0.0960  | 1.000 | 9.8      |   4 / 10  | 0.0000   | (0/4/0)
+SPGpCDSS+PSI1   | 100.0 | 0.0960  | 1.000 | 86.4     |   9 / 10  | 0.0000   | (0/9/0)
+L0LearnPSI1 val | 102.0 | 0.1030  | 0.981 | 0.7      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09224665294564528
+Sim = 1.0
+Infv = 0.16873373048154994
+round(dt, digits = 1) = 11.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.0922470171718865
+Sim = 1.0
+Infv = 0.16873334473645096
+round(dt, digits = 1) = 223.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 103.0
+Pred = 0.11060917077692542
+Sim = 0.970873786407767
+Infv = 0.6155495760570244
+round(dt, digits = 1) = 1.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.0948070758688588
+Sim = 1.0
+Infv = 0.17600027630571757
+round(dt, digits = 1) = 25.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09480706644930292
+Sim = 1.0
+Infv = 0.17602776066166625
+round(dt, digits = 1) = 255.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 135.0
+Pred = 0.10779621699764502
+Sim = 0.7407407407407407
+Infv = 0.2655831805278344
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09252212129814091
+Sim = 1.0
+Infv = 0.21776551933667876
+round(dt, digits = 1) = 7.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09252216139508283
+Sim = 1.0
+Infv = 0.21778047445246984
+round(dt, digits = 1) = 178.2
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 218.0
+Pred = 0.11700317401189497
+Sim = 0.45871559633027525
+Infv = 0.4225721348459146
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09934725316907718
+Sim = 1.0
+Infv = 0.26791257973986027
+round(dt, digits = 1) = 9.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09934731219039283
+Sim = 1.0
+Infv = 0.26791280868289236
+round(dt, digits = 1) = 179.4
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.10779788885014031
+Sim = 1.0
+Infv = 0.474628051592366
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09212936818960418
+Sim = 1.0
+Infv = 0.17919699823923496
+round(dt, digits = 1) = 13.0
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09212957798072255
+Sim = 1.0
+Infv = 0.1791650486484202
+round(dt, digits = 1) = 193.1
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 104.0
+Pred = 0.1096593769962717
+Sim = 0.9615384615384616
+Infv = 0.8196700318619057
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09336605016902406
+Sim = 1.0
+Infv = 0.18741773100221093
+round(dt, digits = 1) = 6.6
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09336652267823935
+Sim = 1.0
+Infv = 0.18738140217811927
+round(dt, digits = 1) = 207.8
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 102.0
+Pred = 0.10710366710902655
+Sim = 0.9803921568627451
+Infv = 0.517206224847808
+round(dt, digits = 1) = 0.5
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09893102602997281
+Sim = 1.0
+Infv = 0.16457324301070497
+round(dt, digits = 1) = 9.2
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09893140368117
+Sim = 1.0
+Infv = 0.16461245556738535
+round(dt, digits = 1) = 186.6
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 100.0
+Pred = 0.09893153785771121
+Sim = 1.0
+Infv = 0.16462382213958504
+round(dt, digits = 1) = 0.6
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09234091234694951
+Sim = 1.0
+Infv = 0.21365930927168186
+round(dt, digits = 1) = 6.9
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09234044563063314
+Sim = 1.0
+Infv = 0.2136539689238549
+round(dt, digits = 1) = 236.3
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 129.0
+Pred = 0.1003121465298263
+Sim = 0.7751937984496124
+Infv = 0.27688123989836533
+round(dt, digits = 1) = 1.0
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.09653839629421793
+Sim = 1.0
+Infv = 0.2511750378453699
+round(dt, digits = 1) = 11.5
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09653817751730445
+Sim = 1.0
+Infv = 0.2511201793575548
+round(dt, digits = 1) = 208.0
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 103.0
+Pred = 0.11621316228903297
+Sim = 0.970873786407767
+Infv = 1.025431638688113
+round(dt, digits = 1) = 1.1
+"SPG+PSI1" = "SPG+PSI1"
+SUP = 100.0
+Pred = 0.0997327232104571
+Sim = 1.0
+Infv = 0.18249555233669934
+round(dt, digits = 1) = 8.3
+"SPGpCDSS+PSI1" = "SPGpCDSS+PSI1"
+SUP = 100.0
+Pred = 0.09973186165336652
+Sim = 1.0
+Infv = 0.18250367661666955
+round(dt, digits = 1) = 210.5
+"L0LearnPSI1 val" = "L0LearnPSI1 val"
+SUP = 101.0
+Pred = 0.1157542872342832
+Sim = 0.9900990099009901
+Infv = 0.6135201769051679
+round(dt, digits = 1) = 0.5
+
+--- n=2000 Results (Avg over 10 trials) ---
+Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+SPG+PSI1        | 100.0 | 0.0952  | 1.000 | 11.0     |   3 / 10  | 0.0000   | (0/3/0)
+SPGpCDSS+PSI1   | 100.0 | 0.0952  | 1.000 | 207.9    |   3 / 10  | 0.0000   | (0/3/0)
+L0LearnPSI1 val | 119.5 | 0.1091  | 0.885 | 0.7      |    N/A     |    N/A   | N/A
+----------------|-------|---------|-------|----------|------------|----------|-------------------
+
+[ Info: Loading packages...
+[ Info: L0Learn R package loaded successfully
+[ Info: Packages loaded successfully
+┌ Info: Parameters
+│   corr = "exp"
+│   ρ = 0.5
+│   p = 2000
+│   SNR = 10.0
+│   k⃰ = 100
+│   ns_range = 200:200:2000
+│   T = 10
+│   is_tridiagonal = false
+└   L0LEARN_AVAILABLE = true
+┌ Info: Experiment configuration
+│   samples = 200:200:2000
+│   trials = 10
+│   algorithms =
+│    3-element Vector{String}:
+│     "SPG+PSI1"
+└     ⋮
+┌ Info: Sample size n=200
+└   progress = "1/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=200 in 28.1s
+┌ Info: Sample size n=400
+└   progress = "2/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=400 in 50.7s
+┌ Info: Sample size n=600
+└   progress = "3/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=600 in 56.7s
+┌ Info: Sample size n=800
+└   progress = "4/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=800 in 66.3s
+┌ Info: Sample size n=1000
+└   progress = "5/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=1000 in 102.1s
+┌ Info: Sample size n=1200
+└   progress = "6/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=1200 in 131.6s
+┌ Info: Sample size n=1400
+└   progress = "7/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=1400 in 234.1s
+┌ Info: Sample size n=1600
+└   progress = "8/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=1600 in 470.3s
+┌ Info: Sample size n=1800
+└   progress = "9/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=1800 in 997.9s
+┌ Info: Sample size n=2000
+└   progress = "10/10"
+[ Info: Trial 1/10 completed
+[ Info: Trial 2/10 completed
+[ Info: Trial 3/10 completed
+[ Info: Trial 4/10 completed
+[ Info: Trial 5/10 completed
+[ Info: Trial 6/10 completed
+[ Info: Trial 7/10 completed
+[ Info: Trial 8/10 completed
+[ Info: Trial 9/10 completed
+[ Info: Trial 10/10 completed
+[ Info: Completed n=2000 in 2217.4s
+[ Info: All experiments finished
+┌ Warning: :seaborn_bright is not a known theme, using :default
+└ @ Plots ~/.julia/packages/Plots/xC48f/src/themes.jl:10
+
+============================================================
+RESULTS
+============================================================
+
+Support Size History (SUPhist):
+10×3 Matrix{Float64}:
+  922.9  1426.2  128.6
+ 1291.1  1060.9  228.8
+  125.6   445.1  257.3
+  101.1   100.5  116.8
+  100.0   100.4  127.4
+  100.0   100.2  114.2
+  100.0   100.0  104.2
+  100.0   100.0  117.1
+  100.0   100.0  102.0
+  100.0   100.0  119.5
+
+Generating plots...
+
+============================================================
+REFINEMENT SIMILARITY IMPROVEMENT AVERAGES
+============================================================
+SPG+PSI1:      0.001658
+SPGpCDSS+PSI1: 0.002441
+============================================================
+Plots saved.
+
+============================================================
+REFINEMENT STATISTICS (Aggregated)
+============================================================
+SPG+PSI1:          10 Wins / 25 Tied / 2 Losses
+SPGpCDSS+PSI1:     8 Wins / 37 Tied / 1 Losses
+============================================================

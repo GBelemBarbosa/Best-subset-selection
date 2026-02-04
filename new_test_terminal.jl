@@ -516,29 +516,81 @@ end
 # SPG + CDSS Combined
 # ============================================================================
 
-function SPGpCDSS(x⁰, funcs; γₖ=0.0, kwargs...)
-    # Internal simple CD implementation (since we removed standalone CDSS)
-    function local_cdss(x⁰, funcs; kwargs...)
-        r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
-        x = copy(x⁰)
-        r_res = -r(x)
-        fx_prev = F(r_res, x)
-        for k in 1:1000
-            for i in 1:length(x)
-                xi = proxl0(dot(r_res, view(X, :, i)) + x[i])
-                if xi != x[i]
-                    BLAS.axpy!(x[i] - xi, view(X, :, i), r_res)
-                    x[i] = xi
-                end
-            end
-            fx = F(r_res, x)
-            if (fx_prev - fx) / fx <= 1e-7; break; end
-            fx_prev = fx
+# Helper function matching L0Learn's has_same_support
+function has_same_support(x, y)
+    for i in eachindex(x)
+        if iszero(x[i]) != iszero(y[i])
+            return false
         end
-        return x, 0
     end
+    return true
+end
+
+function CDSS(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
+    r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
+
+    xᵏ = copy(x⁰)
+    rᵏ = -r(xᵏ)
+    Fxᵏ⁻¹ = F(rᵏ, xᵏ)
+
+    n_vars = length(x⁰)
+    ksort = round(Int64, n_vars * sortperc)
+
+    # Initial greedy ordering based on correlations (computed ONCE)
+    greedy = partialsortperm(abs.(∇f(rᵏ)), 1:ksort, rev=true)
+    greedy = vcat(greedy, setdiff(1:n_vars, greedy))
+
+    # Active set tracking (per L0Learn's RestrictSupport)
+    xᵏ⁻¹ = copy(xᵏ)
+    SameSuppCounter = 0
+    Stabilized = false
+    Order = greedy  # Current sweep order
+
+    for k = 1:kₘₐₓ
+        # RestrictSupport: check if support is same as previous iteration (per L0Learn)
+        if !Stabilized
+            if has_same_support(xᵏ, xᵏ⁻¹)
+                SameSuppCounter += 1
+                if SameSuppCounter == ActiveSetNum - 1
+                    # Switch to active set mode (nonzero indices only)
+                    Order = findall(!iszero, xᵏ)
+                    Stabilized = true
+                end
+            else
+                SameSuppCounter = 0
+            end
+        end
+
+        copyto!(xᵏ⁻¹, xᵏ)
+
+        @inbounds for i in Order
+            xi = proxl0(dot(rᵏ, view(X, :, i)) + xᵏ[i])
+            if xi != xᵏ[i]
+                BLAS.axpy!(xᵏ[i] - xi, view(X, :, i), rᵏ)
+                xᵏ[i] = xi
+            end
+        end
+
+        Fxᵏ = F(rᵏ, xᵏ)
+        if (Fxᵏ⁻¹ - Fxᵏ) / Fxᵏ <= ϵ
+            return xᵏ, k
+        end
+
+        Fxᵏ⁻¹ = Fxᵏ
+    end
+
+    return xᵏ, kₘₐₓ
+end
+
+function SPGpL0Learn(x⁰, funcs; γₖ=0.0, lambda_val=nothing, X_data=nothing, y_data=nothing, kwargs...)
     x, k = SPG(x⁰, funcs; γₖ=γₖ, kwargs...)
-    x, k2 = local_cdss(x, funcs; kwargs...)
+    x, k2 = L0LearnStep(x, funcs; lambda_val=lambda_val, X_data=X_data, y_data=y_data, kwargs...)
+    return x, k + k2
+end
+
+function SPGpCDSS(x⁰, funcs; γₖ=0.0, kwargs...)
+    x, k = SPG(x⁰, funcs; γₖ=γₖ, kwargs...)
+    x, k2 = CDSS(x, funcs; kwargs...)
     return x, k + k2
 end
 
@@ -702,10 +754,19 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
     β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     if use_refinement
         β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-        β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+        zero_won = predval(β_best_0) < predval(β_best)
+        if zero_won
+            si = suppsim(β_best_0) - suppsim(β_best)
+            ss = abs(si) < 1e-6 ? 0 : (si > 0 ? 1 : -1)
+        else
+            si = 0.0
+            ss = -9 # Rejected
+        end
+        β_best = zero_won ? β_best_0 : β_best
+        return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf), zero_won, ss, si
+    else
+        return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf), false, 0, 0.0
     end
-
-    return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
 end
 
 # ============================================================================
@@ -815,9 +876,19 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
     β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     if use_refinement
         β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-        β_best = predval(β_best) > predval(β_best_0) ? β_best_0 : β_best
+        zero_won = predval(β_best_0) < predval(β_best)
+        if zero_won
+            si = suppsim(β_best_0) - suppsim(β_best)
+            ss = abs(si) < 1e-6 ? 0 : (si > 0 ? 1 : -1)
+        else
+            si = 0.0
+            ss = -9 # Rejected
+        end
+        β_best = zero_won ? β_best_0 : β_best
+        return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf), zero_won, ss, si
+    else
+        return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf), false, 0, 0.0
     end
-    return β_best, best_λ, norm(β_best, 0), predval(β_best), suppsim(β_best), norm(β_best - β⃰, Inf)
 end
 
 function smart_adaptive_cross_validation(solver, vars;
@@ -1025,7 +1096,7 @@ function smart_adaptive_cross_validation(solver, vars;
     end
 
     if !use_refinement
-        return best_β, best_λ, norm(best_β, 0), predval(best_β), suppsim(best_β), norm(best_β - β⃰, Inf), false, 0
+        return best_β, best_λ, norm(best_β, 0), predval(best_β), suppsim(best_β), norm(best_β - β⃰, Inf), false, 0, 0.0
     end
 
     # Final refinement with best λ
@@ -1033,12 +1104,17 @@ function smart_adaptive_cross_validation(solver, vars;
     β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     zero_won = predval(β_best_zero) < predval(β_best_path)
-    sim_diff = suppsim(β_best_zero) - suppsim(β_best_path)
-    sim_status = zero_won ? (sim_diff > 1e-6 ? 1 : (sim_diff < -1e-6 ? -1 : 0)) : 0
+    if zero_won
+        si = suppsim(β_best_zero) - suppsim(β_best_path)
+        ss = abs(si) < 1e-6 ? 0 : (si > 0 ? 1 : -1)
+    else
+        si = 0.0
+        ss = -9 # Rejected
+    end
     
     β_ref = zero_won ? β_best_zero : β_best_path
 
-    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, sim_status
+    return β_ref, best_λ, norm(β_ref, 0), predval(β_ref), suppsim(β_ref), norm(β_ref - β⃰, Inf), zero_won, ss, si
 end
 
 # ============================================================================
@@ -1050,7 +1126,7 @@ function main()
     consecutive_perfect_recoveries = 0
     last_completed_idx = 0
 
-    algo_names = ["SPG+PSI1", "SPGpCDSS+PSI1", "L0LearnPSI1", "L0LearnPSI1 Val"]
+    algo_names = ["SPG+PSI1", "SPGpCDSS+PSI1", "L0LearnPSI1 val"]
     n_algos = length(algo_names)
     @info "Experiment configuration" samples = ns_range trials = T algorithms = algo_names
 
@@ -1058,6 +1134,7 @@ function main()
     SUPhist = zeros(length(ns_range), n_algos)
     Infhist = zeros(length(ns_range), n_algos)
     Simhist = zeros(length(ns_range), n_algos)
+    SIhist = zeros(length(ns_range), n_algos)
     # Refinement stats: [strategy] -> ZeroWins, ZeroTies, ZeroLosses
     ZWhist = zeros(Float64, length(ns_range), n_algos)
     ZThist = zeros(Float64, length(ns_range), n_algos)
@@ -1071,11 +1148,12 @@ function main()
         for i = 1:T
             vars = variables(corr=corr, ρ=ρ, n=n, p=p, SNR=SNR, k⃰=k⃰, is_tridiagonal=is_tridiagonal)
 
-            # 1. SPG+PSI1 (Smart Adaptive CV)
+            # 1. SPG+PSI1 (Inverse CV)
             trial_start = time()
-            β, best_λ, SUP, Pred, Sim, Infv, zw, ss = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPG, x, f; kw...), vars; SPG=true, use_refinement=true)
+            β, best_λ, SUP, Pred, Sim, Infv, zw, ss, si = inverse_cross_validation((x, f; kw...) -> SolverPSI1(SPG, x, f; kw...), vars; SPG=true, use_refinement=true)
             dt = time() - trial_start
             SUPhist[t, 1] += SUP; Predhist[t, 1] += Pred; Simhist[t, 1] += Sim; Infhist[t, 1] += Infv; Timehist[t, 1] += dt
+            SIhist[t, 1] += si
             if zw
                 if ss == 1 ZWhist[t, 1] += 1 end
                 if ss == 0 ZThist[t, 1] += 1 end
@@ -1083,42 +1161,31 @@ function main()
             end
             @show "SPG+PSI1" SUP Pred Sim Infv round(dt, digits=1)
 
-            # 2. SPGpCDSS+PSI1 (Smart Adaptive CV)
-            trial_start = time()
-            β, best_λ, SUP, Pred, Sim, Infv, zw, ss = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars; SPG=true, use_refinement=true)
-            dt = time() - trial_start
-            SUPhist[t, 2] += SUP; Predhist[t, 2] += Pred; Simhist[t, 2] += Sim; Infhist[t, 2] += Infv; Timehist[t, 2] += dt
-            if zw
-                if ss == 1 ZWhist[t, 2] += 1 end
-                if ss == 0 ZThist[t, 2] += 1 end
-                if ss == -1 ZLhist[t, 2] += 1 end
-            end
-            @show "SPGpCDSS+PSI1" SUP Pred Sim Infv round(dt, digits=1)
-
             if L0LEARN_AVAILABLE
-                # Sync data to R once per trial if needed for L0LearnPSI1/L0LearnPSI1 Val
+                # Sync data to R once per trial
                 RCall.globalEnv[:X_train] = collect(vars[1])
                 RCall.globalEnv[:y_train] = collect(vars[2])
 
-                # 3. L0LearnPSI1 (Smart Adaptive CV with L0LearnStep)
+                # 2. SPGpCDSS+PSI1 (Inverse CV, WITH REFINEMENT)
                 trial_start = time()
-                β, best_λ, SUP, Pred, Sim, Infv, zw, ss = smart_adaptive_cross_validation((x, f; kw...) -> SolverPSI1(L0LearnStep, x, f; kw...), vars; lambda_val=nothing)
+                β, best_λ, SUP, Pred, Sim, Infv, zw, ss, si = inverse_cross_validation((x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars; SPG=true, use_refinement=true)
                 dt = time() - trial_start
-                SUPhist[t, 3] += SUP; Predhist[t, 3] += Pred; Simhist[t, 3] += Sim; Infhist[t, 3] += Infv; Timehist[t, 3] += dt
+                SUPhist[t, 2] += SUP; Predhist[t, 2] += Pred; Simhist[t, 2] += Sim; Infhist[t, 2] += Infv; Timehist[t, 2] += dt
+                SIhist[t, 2] += si
                 if zw
-                    if ss == 1 ZWhist[t, 3] += 1 end
-                    if ss == 0 ZThist[t, 3] += 1 end
-                    if ss == -1 ZLhist[t, 3] += 1 end
+                    if ss == 1 ZWhist[t, 2] += 1 end
+                    if ss == 0 ZThist[t, 2] += 1 end
+                    if ss == -1 ZLhist[t, 2] += 1 end
                 end
-                @show "L0LearnPSI1" SUP Pred Sim Infv round(dt, digits=1)
+                @show "SPGpCDSS+PSI1" SUP Pred Sim Infv round(dt, digits=1)
 
-                # 4. L0LearnPSI1 Val (Pure L0Learn with Internal CV, includes validation)
+                # 3. L0LearnPSI1 val (Pure L0Learn with Internal CV, includes validation)
                 trial_start = time()
                 β, best_λ, SUP, Pred, Sim, Infv = pure_l0learn_solver(vars)
                 dt = time() - trial_start
-                SUPhist[t, 4] += SUP; Predhist[t, 4] += Pred; Simhist[t, 4] += Sim; Infhist[t, 4] += Infv; Timehist[t, 4] += dt
-                # L0LearnPSI1 Val does not return zw, ss, so no refinement stats for it
-                @show "L0LearnPSI1 Val" SUP Pred Sim Infv round(dt, digits=1)
+                SUPhist[t, 3] += SUP; Predhist[t, 3] += Pred; Simhist[t, 3] += Sim; Infhist[t, 3] += Infv; Timehist[t, 3] += dt
+                # L0LearnPSI1 val does not return zw, ss, so no refinement stats for it
+                @show "L0LearnPSI1 val" SUP Pred Sim Infv round(dt, digits=1)
             end
 
             @info "Trial $i/$T completed"
@@ -1129,12 +1196,16 @@ function main()
         last_completed_idx = t
 
         # Per-n Refinement Summary
-        z1_t = Int(ZWhist[t, 1] + ZThist[t, 1] + ZLhist[t, 1])
-        z2_t = Int(ZWhist[t, 2] + ZThist[t, 2] + ZLhist[t, 2])
-        println("\n--- n=$n Refinement Summary ---")
-        println("SPG+PSI1:      Beta Zero Chosen $z1_t / $T times (B: $(Int(ZWhist[t, 1])), T: $(Int(ZThist[t, 1])), W: $(Int(ZLhist[t, 1])))")
-        println("SPGpCDSS+PSI1: Beta Zero Chosen $z2_t / $T times (B: $(Int(ZWhist[t, 2])), T: $(Int(ZThist[t, 2])), W: $(Int(ZLhist[t, 2])))")
-        println("-------------------------------\n")
+        println("\n--- n=$n Results (Avg over $T trials) ---")
+        println("Algorithm       | SUP   | Pred    | Sim   | Time (s) | Z-Chosen   | Z-Improv | Refinement (W/T/L)")
+        println("----------------|-------|---------|-------|----------|------------|----------|-------------------")
+        
+        @printf("SPG+PSI1        | %-5.1f | %-7.4f | %-5.3f | %-8.1f | %3d / %-3d | %-8.4f | (%d/%d/%d)\n", SUPhist[t, 1] / T, Predhist[t, 1] / T, Simhist[t, 1] / T, Timehist[t, 1] / T, Int(ZWhist[t, 1] + ZThist[t, 1] + ZLhist[t, 1]), T, SIhist[t, 1] / T, Int(ZWhist[t, 1]), Int(ZThist[t, 1]), Int(ZLhist[t, 1]))
+        @printf("SPGpCDSS+PSI1   | %-5.1f | %-7.4f | %-5.3f | %-8.1f | %3d / %-3d | %-8.4f | (%d/%d/%d)\n", SUPhist[t, 2] / T, Predhist[t, 2] / T, Simhist[t, 2] / T, Timehist[t, 2] / T, Int(ZWhist[t, 2] + ZThist[t, 2] + ZLhist[t, 2]), T, SIhist[t, 2] / T, Int(ZWhist[t, 2]), Int(ZThist[t, 2]), Int(ZLhist[t, 2]))
+        @printf("L0LearnPSI1 val | %-5.1f | %-7.4f | %-5.3f | %-8.1f |    N/A     |    N/A   | N/A\n", SUPhist[t, 3] / T, Predhist[t, 3] / T, Simhist[t, 3] / T, Timehist[t, 3] / T)
+        println("----------------|-------|---------|-------|----------|------------|----------|-------------------\n")
+        flush(stdout)
+
 
         # Check for early stopping
         avg_sims = Simhist[t, :] ./ T
@@ -1159,6 +1230,7 @@ function main()
     Simhist = Simhist[1:last_completed_idx, :] ./ T
     Infhist = Infhist[1:last_completed_idx, :] ./ T
     Timehist = Timehist[1:last_completed_idx, :] ./ T
+    SIhist = SIhist[1:last_completed_idx, :] ./ T
 
     # Display results
     println("\n" * "="^60)
@@ -1178,17 +1250,20 @@ function main()
     # Create and save plots
     println("\nGenerating plots...")
 
-    pPred = plot(ns_final, Predhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|Ax-b\|^2 / \|b\|^2"), left_margin=15mm, dpi=600)
+    pPred = plot(ns_final, Predhist, labels=names, xlabel=L"n", ylabel=L"\frac{\Vert Ax-b\Vert^2}{\Vert b\Vert^2}", left_margin=15mm, dpi=600)
     savefig(pPred, "pnPred-$(plotname)$(specifics).png")
 
-    pSim = plot(ns_final, Simhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"|S \cap S^*| / \max(|S|, k^*)"), left_margin=15mm, dpi=600)
+    pSim = plot(ns_final, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|Supp(x)\cap Supp(x^\dagger)|}{\max\{|Supp(x)|,k^\dagger\}}", left_margin=15mm, dpi=600)
     savefig(pSim, "pnSim-$(plotname)$(specifics).png")
 
-    pTime = plot(ns_final, Timehist, labels=names, xlabel=LaTeXString(raw"n"), ylabel="Time (s)", left_margin=15mm, dpi=600)
+    pTime = plot(ns_final, Timehist, labels=names, xlabel=L"n", ylabel="Time (s)", left_margin=15mm, dpi=600)
     savefig(pTime, "pnTime-$(plotname)$(specifics).png")
 
-    pInf = plot(ns_final, Infhist, labels=names, xlabel=LaTeXString(raw"n"), ylabel=LaTeXString(raw"\|\beta - \beta^*\|_\infty"), left_margin=15mm, dpi=600)
+    pInf = plot(ns_final, Infhist, labels=names, xlabel=L"n", ylabel=L"\Vert x-x^\dagger\Vert_\infty", left_margin=15mm, dpi=600)
     savefig(pInf, "pnInf-$(plotname)$(specifics).png")
+
+    pSI = plot(ns_final, SIhist[:, 1:2], labels=names[:, 1:2], xlabel=L"n", ylabel="Avg Sim Improvement", title="Similarity Improvement Comparison", left_margin=15mm, dpi=600)
+    savefig(pSI, "pnSimImprov-$(plotname)$(specifics).png")
 
     # Refinement Plots (Wins, Losses, Choices) - Algo Specific
     # ZWhist, ZLhist are (n_sizes x n_algos)
@@ -1198,18 +1273,28 @@ function main()
     choices_spg = ZWhist[:,1] .+ ZThist[:,1] .+ ZLhist[:,1]
     choices_cdss = ZWhist[:,2] .+ ZThist[:,2] .+ ZLhist[:,2]
     
-    pRef_SPG = plot(ns_final, [choices_spg ZWhist[:,1] ZLhist[:,1]], 
-        label=["Choices" "Wins" "Losses"], 
+    pRef_SPG = plot(ns_final, [choices_spg ZWhist[:,1] ZLhist[:,1] SIhist[:,1].*T], 
+        label=["Choices" "Wins" "Losses" "Total Sim Improv"], 
         title="SPG Refinement", 
-        xlabel="n", ylabel="Count")
-        
-    pRef_CDSS = plot(ns_final, [choices_cdss ZWhist[:,2] ZLhist[:,2]], 
-        label=["Choices" "Wins" "Losses"], 
+        xlabel="n", ylabel="Metric", left_margin=15mm, dpi=600)
+
+    pRef_CDSS = plot(ns_final, [choices_cdss ZWhist[:,2] ZLhist[:,2] SIhist[:,2].*T], 
+        label=["Choices" "Wins" "Losses" "Total Sim Improv"], 
         title="SPGpCDSS Refinement", 
-        xlabel="n", ylabel="Count")
-        
-    pRef = plot(pRef_SPG, pRef_CDSS, layout=(2,1), size=(800, 800), left_margin=15mm, dpi=600)
+        xlabel="n", ylabel="Metric", left_margin=15mm, dpi=600)
+
+    pRef = plot(pRef_SPG, pRef_CDSS, layout=(2,1), size=(800, 800))
     savefig(pRef, "pnRefinement-$(plotname)$(specifics).png")
+
+    # Final Refinement Averages
+    avg_improve_spg = sum(SIhist[:, 1]) / last_completed_idx
+    avg_improve_cdss = sum(SIhist[:, 2]) / last_completed_idx
+    println("\n" * "="^60)
+    println("REFINEMENT SIMILARITY IMPROVEMENT AVERAGES")
+    println("="^60)
+    @printf("SPG+PSI1:      %.6f\n", avg_improve_spg)
+    @printf("SPGpCDSS+PSI1: %.6f\n", avg_improve_cdss)
+    println("="^60)
 
     println("Plots saved.")
     
@@ -1221,12 +1306,8 @@ function main()
     total_zw1 = sum(ZWhist[:, 1]); total_zt1 = sum(ZThist[:, 1]); total_zl1 = sum(ZLhist[:, 1])
     total_zw2 = sum(ZWhist[:, 2]); total_zt2 = sum(ZThist[:, 2]); total_zl2 = sum(ZLhist[:, 2])
     
-    @printf("SPG+PSI1:      %d Better / %d Tied / %d Worse\n", total_zw1, total_zt1, total_zl1)
-    @printf("SPGpCDSS+PSI1: %d Better / %d Tied / %d Worse\n", total_zw2, total_zt2, total_zl2)
-    if L0LEARN_AVAILABLE
-        total_zw3 = sum(ZWhist[:, 3]); total_zt3 = sum(ZThist[:, 3]); total_zl3 = sum(ZLhist[:, 3])
-        @printf("L0LearnPSI1:   %d Better / %d Tied / %d Worse\n", total_zw3, total_zt3, total_zl3)
-    end
+    @printf("SPG+PSI1:          %d Wins / %d Tied / %d Losses\n", total_zw1, total_zt1, total_zl1)
+    @printf("SPGpCDSS+PSI1:     %d Wins / %d Tied / %d Losses\n", total_zw2, total_zt2, total_zl2)
     println("="^60)
 end
 

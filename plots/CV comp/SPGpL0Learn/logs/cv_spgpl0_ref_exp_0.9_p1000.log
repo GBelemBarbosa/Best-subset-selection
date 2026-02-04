@@ -1,0 +1,1935 @@
+"Regular" = "Regular"
+SUP = 492.0
+Pred = 0.37638413831058887
+Sim = 0.036585365853658534
+Infv = 1.7835206616894803
+round(trial_time, digits = 1) = 1.3
+"Inverse" = "Inverse"
+SUP = 56.0
+Pred = 0.36207625211313765
+Sim = 0.14285714285714285
+Infv = 2.2420872214673158
+round(trial_time, digits = 1) = 0.4
+"Adaptive" = "Adaptive"
+SUP = 88.0
+Pred = 0.36815376190648197
+Sim = 0.11363636363636363
+Infv = 1.934360535681281
+round(trial_time, digits = 1) = 0.8
+"Regular" = "Regular"
+SUP = 56.0
+Pred = 0.30435457053594983
+Sim = 0.125
+Infv = 1.8372071214875496
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 27.0
+Pred = 0.28130245207045107
+Sim = 0.2222222222222222
+Infv = 1.8615164789669452
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 56.0
+Pred = 0.30435457053594983
+Sim = 0.125
+Infv = 1.8372071214875496
+round(trial_time, digits = 1) = 0.1
+"Regular" = "Regular"
+SUP = 702.0
+Pred = 0.406077360451749
+Sim = 0.02564102564102564
+Infv = 1.2738890400708316
+round(trial_time, digits = 1) = 0.0
+"Inverse" = "Inverse"
+SUP = 59.0
+Pred = 0.40120908440584296
+Sim = 0.0847457627118644
+Infv = 1.5580089229450098
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 30.0
+Pred = 0.38412577704287737
+Sim = 0.13333333333333333
+Infv = 1.0695515547122836
+round(trial_time, digits = 1) = 0.2
+"Regular" = "Regular"
+SUP = 42.0
+Pred = 0.29892206484708284
+Sim = 0.19047619047619047
+Infv = 2.26431047700203
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 88.0
+Pred = 0.3134604136531777
+Sim = 0.09090909090909091
+Infv = 2.048102232577366
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 42.0
+Pred = 0.29892206484708284
+Sim = 0.19047619047619047
+Infv = 2.26431047700203
+round(trial_time, digits = 1) = 0.1
+"Regular" = "Regular"
+SUP = 52.0
+Pred = 0.3401711013800605
+Sim = 0.09615384615384616
+Infv = 1.8174228470481544
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 105.0
+Pred = 0.35917561072573856
+Sim = 0.09523809523809523
+Infv = 1.6780457408771918
+round(trial_time, digits = 1) = 0.2
+"Adaptive" = "Adaptive"
+SUP = 52.0
+Pred = 0.3401711013800605
+Sim = 0.09615384615384616
+Infv = 1.8174228470481544
+round(trial_time, digits = 1) = 0.1
+"Regular" = "Regular"
+SUP = 69.0
+Pred = 0.35751475757865775
+Sim = 0.07246376811594203
+Infv = 1.6983107623532805
+round(trial_time, digits = 1) = 0.0
+"Inverse" = "Inverse"
+SUP = 613.0
+Pred = 0.37416067711899054
+Sim = 0.02773246329526917
+Infv = 1.7300387833787432
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 69.0
+Pred = 0.35751475757865775
+Sim = 0.07246376811594203
+Infv = 1.6983107623532805
+round(trial_time, digits = 1) = 0.0
+"Regular" = "Regular"
+SUP = 621.0
+Pred = 0.2860202432333893
+Sim = 0.028985507246376812
+Infv = 2.2365400735559606
+round(trial_time, digits = 1) = 0.0
+"Inverse" = "Inverse"
+SUP = 23.0
+Pred = 0.27512013838666166
+Sim = 0.21739130434782608
+Infv = 1.6536927463879296
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 258.0
+Pred = 0.28599351685432406
+Sim = 0.03875968992248062
+Infv = 2.1819677476965014
+round(trial_time, digits = 1) = 0.1
+"Regular" = "Regular"
+SUP = 55.0
+Pred = 0.3670490529509892
+Sim = 0.10909090909090909
+Infv = 1.5530720767695843
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 26.0
+Pred = 0.37371912659630424
+Sim = 0.15384615384615385
+Infv = 1.4205098823015045
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 55.0
+Pred = 0.3670490529509892
+Sim = 0.10909090909090909
+Infv = 1.5530720767695843
+round(trial_time, digits = 1) = 0.1
+"Regular" = "Regular"
+SUP = 63.0
+Pred = 0.2735765173713241
+Sim = 0.047619047619047616
+Infv = 1.9479039371337874
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 39.0
+Pred = 0.27918258835134174
+Sim = 0.10256410256410256
+Infv = 2.3255739479224498
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 63.0
+Pred = 0.2735765173713241
+Sim = 0.047619047619047616
+Infv = 1.9479039371337874
+round(trial_time, digits = 1) = 0.1
+"Regular" = "Regular"
+SUP = 48.0
+Pred = 0.3604674669597355
+Sim = 0.1875
+Infv = 1.9199348560487886
+round(trial_time, digits = 1) = 0.0
+"Inverse" = "Inverse"
+SUP = 29.0
+Pred = 0.3248855936249923
+Sim = 0.2413793103448276
+Infv = 1.7906031859052522
+round(trial_time, digits = 1) = 0.1
+"Adaptive" = "Adaptive"
+SUP = 48.0
+Pred = 0.3604674669597355
+Sim = 0.1875
+Infv = 1.9199348560487886
+round(trial_time, digits = 1) = 0.0
+
+--- n=100 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 220.0 | 0.3371 | 0.092 | 0.2 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 106.5 | 0.3344 | 0.138 | 0.1 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 76.1 | 0.334 | 0.111 | 0.1 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 132.0
+Pred = 0.31244983844269997
+Sim = 0.10606060606060606
+Infv = 1.3959814051732495
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 75.0
+Pred = 0.28590139184946406
+Sim = 0.14666666666666667
+Infv = 1.71506308254357
+round(trial_time, digits = 1) = 2.1
+"Adaptive" = "Adaptive"
+SUP = 72.0
+Pred = 0.2857767512907225
+Sim = 0.16666666666666666
+Infv = 1.4713603016406072
+round(trial_time, digits = 1) = 0.3
+"Regular" = "Regular"
+SUP = 121.0
+Pred = 0.3098959963326139
+Sim = 0.11570247933884298
+Infv = 1.3067064697461495
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 23.0
+Pred = 0.24421357535734178
+Sim = 0.5652173913043478
+Infv = 1.0
+round(trial_time, digits = 1) = 2.1
+"Adaptive" = "Adaptive"
+SUP = 23.0
+Pred = 0.2742488376115494
+Sim = 0.5217391304347826
+Infv = 1.0
+round(trial_time, digits = 1) = 0.1
+"Regular" = "Regular"
+SUP = 100.0
+Pred = 0.33721015055971415
+Sim = 0.11
+Infv = 1.40455704084455
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 27.0
+Pred = 0.3137193680336634
+Sim = 0.3333333333333333
+Infv = 1.230316742305821
+round(trial_time, digits = 1) = 2.3
+"Adaptive" = "Adaptive"
+SUP = 22.0
+Pred = 0.29953671466010345
+Sim = 0.45454545454545453
+Infv = 1.4301411505590833
+round(trial_time, digits = 1) = 0.2
+"Regular" = "Regular"
+SUP = 129.0
+Pred = 0.3276255340753909
+Sim = 0.06976744186046512
+Infv = 2.100748200876882
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 74.0
+Pred = 0.3201239605628473
+Sim = 0.0945945945945946
+Infv = 1.625627887778605
+round(trial_time, digits = 1) = 2.2
+"Adaptive" = "Adaptive"
+SUP = 66.0
+Pred = 0.3115867659148799
+Sim = 0.09090909090909091
+Infv = 1.4027831692765451
+round(trial_time, digits = 1) = 0.3
+"Regular" = "Regular"
+SUP = 113.0
+Pred = 0.31867025489805983
+Sim = 0.09734513274336283
+Infv = 1.2765125450063963
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 30.0
+Pred = 0.27250306263363716
+Sim = 0.3333333333333333
+Infv = 1.0
+round(trial_time, digits = 1) = 2.5
+"Adaptive" = "Adaptive"
+SUP = 29.0
+Pred = 0.2836370562034737
+Sim = 0.3793103448275862
+Infv = 1.1753566722792277
+round(trial_time, digits = 1) = 0.2
+"Regular" = "Regular"
+SUP = 123.0
+Pred = 0.34019263209697387
+Sim = 0.08943089430894309
+Infv = 1.4931119434989133
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 44.0
+Pred = 0.28119398713170723
+Sim = 0.20454545454545456
+Infv = 1.0462477626394613
+round(trial_time, digits = 1) = 2.5
+"Adaptive" = "Adaptive"
+SUP = 28.0
+Pred = 0.2885845260033019
+Sim = 0.32142857142857145
+Infv = 1.1351738552954016
+round(trial_time, digits = 1) = 0.2
+"Regular" = "Regular"
+SUP = 102.0
+Pred = 0.4172702933703374
+Sim = 0.09803921568627451
+Infv = 1.463392472366237
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 46.0
+Pred = 0.36009206801985577
+Sim = 0.21739130434782608
+Infv = 1.1794122523774568
+round(trial_time, digits = 1) = 2.8
+"Adaptive" = "Adaptive"
+SUP = 39.0
+Pred = 0.3645950799601452
+Sim = 0.20512820512820512
+Infv = 1.4650174175714814
+round(trial_time, digits = 1) = 0.2
+"Regular" = "Regular"
+SUP = 154.0
+Pred = 0.3340906728106118
+Sim = 0.09740259740259741
+Infv = 1.2115689014254059
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 21.0
+Pred = 0.2551287072430444
+Sim = 0.5238095238095238
+Infv = 1.0876179584156134
+round(trial_time, digits = 1) = 2.9
+"Adaptive" = "Adaptive"
+SUP = 21.0
+Pred = 0.2737699958464191
+Sim = 0.5714285714285714
+Infv = 1.0997196478660651
+round(trial_time, digits = 1) = 0.3
+"Regular" = "Regular"
+SUP = 111.0
+Pred = 0.2976097569021647
+Sim = 0.13513513513513514
+Infv = 1.6519651482698927
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 40.0
+Pred = 0.24127476435745876
+Sim = 0.375
+Infv = 1.1876864931314928
+round(trial_time, digits = 1) = 1.5
+"Adaptive" = "Adaptive"
+SUP = 49.0
+Pred = 0.23862272759533765
+Sim = 0.30612244897959184
+Infv = 1.0
+round(trial_time, digits = 1) = 0.3
+"Regular" = "Regular"
+SUP = 116.0
+Pred = 0.37112007330241914
+Sim = 0.06896551724137931
+Infv = 2.109365101160541
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 29.0
+Pred = 0.31487338703493833
+Sim = 0.3103448275862069
+Infv = 1.326951906115339
+round(trial_time, digits = 1) = 2.0
+"Adaptive" = "Adaptive"
+SUP = 19.0
+Pred = 0.3011984496628497
+Sim = 0.45
+Infv = 1.199302965700729
+round(trial_time, digits = 1) = 0.3
+
+--- n=200 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 120.1 | 0.3366 | 0.099 | 0.1 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 40.9 | 0.2889 | 0.31 | 2.3 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 36.8 | 0.2922 | 0.347 | 0.2 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 174.0
+Pred = 0.30144722601780355
+Sim = 0.09195402298850575
+Infv = 1.2857531507646118
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 31.0
+Pred = 0.23789498885852217
+Sim = 0.41935483870967744
+Infv = 1.0268207744732518
+round(trial_time, digits = 1) = 6.8
+"Adaptive" = "Adaptive"
+SUP = 59.0
+Pred = 0.23734186139534508
+Sim = 0.22033898305084745
+Infv = 1.0
+round(trial_time, digits = 1) = 1.1
+"Regular" = "Regular"
+SUP = 135.0
+Pred = 0.2844811140247085
+Sim = 0.08888888888888889
+Infv = 1.2489978548053344
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 42.0
+Pred = 0.24415559732042738
+Sim = 0.2619047619047619
+Infv = 1.2972822810386342
+round(trial_time, digits = 1) = 5.9
+"Adaptive" = "Adaptive"
+SUP = 43.0
+Pred = 0.25230612593477575
+Sim = 0.3023255813953488
+Infv = 1.2158310374419656
+round(trial_time, digits = 1) = 1.1
+"Regular" = "Regular"
+SUP = 150.0
+Pred = 0.37907162764865815
+Sim = 0.08666666666666667
+Infv = 1.1208254740188004
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 21.0
+Pred = 0.25315358919182335
+Sim = 0.6190476190476191
+Infv = 1.0
+round(trial_time, digits = 1) = 6.9
+"Adaptive" = "Adaptive"
+SUP = 21.0
+Pred = 0.25315358919182335
+Sim = 0.6190476190476191
+Infv = 1.0
+round(trial_time, digits = 1) = 0.8
+"Regular" = "Regular"
+SUP = 110.0
+Pred = 0.25879676898483095
+Sim = 0.15454545454545454
+Infv = 1.0629057542601206
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 38.0
+Pred = 0.22177876442206
+Sim = 0.39473684210526316
+Infv = 1.0852401562714502
+round(trial_time, digits = 1) = 6.6
+"Adaptive" = "Adaptive"
+SUP = 30.0
+Pred = 0.22726532267827151
+Sim = 0.4666666666666667
+Infv = 1.0612295269226668
+round(trial_time, digits = 1) = 0.7
+"Regular" = "Regular"
+SUP = 153.0
+Pred = 0.3475621861370665
+Sim = 0.12418300653594772
+Infv = 1.039077103524661
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.24000859873417107
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 7.5
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.24000859943344652
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 1.2
+"Regular" = "Regular"
+SUP = 169.0
+Pred = 0.32549829389678653
+Sim = 0.09467455621301775
+Infv = 1.9943122835959761
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 27.0
+Pred = 0.23784904465879406
+Sim = 0.5185185185185185
+Infv = 1.0017564420306686
+round(trial_time, digits = 1) = 6.9
+"Adaptive" = "Adaptive"
+SUP = 23.0
+Pred = 0.24108150809546655
+Sim = 0.5652173913043478
+Infv = 1.1407252358961986
+round(trial_time, digits = 1) = 1.0
+"Regular" = "Regular"
+SUP = 134.0
+Pred = 0.2975227276433621
+Sim = 0.11940298507462686
+Infv = 1.3029041185476389
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.2496566904446992
+Sim = 0.5
+Infv = 1.0428807944555565
+round(trial_time, digits = 1) = 6.5
+"Adaptive" = "Adaptive"
+SUP = 55.0
+Pred = 0.2474550317353491
+Sim = 0.21818181818181817
+Infv = 1.3879986234403543
+round(trial_time, digits = 1) = 0.8
+"Regular" = "Regular"
+SUP = 148.0
+Pred = 0.2656551753022955
+Sim = 0.10810810810810811
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 21.0
+Pred = 0.21952773681046164
+Sim = 0.7142857142857143
+Infv = 1.0
+round(trial_time, digits = 1) = 8.1
+"Adaptive" = "Adaptive"
+SUP = 36.0
+Pred = 0.21776406575378307
+Sim = 0.4722222222222222
+Infv = 1.0
+round(trial_time, digits = 1) = 1.0
+"Regular" = "Regular"
+SUP = 111.0
+Pred = 0.27044195493711015
+Sim = 0.15315315315315314
+Infv = 1.3449814166379508
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.2188240920068876
+Sim = 0.75
+Infv = 1.1509775403513645
+round(trial_time, digits = 1) = 6.0
+"Adaptive" = "Adaptive"
+SUP = 21.0
+Pred = 0.21536736846168097
+Sim = 0.7619047619047619
+Infv = 1.165805162033148
+round(trial_time, digits = 1) = 0.6
+"Regular" = "Regular"
+SUP = 125.0
+Pred = 0.30404693057952026
+Sim = 0.144
+Infv = 1.0461239378796297
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 33.0
+Pred = 0.233479261578318
+Sim = 0.45454545454545453
+Infv = 1.1985539730954349
+round(trial_time, digits = 1) = 6.4
+"Adaptive" = "Adaptive"
+SUP = 37.0
+Pred = 0.2469140165850017
+Sim = 0.40540540540540543
+Infv = 1.1605825890995727
+round(trial_time, digits = 1) = 0.7
+
+--- n=300 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 140.9 | 0.3035 | 0.117 | 0.2 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 27.3 | 0.2356 | 0.543 | 6.7 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 34.5 | 0.2379 | 0.483 | 0.9 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 188.0
+Pred = 0.29158150220223034
+Sim = 0.0797872340425532
+Infv = 1.6056713883963305
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 26.0
+Pred = 0.21531780123198335
+Sim = 0.4230769230769231
+Infv = 1.0
+round(trial_time, digits = 1) = 11.4
+"Adaptive" = "Adaptive"
+SUP = 28.0
+Pred = 0.2155637665250832
+Sim = 0.39285714285714285
+Infv = 1.0
+round(trial_time, digits = 1) = 2.1
+"Regular" = "Regular"
+SUP = 162.0
+Pred = 0.2918996366332078
+Sim = 0.11728395061728394
+Infv = 1.0
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 31.0
+Pred = 0.2164547620383785
+Sim = 0.5483870967741935
+Infv = 1.0
+round(trial_time, digits = 1) = 11.3
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.21242505283490123
+Sim = 0.85
+Infv = 1.0
+round(trial_time, digits = 1) = 1.3
+"Regular" = "Regular"
+SUP = 187.0
+Pred = 0.28278089240298404
+Sim = 0.09090909090909091
+Infv = 1.0
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 51.0
+Pred = 0.2335684612200014
+Sim = 0.27450980392156865
+Infv = 1.0
+round(trial_time, digits = 1) = 11.4
+"Adaptive" = "Adaptive"
+SUP = 52.0
+Pred = 0.2322150705488466
+Sim = 0.25
+Infv = 1.0837697242400801
+round(trial_time, digits = 1) = 1.8
+"Regular" = "Regular"
+SUP = 176.0
+Pred = 0.3230380476491824
+Sim = 0.10227272727272728
+Infv = 1.0
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.20908643572097754
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 12.1
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.20908643572097754
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 2.0
+"Regular" = "Regular"
+SUP = 215.0
+Pred = 0.36410975196381906
+Sim = 0.06511627906976744
+Infv = 1.7056970917203833
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 33.0
+Pred = 0.2680386756438867
+Sim = 0.36363636363636365
+Infv = 1.2414957817283574
+round(trial_time, digits = 1) = 12.0
+"Adaptive" = "Adaptive"
+SUP = 38.0
+Pred = 0.2671538077051825
+Sim = 0.2894736842105263
+Infv = 1.264198264554049
+round(trial_time, digits = 1) = 2.0
+"Regular" = "Regular"
+SUP = 176.0
+Pred = 0.3244402748584895
+Sim = 0.10227272727272728
+Infv = 1.0226287532066023
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 52.0
+Pred = 0.232190819618392
+Sim = 0.3269230769230769
+Infv = 1.0051275811212856
+round(trial_time, digits = 1) = 13.2
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.24317622845856968
+Sim = 0.7
+Infv = 1.0
+round(trial_time, digits = 1) = 1.8
+"Regular" = "Regular"
+SUP = 158.0
+Pred = 0.29134818070704993
+Sim = 0.11392405063291139
+Infv = 1.235536664850329
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 52.0
+Pred = 0.2528346008275835
+Sim = 0.25
+Infv = 1.5290367347353147
+round(trial_time, digits = 1) = 10.4
+"Adaptive" = "Adaptive"
+SUP = 53.0
+Pred = 0.24752845302969803
+Sim = 0.24528301886792453
+Infv = 1.5153759525210102
+round(trial_time, digits = 1) = 1.7
+"Regular" = "Regular"
+SUP = 174.0
+Pred = 0.2985539280380214
+Sim = 0.11494252873563218
+Infv = 0.9479637985031355
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 35.0
+Pred = 0.1920455993967596
+Sim = 0.5142857142857142
+Infv = 1.0506942434781448
+round(trial_time, digits = 1) = 10.9
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.19479209833300565
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 1.4
+"Regular" = "Regular"
+SUP = 155.0
+Pred = 0.2905714406839812
+Sim = 0.0967741935483871
+Infv = 1.2259487107440241
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 27.0
+Pred = 0.22498807256867362
+Sim = 0.4444444444444444
+Infv = 1.0312333249814016
+round(trial_time, digits = 1) = 10.7
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.2261445207968671
+Sim = 0.65
+Infv = 1.0245490846983054
+round(trial_time, digits = 1) = 1.5
+"Regular" = "Regular"
+SUP = 175.0
+Pred = 0.3376895175014775
+Sim = 0.09714285714285714
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.21931554179230148
+Sim = 0.75
+Infv = 1.0198679385947136
+round(trial_time, digits = 1) = 11.0
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.21931554179230148
+Sim = 0.75
+Infv = 1.0198679385947136
+round(trial_time, digits = 1) = 1.4
+
+--- n=400 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 176.6 | 0.3096 | 0.098 | 0.2 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 34.7 | 0.2264 | 0.48 | 11.4 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 29.1 | 0.2267 | 0.583 | 1.7 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 202.0
+Pred = 0.2887186305576918
+Sim = 0.0891089108910891
+Infv = 1.4603351509129885
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.1874080565391141
+Sim = 0.7
+Infv = 1.0
+round(trial_time, digits = 1) = 12.4
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.1874080565391141
+Sim = 0.7
+Infv = 1.0
+round(trial_time, digits = 1) = 2.1
+"Regular" = "Regular"
+SUP = 167.0
+Pred = 0.2847841822621118
+Sim = 0.10778443113772455
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.2130258197948821
+Sim = 0.8
+Infv = 1.1153276284153346
+round(trial_time, digits = 1) = 16.3
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.2130258197948821
+Sim = 0.8
+Infv = 1.1153276284153346
+round(trial_time, digits = 1) = 2.2
+"Regular" = "Regular"
+SUP = 157.0
+Pred = 0.27145018632423673
+Sim = 0.10828025477707007
+Infv = 1.1068100974842736
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 22.0
+Pred = 0.17721681649744625
+Sim = 0.7727272727272727
+Infv = 1.3143005132205015
+round(trial_time, digits = 1) = 11.8
+"Adaptive" = "Adaptive"
+SUP = 22.0
+Pred = 0.18425472762936118
+Sim = 0.7727272727272727
+Infv = 1.3734645129587006
+round(trial_time, digits = 1) = 1.7
+"Regular" = "Regular"
+SUP = 196.0
+Pred = 0.313415621872823
+Sim = 0.09693877551020408
+Infv = 1.0
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.18464415087791902
+Sim = 0.75
+Infv = 1.1135380066451266
+round(trial_time, digits = 1) = 12.2
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.18464415087791902
+Sim = 0.75
+Infv = 1.1135380066451266
+round(trial_time, digits = 1) = 1.9
+"Regular" = "Regular"
+SUP = 127.0
+Pred = 0.2613491304818246
+Sim = 0.13385826771653545
+Infv = 1.0227935488788868
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 25.0
+Pred = 0.2254890876147104
+Sim = 0.52
+Infv = 1.0156317516665867
+round(trial_time, digits = 1) = 13.1
+"Adaptive" = "Adaptive"
+SUP = 27.0
+Pred = 0.2281738406148195
+Sim = 0.5185185185185185
+Infv = 1.0375883974440927
+round(trial_time, digits = 1) = 2.1
+"Regular" = "Regular"
+SUP = 165.0
+Pred = 0.2776555585216135
+Sim = 0.12121212121212122
+Infv = 0.7671647011379792
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 47.0
+Pred = 0.23437714874412374
+Sim = 0.3404255319148936
+Infv = 1.0
+round(trial_time, digits = 1) = 11.7
+"Adaptive" = "Adaptive"
+SUP = 47.0
+Pred = 0.23458320674646368
+Sim = 0.3191489361702128
+Infv = 1.0
+round(trial_time, digits = 1) = 2.0
+"Regular" = "Regular"
+SUP = 187.0
+Pred = 0.27921551631555913
+Sim = 0.0962566844919786
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.19587246771937397
+Sim = 0.75
+Infv = 1.0
+round(trial_time, digits = 1) = 14.0
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.1958724701373607
+Sim = 0.75
+Infv = 1.0
+round(trial_time, digits = 1) = 1.3
+"Regular" = "Regular"
+SUP = 195.0
+Pred = 0.276670606722173
+Sim = 0.09743589743589744
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.21864688284793107
+Sim = 0.8
+Infv = 1.011445511147497
+round(trial_time, digits = 1) = 18.0
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.21865500384698247
+Sim = 0.8
+Infv = 1.011463972969468
+round(trial_time, digits = 1) = 1.6
+"Regular" = "Regular"
+SUP = 211.0
+Pred = 0.2926902910321321
+Sim = 0.0947867298578199
+Infv = 0.860662753654497
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 30.0
+Pred = 0.20085118026472962
+Sim = 0.5666666666666667
+Infv = 1.0
+round(trial_time, digits = 1) = 13.3
+"Adaptive" = "Adaptive"
+SUP = 35.0
+Pred = 0.20648104955857957
+Sim = 0.4857142857142857
+Infv = 1.0
+round(trial_time, digits = 1) = 1.4
+"Regular" = "Regular"
+SUP = 145.0
+Pred = 0.26634791775202354
+Sim = 0.11724137931034483
+Infv = 1.0
+round(trial_time, digits = 1) = 0.1
+"Inverse" = "Inverse"
+SUP = 23.0
+Pred = 0.20545997441572944
+Sim = 0.6086956521739131
+Infv = 1.0235594598482332
+round(trial_time, digits = 1) = 18.0
+"Adaptive" = "Adaptive"
+SUP = 29.0
+Pred = 0.2112537303339462
+Sim = 0.5172413793103449
+Infv = 1.0976592050566611
+round(trial_time, digits = 1) = 1.8
+
+--- n=500 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 175.2 | 0.2812 | 0.106 | 0.2 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 24.7 | 0.2043 | 0.661 | 14.1 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 26.0 | 0.2064 | 0.641 | 1.8 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 200.0
+Pred = 0.2839838169181979
+Sim = 0.095
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.1934391949670122
+Sim = 0.9
+Infv = 1.0132465972180937
+round(trial_time, digits = 1) = 22.1
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.1934391949670122
+Sim = 0.9
+Infv = 1.0132465972180937
+round(trial_time, digits = 1) = 2.0
+"Regular" = "Regular"
+SUP = 180.0
+Pred = 0.2586507503662942
+Sim = 0.10555555555555556
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 32.0
+Pred = 0.20980199507513217
+Sim = 0.5
+Infv = 1.0
+round(trial_time, digits = 1) = 21.6
+"Adaptive" = "Adaptive"
+SUP = 34.0
+Pred = 0.2099074563405586
+Sim = 0.47058823529411764
+Infv = 1.0
+round(trial_time, digits = 1) = 3.0
+"Regular" = "Regular"
+SUP = 218.0
+Pred = 0.27805513447529157
+Sim = 0.09174311926605505
+Infv = 0.7971013838001787
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 42.0
+Pred = 0.20107777355853826
+Sim = 0.47619047619047616
+Infv = 0.5615654167487099
+round(trial_time, digits = 1) = 15.3
+"Adaptive" = "Adaptive"
+SUP = 48.0
+Pred = 0.2058021103100386
+Sim = 0.4166666666666667
+Infv = 0.5024897424270367
+round(trial_time, digits = 1) = 2.4
+"Regular" = "Regular"
+SUP = 209.0
+Pred = 0.2777029270649424
+Sim = 0.09569377990430622
+Infv = 0.791741414561243
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.17617503419718916
+Sim = 0.95
+Infv = 1.039214659002498
+round(trial_time, digits = 1) = 18.1
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.18758987234165977
+Sim = 0.9
+Infv = 1.0221660586754868
+round(trial_time, digits = 1) = 2.5
+"Regular" = "Regular"
+SUP = 208.0
+Pred = 0.29943170141858944
+Sim = 0.09615384615384616
+Infv = 0.813032939763504
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 49.0
+Pred = 0.21838321582869727
+Sim = 0.32653061224489793
+Infv = 1.0372050637989512
+round(trial_time, digits = 1) = 20.5
+"Adaptive" = "Adaptive"
+SUP = 48.0
+Pred = 0.21465154293356134
+Sim = 0.3333333333333333
+Infv = 1.002928829749026
+round(trial_time, digits = 1) = 3.2
+"Regular" = "Regular"
+SUP = 236.0
+Pred = 0.2900718491482348
+Sim = 0.0847457627118644
+Infv = 0.71056141800524
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 40.0
+Pred = 0.2271508558364834
+Sim = 0.425
+Infv = 1.0
+round(trial_time, digits = 1) = 17.4
+"Adaptive" = "Adaptive"
+SUP = 41.0
+Pred = 0.22851331209563555
+Sim = 0.4146341463414634
+Infv = 1.0
+round(trial_time, digits = 1) = 1.5
+"Regular" = "Regular"
+SUP = 221.0
+Pred = 0.27085358779247876
+Sim = 0.09049773755656108
+Infv = 0.8835387563514537
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 27.0
+Pred = 0.17366659476433946
+Sim = 0.7407407407407407
+Infv = 0.34349159602299706
+round(trial_time, digits = 1) = 20.6
+"Adaptive" = "Adaptive"
+SUP = 30.0
+Pred = 0.17776327862006863
+Sim = 0.6666666666666666
+Infv = 0.3289971683704849
+round(trial_time, digits = 1) = 2.3
+"Regular" = "Regular"
+SUP = 157.0
+Pred = 0.250258670535643
+Sim = 0.12738853503184713
+Infv = 0.6906109787236135
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.1805146636708102
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 18.3
+"Adaptive" = "Adaptive"
+SUP = 25.0
+Pred = 0.18049110144290142
+Sim = 0.76
+Infv = 1.0
+round(trial_time, digits = 1) = 1.6
+"Regular" = "Regular"
+SUP = 200.0
+Pred = 0.31766346255734856
+Sim = 0.1
+Infv = 1.171472078751959
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.22417431144214783
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 15.7
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.22417431144214783
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 3.2
+"Regular" = "Regular"
+SUP = 174.0
+Pred = 0.24527179196358062
+Sim = 0.10919540229885058
+Infv = 1.0
+round(trial_time, digits = 1) = 0.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.1860210171223451
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 20.1
+"Adaptive" = "Adaptive"
+SUP = 30.0
+Pred = 0.18413269304942964
+Sim = 0.6
+Infv = 1.0
+round(trial_time, digits = 1) = 2.4
+
+--- n=600 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 200.3 | 0.2772 | 0.1 | 0.2 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 29.0 | 0.199 | 0.682 | 19.0 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 31.6 | 0.2006 | 0.626 | 2.4 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 178.0
+Pred = 0.29317481300900977
+Sim = 0.11235955056179775
+Infv = 0.7286906522837038
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 22.0
+Pred = 0.19460694042375143
+Sim = 0.8636363636363636
+Infv = 1.0
+round(trial_time, digits = 1) = 25.4
+"Adaptive" = "Adaptive"
+SUP = 22.0
+Pred = 0.19461698344879536
+Sim = 0.8636363636363636
+Infv = 1.0
+round(trial_time, digits = 1) = 2.1
+"Regular" = "Regular"
+SUP = 144.0
+Pred = 0.24676998624209348
+Sim = 0.1388888888888889
+Infv = 0.9498907636844482
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.1972388698494675
+Sim = 0.85
+Infv = 1.0
+round(trial_time, digits = 1) = 27.8
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.1972388698494675
+Sim = 0.85
+Infv = 1.0
+round(trial_time, digits = 1) = 3.1
+"Regular" = "Regular"
+SUP = 169.0
+Pred = 0.2524648152694734
+Sim = 0.11242603550295859
+Infv = 1.0
+round(trial_time, digits = 1) = 0.3
+"Inverse" = "Inverse"
+SUP = 23.0
+Pred = 0.1945990031623199
+Sim = 0.7391304347826086
+Infv = 1.0
+round(trial_time, digits = 1) = 26.4
+"Adaptive" = "Adaptive"
+SUP = 23.0
+Pred = 0.1945990031623199
+Sim = 0.7391304347826086
+Infv = 1.0
+round(trial_time, digits = 1) = 3.1
+"Regular" = "Regular"
+SUP = 209.0
+Pred = 0.2521058832365206
+Sim = 0.09569377990430622
+Infv = 0.8602912283517626
+round(trial_time, digits = 1) = 0.4
+"Inverse" = "Inverse"
+SUP = 45.0
+Pred = 0.17817230823646044
+Sim = 0.4222222222222222
+Infv = 1.0
+round(trial_time, digits = 1) = 42.9
+"Adaptive" = "Adaptive"
+SUP = 45.0
+Pred = 0.181659658372949
+Sim = 0.4444444444444444
+Infv = 0.31915446052654645
+round(trial_time, digits = 1) = 2.5
+"Regular" = "Regular"
+SUP = 233.0
+Pred = 0.27766838445819997
+Sim = 0.08583690987124463
+Infv = 0.8771414355184789
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 37.0
+Pred = 0.20482706038437315
+Sim = 0.4864864864864865
+Infv = 1.0
+round(trial_time, digits = 1) = 24.5
+"Adaptive" = "Adaptive"
+SUP = 24.0
+Pred = 0.20711483563131255
+Sim = 0.6666666666666666
+Infv = 1.0569994051453562
+round(trial_time, digits = 1) = 2.8
+"Regular" = "Regular"
+SUP = 210.0
+Pred = 0.2894052909746258
+Sim = 0.09047619047619047
+Infv = 1.0
+round(trial_time, digits = 1) = 0.4
+"Inverse" = "Inverse"
+SUP = 28.0
+Pred = 0.20655970957859507
+Sim = 0.6785714285714286
+Infv = 1.0
+round(trial_time, digits = 1) = 24.2
+"Adaptive" = "Adaptive"
+SUP = 28.0
+Pred = 0.20700604928839617
+Sim = 0.6428571428571429
+Infv = 1.0
+round(trial_time, digits = 1) = 3.5
+"Regular" = "Regular"
+SUP = 205.0
+Pred = 0.2688066189643041
+Sim = 0.0975609756097561
+Infv = 0.7132672456377883
+round(trial_time, digits = 1) = 0.5
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.19513488628992803
+Sim = 0.75
+Infv = 1.0
+round(trial_time, digits = 1) = 27.7
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.19513488628992803
+Sim = 0.75
+Infv = 1.0
+round(trial_time, digits = 1) = 2.7
+"Regular" = "Regular"
+SUP = 198.0
+Pred = 0.26732998381118755
+Sim = 0.10101010101010101
+Infv = 0.7610637444029261
+round(trial_time, digits = 1) = 0.4
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.180455998758558
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 39.2
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.180455998758558
+Sim = 0.8
+Infv = 1.0
+round(trial_time, digits = 1) = 3.4
+"Regular" = "Regular"
+SUP = 250.0
+Pred = 0.2915668401770593
+Sim = 0.08
+Infv = 0.7198269326896986
+round(trial_time, digits = 1) = 0.4
+"Inverse" = "Inverse"
+SUP = 41.0
+Pred = 0.2117040622700581
+Sim = 0.43902439024390244
+Infv = 1.0
+round(trial_time, digits = 1) = 25.3
+"Adaptive" = "Adaptive"
+SUP = 25.0
+Pred = 0.21846659715498393
+Sim = 0.64
+Infv = 1.0
+round(trial_time, digits = 1) = 3.6
+"Regular" = "Regular"
+SUP = 171.0
+Pred = 0.23696846968006738
+Sim = 0.11695906432748537
+Infv = 0.7729652169092772
+round(trial_time, digits = 1) = 0.4
+"Inverse" = "Inverse"
+SUP = 21.0
+Pred = 0.16746811526329133
+Sim = 0.8571428571428571
+Infv = 1.0
+round(trial_time, digits = 1) = 20.6
+"Adaptive" = "Adaptive"
+SUP = 26.0
+Pred = 0.16734108501297243
+Sim = 0.7307692307692307
+Infv = 1.0
+round(trial_time, digits = 1) = 2.5
+
+--- n=700 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 196.7 | 0.2676 | 0.103 | 0.4 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 27.7 | 0.1931 | 0.689 | 28.4 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 25.3 | 0.1944 | 0.713 | 2.9 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 174.0
+Pred = 0.24158182512899723
+Sim = 0.11494252873563218
+Infv = 0.6991450175963784
+round(trial_time, digits = 1) = 0.7
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.17550271191345754
+Sim = 0.95
+Infv = 1.0
+round(trial_time, digits = 1) = 28.2
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.17550277251336277
+Sim = 0.95
+Infv = 1.0
+round(trial_time, digits = 1) = 3.5
+"Regular" = "Regular"
+SUP = 217.0
+Pred = 0.2620224132543849
+Sim = 0.09216589861751152
+Infv = 0.6576270824226526
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 45.0
+Pred = 0.1898506258888952
+Sim = 0.4444444444444444
+Infv = 0.43316073063653837
+round(trial_time, digits = 1) = 37.4
+"Adaptive" = "Adaptive"
+SUP = 47.0
+Pred = 0.19265812846728309
+Sim = 0.425531914893617
+Infv = 0.44632709095633516
+round(trial_time, digits = 1) = 5.4
+"Regular" = "Regular"
+SUP = 245.0
+Pred = 0.25343935357871983
+Sim = 0.08163265306122448
+Infv = 0.6358140579514152
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 25.0
+Pred = 0.17683442220114395
+Sim = 0.76
+Infv = 1.0
+round(trial_time, digits = 1) = 39.2
+"Adaptive" = "Adaptive"
+SUP = 25.0
+Pred = 0.17683585777545377
+Sim = 0.76
+Infv = 1.0
+round(trial_time, digits = 1) = 4.8
+"Regular" = "Regular"
+SUP = 160.0
+Pred = 0.22227030557659125
+Sim = 0.125
+Infv = 0.7422397777366552
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 32.0
+Pred = 0.1761386866369287
+Sim = 0.625
+Infv = 0.6506670745524695
+round(trial_time, digits = 1) = 47.2
+"Adaptive" = "Adaptive"
+SUP = 27.0
+Pred = 0.17577043445752216
+Sim = 0.7407407407407407
+Infv = 0.5558285164738116
+round(trial_time, digits = 1) = 4.0
+"Regular" = "Regular"
+SUP = 146.0
+Pred = 0.2490391340721443
+Sim = 0.136986301369863
+Infv = 0.6495431725244916
+round(trial_time, digits = 1) = 0.8
+"Inverse" = "Inverse"
+SUP = 28.0
+Pred = 0.18985637508826914
+Sim = 0.7142857142857143
+Infv = 0.336038704721368
+round(trial_time, digits = 1) = 39.9
+"Adaptive" = "Adaptive"
+SUP = 28.0
+Pred = 0.18985591071208047
+Sim = 0.7142857142857143
+Infv = 0.3358045992082299
+round(trial_time, digits = 1) = 4.2
+"Regular" = "Regular"
+SUP = 227.0
+Pred = 0.252037202603093
+Sim = 0.0881057268722467
+Infv = 0.9133682412845711
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 41.0
+Pred = 0.18063425147278447
+Sim = 0.4634146341463415
+Infv = 1.0
+round(trial_time, digits = 1) = 42.6
+"Adaptive" = "Adaptive"
+SUP = 34.0
+Pred = 0.18326711149411187
+Sim = 0.5294117647058824
+Infv = 1.0
+round(trial_time, digits = 1) = 4.3
+"Regular" = "Regular"
+SUP = 227.0
+Pred = 0.24171948222875317
+Sim = 0.0881057268722467
+Infv = 0.8091949877104526
+round(trial_time, digits = 1) = 0.5
+"Inverse" = "Inverse"
+SUP = 25.0
+Pred = 0.17291654319889777
+Sim = 0.72
+Infv = 1.0
+round(trial_time, digits = 1) = 33.3
+"Adaptive" = "Adaptive"
+SUP = 30.0
+Pred = 0.17257115512975837
+Sim = 0.6333333333333333
+Infv = 1.0
+round(trial_time, digits = 1) = 4.5
+"Regular" = "Regular"
+SUP = 209.0
+Pred = 0.2772919523614268
+Sim = 0.09569377990430622
+Infv = 0.6616291853941452
+round(trial_time, digits = 1) = 0.8
+"Inverse" = "Inverse"
+SUP = 28.0
+Pred = 0.1880742069374579
+Sim = 0.7142857142857143
+Infv = 0.3009202546248742
+round(trial_time, digits = 1) = 35.4
+"Adaptive" = "Adaptive"
+SUP = 28.0
+Pred = 0.18772005523295435
+Sim = 0.7142857142857143
+Infv = 0.2707549566451357
+round(trial_time, digits = 1) = 4.9
+"Regular" = "Regular"
+SUP = 192.0
+Pred = 0.23332598592245893
+Sim = 0.10416666666666667
+Infv = 0.6094900773630911
+round(trial_time, digits = 1) = 0.9
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.16344431508339402
+Sim = 1.0
+Infv = 0.21083785320427872
+round(trial_time, digits = 1) = 41.6
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.17098182408339002
+Sim = 0.95
+Infv = 1.0
+round(trial_time, digits = 1) = 4.1
+"Regular" = "Regular"
+SUP = 241.0
+Pred = 0.2559609186730445
+Sim = 0.08298755186721991
+Infv = 0.576339192766177
+round(trial_time, digits = 1) = 0.8
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.18576283717780234
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 33.7
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.1908047421346048
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 4.0
+
+--- n=800 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 203.8 | 0.2489 | 0.101 | 0.7 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 28.4 | 0.1799 | 0.729 | 37.8 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 27.9 | 0.1816 | 0.732 | 4.4 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 165.0
+Pred = 0.2572831446655982
+Sim = 0.12121212121212122
+Infv = 0.5903750179896319
+round(trial_time, digits = 1) = 0.9
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.180011111507525
+Sim = 1.0
+Infv = 0.15304411255861794
+round(trial_time, digits = 1) = 43.3
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.180011111507525
+Sim = 1.0
+Infv = 0.15304411255861794
+round(trial_time, digits = 1) = 3.9
+"Regular" = "Regular"
+SUP = 228.0
+Pred = 0.24450803321972153
+Sim = 0.08771929824561403
+Infv = 0.9884055928384989
+round(trial_time, digits = 1) = 0.7
+"Inverse" = "Inverse"
+SUP = 33.0
+Pred = 0.18909923658179645
+Sim = 0.5151515151515151
+Infv = 1.0
+round(trial_time, digits = 1) = 44.8
+"Adaptive" = "Adaptive"
+SUP = 33.0
+Pred = 0.18909923658179645
+Sim = 0.5151515151515151
+Infv = 1.0
+round(trial_time, digits = 1) = 6.8
+"Regular" = "Regular"
+SUP = 197.0
+Pred = 0.2583123831178881
+Sim = 0.09644670050761421
+Infv = 1.0
+round(trial_time, digits = 1) = 0.9
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.18417003558329365
+Sim = 0.95
+Infv = 1.0217768505148903
+round(trial_time, digits = 1) = 59.2
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.18417003558329365
+Sim = 0.95
+Infv = 1.0217768505148903
+round(trial_time, digits = 1) = 5.9
+"Regular" = "Regular"
+SUP = 227.0
+Pred = 0.25329052736754964
+Sim = 0.0881057268722467
+Infv = 0.5861421380259807
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.18205894791727611
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 49.4
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.18205894791727611
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 5.3
+"Regular" = "Regular"
+SUP = 260.0
+Pred = 0.2563371372371997
+Sim = 0.07692307692307693
+Infv = 0.7324928341160706
+round(trial_time, digits = 1) = 0.5
+"Inverse" = "Inverse"
+SUP = 30.0
+Pred = 0.17809434952864914
+Sim = 0.6666666666666666
+Infv = 0.36997025601361133
+round(trial_time, digits = 1) = 34.9
+"Adaptive" = "Adaptive"
+SUP = 30.0
+Pred = 0.1782115117100013
+Sim = 0.6666666666666666
+Infv = 0.36051666677624383
+round(trial_time, digits = 1) = 4.3
+"Regular" = "Regular"
+SUP = 181.0
+Pred = 0.23652888861814836
+Sim = 0.11049723756906077
+Infv = 0.5212170567823263
+round(trial_time, digits = 1) = 0.7
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.17398303300366522
+Sim = 1.0
+Infv = 0.11808358584128298
+round(trial_time, digits = 1) = 47.0
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.17398303300366522
+Sim = 1.0
+Infv = 0.11808358584128298
+round(trial_time, digits = 1) = 3.8
+"Regular" = "Regular"
+SUP = 240.0
+Pred = 0.24606705165959653
+Sim = 0.08333333333333333
+Infv = 0.8492803335151157
+round(trial_time, digits = 1) = 0.8
+"Inverse" = "Inverse"
+SUP = 23.0
+Pred = 0.17357734455777435
+Sim = 0.8260869565217391
+Infv = 1.0
+round(trial_time, digits = 1) = 44.2
+"Adaptive" = "Adaptive"
+SUP = 23.0
+Pred = 0.17357615999197498
+Sim = 0.8260869565217391
+Infv = 1.0
+round(trial_time, digits = 1) = 4.7
+"Regular" = "Regular"
+SUP = 251.0
+Pred = 0.2404421119784878
+Sim = 0.0796812749003984
+Infv = 0.6445061635123864
+round(trial_time, digits = 1) = 1.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.15933849204891587
+Sim = 0.95
+Infv = 1.0
+round(trial_time, digits = 1) = 60.1
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.15933849204891587
+Sim = 0.95
+Infv = 1.0
+round(trial_time, digits = 1) = 5.3
+"Regular" = "Regular"
+SUP = 184.0
+Pred = 0.24926698485403415
+Sim = 0.10869565217391304
+Infv = 0.6132288559252931
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 26.0
+Pred = 0.18887824726387167
+Sim = 0.7307692307692307
+Infv = 1.0
+round(trial_time, digits = 1) = 39.1
+"Adaptive" = "Adaptive"
+SUP = 31.0
+Pred = 0.19093555530063328
+Sim = 0.6129032258064516
+Infv = 1.0
+round(trial_time, digits = 1) = 5.2
+"Regular" = "Regular"
+SUP = 221.0
+Pred = 0.2503170629128839
+Sim = 0.09049773755656108
+Infv = 0.6153053869914868
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.17361697966134382
+Sim = 0.95
+Infv = 1.0
+round(trial_time, digits = 1) = 61.9
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.17361697966134382
+Sim = 0.95
+Infv = 1.0
+round(trial_time, digits = 1) = 5.5
+
+--- n=900 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 215.4 | 0.2492 | 0.094 | 0.8 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 23.2 | 0.1783 | 0.849 | 48.4 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 23.7 | 0.1785 | 0.837 | 5.1 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+"Regular" = "Regular"
+SUP = 225.0
+Pred = 0.24216307241285748
+Sim = 0.08888888888888889
+Infv = 0.5522937526632091
+round(trial_time, digits = 1) = 0.9
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.16684717351877731
+Sim = 1.0
+Infv = 0.10635112681230896
+round(trial_time, digits = 1) = 65.6
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.1668471738342748
+Sim = 1.0
+Infv = 0.10635103480442787
+round(trial_time, digits = 1) = 4.9
+"Regular" = "Regular"
+SUP = 234.0
+Pred = 0.26803601751519834
+Sim = 0.08547008547008547
+Infv = 0.7115744069863916
+round(trial_time, digits = 1) = 1.7
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.18876311330565324
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 48.5
+"Adaptive" = "Adaptive"
+SUP = 20.0
+Pred = 0.18876311330565324
+Sim = 0.9
+Infv = 1.0
+round(trial_time, digits = 1) = 5.6
+"Regular" = "Regular"
+SUP = 240.0
+Pred = 0.23589286225559772
+Sim = 0.08333333333333333
+Infv = 0.6128079636223874
+round(trial_time, digits = 1) = 0.8
+"Inverse" = "Inverse"
+SUP = 27.0
+Pred = 0.1645613551069242
+Sim = 0.7407407407407407
+Infv = 0.28957184284223214
+round(trial_time, digits = 1) = 66.5
+"Adaptive" = "Adaptive"
+SUP = 24.0
+Pred = 0.1647526684839209
+Sim = 0.8333333333333334
+Infv = 0.2960775238867538
+round(trial_time, digits = 1) = 7.4
+"Regular" = "Regular"
+SUP = 234.0
+Pred = 0.22866467716553826
+Sim = 0.08547008547008547
+Infv = 0.6411937646828282
+round(trial_time, digits = 1) = 1.0
+"Inverse" = "Inverse"
+SUP = 35.0
+Pred = 0.17395849904707184
+Sim = 0.5142857142857142
+Infv = 1.0
+round(trial_time, digits = 1) = 64.7
+"Adaptive" = "Adaptive"
+SUP = 35.0
+Pred = 0.1739584164143623
+Sim = 0.5142857142857142
+Infv = 1.0
+round(trial_time, digits = 1) = 7.7
+"Regular" = "Regular"
+SUP = 227.0
+Pred = 0.2521323902303542
+Sim = 0.0881057268722467
+Infv = 0.7045970418617502
+round(trial_time, digits = 1) = 1.0
+"Inverse" = "Inverse"
+SUP = 53.0
+Pred = 0.20358309712034334
+Sim = 0.37735849056603776
+Infv = 0.3826115554598647
+round(trial_time, digits = 1) = 70.7
+"Adaptive" = "Adaptive"
+SUP = 26.0
+Pred = 0.2033986178139283
+Sim = 0.6923076923076923
+Infv = 1.0
+round(trial_time, digits = 1) = 7.7
+"Regular" = "Regular"
+SUP = 242.0
+Pred = 0.23907898941257394
+Sim = 0.08264462809917356
+Infv = 0.7777200036870596
+round(trial_time, digits = 1) = 1.2
+"Inverse" = "Inverse"
+SUP = 29.0
+Pred = 0.1798668544903375
+Sim = 0.6551724137931034
+Infv = 1.0
+round(trial_time, digits = 1) = 48.4
+"Adaptive" = "Adaptive"
+SUP = 33.0
+Pred = 0.18014482847126298
+Sim = 0.5757575757575758
+Infv = 1.0
+round(trial_time, digits = 1) = 6.8
+"Regular" = "Regular"
+SUP = 177.0
+Pred = 0.23884100121814902
+Sim = 0.11299435028248588
+Infv = 0.5650267257013495
+round(trial_time, digits = 1) = 0.5
+"Inverse" = "Inverse"
+SUP = 31.0
+Pred = 0.18356932902596787
+Sim = 0.6129032258064516
+Infv = 1.0
+round(trial_time, digits = 1) = 60.5
+"Adaptive" = "Adaptive"
+SUP = 32.0
+Pred = 0.18384225038935387
+Sim = 0.59375
+Infv = 1.0
+round(trial_time, digits = 1) = 6.0
+"Regular" = "Regular"
+SUP = 212.0
+Pred = 0.2280341005808918
+Sim = 0.09433962264150944
+Infv = 0.6743695076548435
+round(trial_time, digits = 1) = 1.2
+"Inverse" = "Inverse"
+SUP = 20.0
+Pred = 0.16794806785948588
+Sim = 1.0
+Infv = 0.18277080935523649
+round(trial_time, digits = 1) = 57.6
+"Adaptive" = "Adaptive"
+SUP = 22.0
+Pred = 0.17393510001510915
+Sim = 0.8636363636363636
+Infv = 1.0
+round(trial_time, digits = 1) = 4.7
+"Regular" = "Regular"
+SUP = 207.0
+Pred = 0.23520715768088016
+Sim = 0.0966183574879227
+Infv = 0.5623965285923394
+round(trial_time, digits = 1) = 1.0
+"Inverse" = "Inverse"
+SUP = 25.0
+Pred = 0.17378646427989006
+Sim = 0.8
+Infv = 0.19412451318351404
+round(trial_time, digits = 1) = 45.5
+"Adaptive" = "Adaptive"
+SUP = 25.0
+Pred = 0.17379294749020108
+Sim = 0.8
+Infv = 0.1941760056274197
+round(trial_time, digits = 1) = 3.9
+"Regular" = "Regular"
+SUP = 225.0
+Pred = 0.2593290605032974
+Sim = 0.08888888888888889
+Infv = 0.610124837355143
+round(trial_time, digits = 1) = 0.6
+"Inverse" = "Inverse"
+SUP = 21.0
+Pred = 0.1798898097753376
+Sim = 0.8571428571428571
+Infv = 1.0
+round(trial_time, digits = 1) = 38.2
+"Adaptive" = "Adaptive"
+SUP = 21.0
+Pred = 0.1798898097753376
+Sim = 0.8571428571428571
+Infv = 1.0
+round(trial_time, digits = 1) = 7.4
+[ Info: Loading packages...
+[ Info: L0Learn R package loaded successfully
+[ Info: Packages loaded successfully
+┌ Info: Parameters
+│   corr = "exp"
+│   ρ = 0.9
+│   p = 1000
+│   SNR = 5.0
+│   k⃰ = 20
+│   ns_range = 100:100:1000
+│   algo = "SPGpL0Learn"
+│   use_SPG = true
+│   T = 10
+└   refine = true
+┌ Info: Experiment configuration
+│   samples = 100:100:1000
+│   trials = 10
+│   strategies =
+│    3-element Vector{String}:
+│     "Regular CV"
+└     ⋮
+┌ Info: Sample size n=100
+└   progress = "1/10"
+┌ Info: Sample size n=200
+└   progress = "2/10"
+┌ Info: Sample size n=300
+└   progress = "3/10"
+┌ Info: Sample size n=400
+└   progress = "4/10"
+┌ Info: Sample size n=500
+└   progress = "5/10"
+┌ Info: Sample size n=600
+└   progress = "6/10"
+┌ Info: Sample size n=700
+└   progress = "7/10"
+┌ Info: Sample size n=800
+└   progress = "8/10"
+┌ Info: Sample size n=900
+└   progress = "9/10"
+┌ Info: Sample size n=1000
+└   progress = "10/10"
+┌ Warning: :seaborn_bright is not a known theme, using :default
+└ @ Plots ~/.julia/packages/Plots/xC48f/src/themes.jl:10
+
+--- n=1000 Results (Avg over 10 trials) ---
+Strategy        | SUP   | Pred    | Sim   | Time (s) | ZeroChosen | Refinement (W/T/L)
+----------------|-------|---------|-------|----------|------------|-------------------
+Regular CV      | 222.3 | 0.2427 | 0.091 | 1.0 | 0 / 10      | 0 / 0 / 0
+Inverse CV      | 28.1 | 0.1783 | 0.746 | 56.6 | 0 / 10      | 0 / 0 / 0
+Smart Adaptive  | 25.8 | 0.1789 | 0.763 | 6.2 | 0 / 10      | 0 / 0 / 0
+--------------------------------------------------------------------------------------
+
+
+Generating comparison plots...

@@ -249,6 +249,54 @@
     <td class="stat-cell ">0</td>
     <td class="ref-breakdown">0 Wins</td>
 </tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.071</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">5x Faster</span></td>
+    <td>1.33s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
+</tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Inverse CV</span></td>
+    <td class="stat-cell ">0.11</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">26x Faster</span></td>
+    <td>0.02s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
+</tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell success">1.0</td>
+    <td class="stat-cell ">0</td>
+    <td><span class="gain-badge">56x Faster</span></td>
+    <td>0.71s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
+</tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+    <td class="winner-cell"><span class="winner-label acc">Smart Adaptive</span></td>
+    <td class="winner-cell"><span class="winner-label eff">Smart Adaptive</span></td>
+    <td class="stat-cell ">0.763</td>
+    <td class="stat-cell success">+0.017</td>
+    <td><span class="gain-badge">9x Faster</span></td>
+    <td>0.62s/n</td>
+    <td class="stat-cell ">0</td>
+    <td class="ref-breakdown">0 Wins</td>
+</tr>
 
                        </tbody>
                    </table>
@@ -328,11 +376,99 @@
     <td>2.7x (Ad Faster)</td>
     <td>2.77s vs 7.53s</td>
 </tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+    <td class="stat-cell ">+0.000 (=)</td>
+    <td>5.1x (Inv Faster)</td>
+    <td>13.3s vs 2.6s</td>
+</tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+    <td class="stat-cell ">+0.000 (=)</td>
+    <td>25.5x (Inv Faster)</td>
+    <td>5.1s vs 0.2s</td>
+</tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+    <td class="stat-cell success">+0.000 (=)</td>
+    <td class="stat-cell success">56x (Ad Faster)</td>
+    <td>7.1s vs 399.2s</td>
+</tr>
+<tr>
+    <td>SPGpL0Learn</td>
+    <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+    <td class="stat-cell success">+0.017 (Ad)</td>
+    <td class="stat-cell success">9x (Ad Faster)</td>
+    <td>6.2s vs 56.6s</td>
+</tr>
 
                        </tbody>
                    </table>
                </div>
            </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 style="margin:0; font-size: 1.2rem;">SPGpCDSS vs SPGpL0Learn (Best CV Strategy)</h2>
+                <p style="color: #94a3b8; font-size: 0.85rem; margin: 10px 0 0 0;">Head-to-head comparison using each algorithm's best CV strategy per configuration.</p>
+            </div>
+            <div style="padding:0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Configuration</th>
+                            <th>SPGpCDSS Best</th>
+                            <th>SPGpCDSS Sim</th>
+                            <th>SPGpL0Learn Best</th>
+                            <th>SPGpL0Learn Sim</th>
+                            <th>Δ Sim</th>
+                            <th>Sim Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="param-tag">exp-0.5-2000-10.0-100</span></td>
+                            <td>Regular (3.8s)</td>
+                            <td>1.0</td>
+                            <td>Smart (7.1s)</td>
+                            <td>1.0</td>
+                            <td>0</td>
+                            <td><span class="winner-label eff">Tie</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="param-tag">exp-0.9-1000-5.0-20</span></td>
+                            <td>Smart (6.8s)</td>
+                            <td class="stat-cell success">1.0</td>
+                            <td>Smart (6.2s)</td>
+                            <td>0.763</td>
+                            <td class="stat-cell warning">-0.237</td>
+                            <td><span class="winner-label acc">SPGpCDSS</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="param-tag">const-0.5-2000-10.0-100</span></td>
+                            <td>Inverse (4.1s)</td>
+                            <td class="stat-cell success">0.172</td>
+                            <td>Inverse (2.6s)</td>
+                            <td>0.071</td>
+                            <td class="stat-cell warning">-0.101</td>
+                            <td><span class="winner-label acc">SPGpCDSS</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="param-tag">const-0.9-1000-5.0-20</span></td>
+                            <td>Inverse (0.5s)</td>
+                            <td class="stat-cell success">0.129</td>
+                            <td>Regular (7.3s)</td>
+                            <td>0.115</td>
+                            <td class="stat-cell warning">-0.014</td>
+                            <td><span class="winner-label acc">SPGpCDSS</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
            <h2 style="margin: 60px 0 20px 0; font-size: 1.4rem; color: var(--accent);">Visual Evidence Gallery</h2>
            <div class="card plot-group" id="const-05-2000-100-100">
@@ -512,6 +648,66 @@
         <div class="plot-box">
             <img src="L0LearnPSI1/exp-0.9-1000-5.0-20/Comp_Refinement-L0LearnPSI1_Comparison_exp-0.9-1000-5.0-20.png" alt="Refinement">
             <p>Refinement Statistics (Z-Wins/Improvs)</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="spgpl0learn-const-05-2000">
+    <div class="card-header">
+        <h3>SPGpL0Learn &mdash; const-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpL0Learn/const-0.5-2000-10.0-100/Comp_Sim-SPGpL0Learn_Comparison_const-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpL0Learn/const-0.5-2000-10.0-100/Comp_Refinement-SPGpL0Learn_Comparison_const-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="spgpl0learn-const-09-1000">
+    <div class="card-header">
+        <h3>SPGpL0Learn &mdash; const-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpL0Learn/const-0.9-1000-5.0-20/Comp_Sim-SPGpL0Learn_Comparison_const-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpL0Learn/const-0.9-1000-5.0-20/Comp_Refinement-SPGpL0Learn_Comparison_const-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="spgpl0learn-exp-05-2000">
+    <div class="card-header">
+        <h3>SPGpL0Learn &mdash; exp-0.5-2000-10.0-100</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpL0Learn/exp-0.5-2000-10.0-100/Comp_Sim-SPGpL0Learn_Comparison_exp-0.5-2000-10.0-100.png" alt="Similarity">
+            <p>Support Similarity</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpL0Learn/exp-0.5-2000-10.0-100/Comp_Refinement-SPGpL0Learn_Comparison_exp-0.5-2000-10.0-100.png" alt="Refinement">
+            <p>Refinement Statistics</p>
+        </div>
+    </div>
+</div>
+<div class="card plot-group" id="spgpl0learn-exp-09-1000">
+    <div class="card-header">
+        <h3>SPGpL0Learn &mdash; exp-0.9-1000-5.0-20</h3>
+    </div>
+    <div class="plot-grid">
+        <div class="plot-box">
+            <img src="SPGpL0Learn/exp-0.9-1000-5.0-20/Comp_Sim-SPGpL0Learn_Comparison_exp-0.9-1000-5.0-20.png" alt="Similarity">
+            <p>Support Similarity</p>
+        </div>
+        <div class="plot-box">
+            <img src="SPGpL0Learn/exp-0.9-1000-5.0-20/Comp_Refinement-SPGpL0Learn_Comparison_exp-0.9-1000-5.0-20.png" alt="Refinement">
+            <p>Refinement Statistics</p>
         </div>
     </div>
 </div>
