@@ -1,0 +1,11 @@
+{
+    "git.ignoredRepositories": [
+        "L0Learn_repo"
+    ],
+    "gitlens.advanced.repositoryExclusions": [
+        "L0Learn_repo"
+    ],
+    "files.exclude": {
+        "**/L0Learn_repo": true
+    }
+}
