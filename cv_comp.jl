@@ -1222,7 +1222,17 @@ function main()
 
     # Plotting
     names = strategies |> permutedims
-    display_name = algo_name == "L0Learn" ? "L0LearnPSI1" : algo_name
+    display_name = if algo_name == "SPG"
+        "NSPG+CPSI1"
+    elseif algo_name == "SPGpCDSS"
+        "NSPG+PGCCD+CPSI1"
+    elseif algo_name == "L0Learn"
+        "L0LearnCPSI1"
+    elseif algo_name == "SPGpL0Learn"
+        "NSPG+L0Learn+CPSI1"
+    else
+        algo_name
+    end
     plotname = "$(display_name)_Comparison_$(corr)-$(ρ)-$(p)-$(SNR)-$(k⃰)"
 
     # Global plot theme settings for "popy" look
@@ -1233,7 +1243,7 @@ function main()
     pPred = plot(ns_completed, Predhist, labels=names, xlabel=L"n", ylabel=L"\frac{\Vert Ax-b\Vert^2}{\Vert b\Vert^2}", left_margin=15mm, dpi=600)
     savefig(pPred, "Comp_Pred-$(plotname).png")
 
-    pSim = plot(ns_completed, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|Supp(x)\cap Supp(x^\dagger)|}{\max\{|Supp(x)|,k^\dagger\}}", left_margin=15mm, dpi=600)
+    pSim = plot(ns_completed, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|S\cap S^\dagger|}{\max\{|S|,k^\dagger\}}", left_margin=15mm, dpi=600)
     savefig(pSim, "Comp_Sim-$(plotname).png")
 
     pSUP = plot(ns_completed, SUPhist, labels=names, xlabel=L"n", ylabel=L"\Vert x\Vert_0", left_margin=15mm, dpi=600)
@@ -1258,13 +1268,13 @@ function main()
     choices_smart = ZWhist[:,3] .+ ZThist[:,3] .+ ZLhist[:,3]
     
     pRef_Reg = plot(ns_completed, [choices_reg ZWhist[:,1] ZLhist[:,1] ZIhist[:,1].*T], 
-        label=["Choices" "Wins" "Losses" "Total Sim Improv"], title="Regular CV Refinement", xlabel="n", ylabel="Count")
+        label=["Choices" "Wins" "Losses" L"Total\ Sim\ Improv\ (S, S^\dagger)"], title="Regular CV Refinement", xlabel="n", ylabel="Count")
         
     pRef_Inv = plot(ns_completed, [choices_inv ZWhist[:,2] ZLhist[:,2] ZIhist[:,2].*T], 
-        label=["Choices" "Wins" "Losses" "Total Sim Improv"], title="Inverse CV Refinement", xlabel="n", ylabel="Count")
+        label=["Choices" "Wins" "Losses" L"Total\ Sim\ Improv\ (S, S^\dagger)"], title="Inverse CV Refinement", xlabel="n", ylabel="Count")
         
     pRef_Smart = plot(ns_completed, [choices_smart ZWhist[:,3] ZLhist[:,3] ZIhist[:,3].*T], 
-        label=["Choices" "Wins" "Losses" "Total Sim Improv"], title="Smart Adaptive Refinement", xlabel="n", ylabel="Count")
+        label=["Choices" "Wins" "Losses" L"Total\ Sim\ Improv\ (S, S^\dagger)"], title="Smart Adaptive Refinement", xlabel="n", ylabel="Count")
     
     pRef = plot(pRef_Reg, pRef_Inv, pRef_Smart, layout=(3,1), size=(800, 1000), left_margin=15mm, dpi=600)
     savefig(pRef, "Comp_Refinement-$(plotname).png")

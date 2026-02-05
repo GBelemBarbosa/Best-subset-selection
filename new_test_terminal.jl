@@ -611,7 +611,32 @@ function CDSS(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
 
         Fxᵏ = F(rᵏ, xᵏ)
         if (Fxᵏ⁻¹ - Fxᵏ) / Fxᵏ <= ϵ
-            return xᵏ, k
+            if Stabilized
+                # Final optimality check (full sweep) to guarantee CW-minimum
+                optimality_violated = false
+                @inbounds for i in 1:n_vars
+                    # Check all variables, not just the active set
+                    xi = proxl0(dot(rᵏ, view(X, :, i)) + xᵏ[i])
+                    if xi != xᵏ[i]
+                        BLAS.axpy!(xᵏ[i] - xi, view(X, :, i), rᵏ)
+                        xᵏ[i] = xi
+                        optimality_violated = true
+                    end
+                end
+                
+                if !optimality_violated
+                    return xᵏ, k
+                else
+                    # If optimality violated, return to full sweep mode
+                    Stabilized = false
+                    SameSuppCounter = 0
+                    Order = greedy
+                    Fxᵏ⁻¹ = F(rᵏ, xᵏ)
+                    continue
+                end
+            else
+                return xᵏ, k
+            end
         end
 
         Fxᵏ⁻¹ = Fxᵏ
@@ -1164,7 +1189,7 @@ function main()
     consecutive_perfect_recoveries = 0
     last_completed_idx = 0
 
-    algo_names = [L"SPG+PSI1", L"SPGpCDSS+PSI1", L"L0LearnPSI1\ val", L"L0Learn\ val\ (CD\ only)", L"L0Learn+PSI1\ val\ \lambda\ cv\ path"]
+    algo_names = [L"NSPG+CPSI1", L"NSPG+PGCCD+CPSI1", L"L0LearnCPSI1\ val", L"L0Learn\ val\ (CD\ only)", L"L0Learn+CPSI1\ val\ \lambda\ cv\ path"]
     n_algos = length(algo_names)
     @info "Experiment configuration" samples = ns_range trials = T algorithms = algo_names
 
@@ -1309,7 +1334,7 @@ function main()
     pPred = plot(ns_final, Predhist, labels=names, xlabel=L"n", ylabel=L"\frac{\Vert Ax-b\Vert^2}{\Vert b\Vert^2}", left_margin=15mm, dpi=600)
     savefig(pPred, "pnPred-$(plotname)$(specifics).png")
 
-    pSim = plot(ns_final, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|Supp(x)\cap Supp(x^\dagger)|}{\max\{|Supp(x)|,k^\dagger\}}", left_margin=15mm, dpi=600)
+    pSim = plot(ns_final, Simhist, labels=names, xlabel=L"n", ylabel=L"\frac{|S\cap S^\dagger|}{\max\{|S|,k^\dagger\}}", left_margin=15mm, dpi=600)
     savefig(pSim, "pnSim-$(plotname)$(specifics).png")
 
     pTime = plot(ns_final, Timehist, labels=names, xlabel=L"n", ylabel="Time (s)", left_margin=15mm, dpi=600)
@@ -1330,13 +1355,13 @@ function main()
     choices_cdss = ZWhist[:,2] .+ ZThist[:,2] .+ ZLhist[:,2]
     
     pRef_SPG = plot(ns_final, [choices_spg ZWhist[:,1] ZLhist[:,1] SIhist[:,1].*T], 
-        label=["Choices" "Wins" "Losses" "Total Sim Improv"], 
-        title="SPG Refinement", 
+        label=["Choices" "Wins" "Losses" L"Total\ Sim\ Improv\ (S, S^\dagger)"], 
+        title="NSPG+CPSI1 Refinement", 
         xlabel="n", ylabel="Metric", left_margin=15mm, dpi=600)
 
     pRef_CDSS = plot(ns_final, [choices_cdss ZWhist[:,2] ZLhist[:,2] SIhist[:,2].*T], 
-        label=["Choices" "Wins" "Losses" "Total Sim Improv"], 
-        title="SPGpCDSS Refinement", 
+        label=["Choices" "Wins" "Losses" L"Total\ Sim\ Improv\ (S, S^\dagger)"], 
+        title="NSPG+PGCCD+CPSI1 Refinement", 
         xlabel="n", ylabel="Metric", left_margin=15mm, dpi=600)
 
     pRef = plot(pRef_SPG, pRef_CDSS, layout=(2,1), size=(800, 800))
