@@ -1181,7 +1181,7 @@ function main()
 
     pTime = plot(valid_ns, T_mean, labels=labels, color=color_matrix, xlabel=L"n", 
                  ylabel="Execution Time (s)", 
-                 left_margin=5mm, dpi=600, legend=:topleft)
+                 left_margin=5mm, dpi=600, legend=:bottomright)
     savefig(pTime, "$(plotname)_Time.png")
 
     @info "Plots saved" files = [

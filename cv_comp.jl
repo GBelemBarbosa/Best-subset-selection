@@ -1252,7 +1252,7 @@ function main()
     pInf = plot(ns_completed, Infhist, labels=names, xlabel=L"n", ylabel=L"\Vert x-x^\dagger\Vert_\infty", left_margin=15mm, dpi=600)
     savefig(pInf, "Comp_Inf-$(plotname).png")
 
-    pTime = plot(ns_completed, Timehist, labels=names, xlabel=L"n", ylabel="Execution Time (s)", left_margin=15mm, dpi=600, legend=:topleft)
+    pTime = plot(ns_completed, Timehist, labels=names, xlabel=L"n", ylabel="Execution Time (s)", left_margin=15mm, dpi=600, legend=:bottomright)
     savefig(pTime, "Comp_Time-$(plotname).png")
 
     pSI = plot(ns_completed, ZIhist, labels=names, xlabel=L"n", ylabel="Avg Sim Improvement", title="Similarity Improvement Comparison", left_margin=15mm, dpi=600)
