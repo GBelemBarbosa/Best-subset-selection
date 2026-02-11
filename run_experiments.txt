@@ -161,3 +161,31 @@ tmux new -s robust_mixed_v2_const_0.9_p1000 -d "julia --project=. -t 12 new_test
 # Tridiagonal
 tmux new -s robust_mixed_v2_tri_exp_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl exp 0.9 1000 5.0 20 100:100:1000 10 true > robust_mixed_v2_tri_exp_0.9_p1000.log 2>&1" ✅
 tmux new -s robust_mixed_v2_tri_const_0.9_p1000 -d "julia --project=. -t 12 new_test_terminal.jl const 0.9 1000 5.0 20 100:100:1000 10 true > robust_mixed_v2_tri_const_0.9_p1000.log 2>&1" ✅
+
+# ------------------------------------------------------------------------------
+# PART 8: BOXPLOT EXPERIMENTS (boxplot_terminal.jl)
+# Fixed λ₀, random sparse init, T=50 trials
+# Usage: julia boxplot_terminal.jl [corr] [ρ] [n] [p] [SNR] [k†] [T] [mode]
+# mode: "nocpsi1" (Section 5.2) or "cpsi1" (Section 5.3)
+# ------------------------------------------------------------------------------
+
+# --- Section 5.2: Pure algorithms (no CPSI1) ---
+# Algorithms: PGCCD, NSPG, NSPGH, VMNSPG | Metrics: F, SUP, K
+
+# Config 1: exp, ρ=0.5, n=500, p=2000, SNR=10, k†=100
+tmux new -s box_nocpsi1_exp_0.5_500_2000_10_100 -d "julia --project=. boxplot_terminal.jl exp 0.5 500 2000 10 100 50 nocpsi1 > box_nocpsi1_exp_0.5_500_2000_10_100.log 2>&1"
+
+# --- Section 5.3: With CPSI1 ---
+# Algorithms: PGCCD+CPSI1, NSPG+CPSI1, NSPG+PGCCD+CPSI1, NSPG (no CPSI1) | Metrics: F, SUP, K, Kout
+
+# Config 1: exp, ρ=0.5, n=500, p=2000, SNR=10, k†=100
+tmux new -s box_cpsi1_exp_0.5_500_2000_10_100 -d "julia --project=. boxplot_terminal.jl exp 0.5 500 2000 10 100 50 cpsi1 > box_cpsi1_exp_0.5_500_2000_10_100.log 2>&1"
+
+# Config 2: exp, ρ=0.5, n=500, p=2000, SNR=300, k†=100
+tmux new -s box_cpsi1_exp_0.5_500_2000_300_100 -d "julia --project=. boxplot_terminal.jl exp 0.5 500 2000 300 100 50 cpsi1 > box_cpsi1_exp_0.5_500_2000_300_100.log 2>&1"
+
+# Config 3: con, ρ=0.5, n=500, p=2000, SNR=300, k†=100
+tmux new -s box_cpsi1_con_0.5_500_2000_300_100 -d "julia --project=. boxplot_terminal.jl con 0.5 500 2000 300 100 50 cpsi1 > box_cpsi1_con_0.5_500_2000_300_100.log 2>&1"
+
+# Config 4: exp, ρ=0.9, n=250, p=1000, SNR=300, k†=25
+tmux new -s box_cpsi1_exp_0.9_250_1000_300_25 -d "julia --project=. boxplot_terminal.jl exp 0.9 250 1000 300 25 50 cpsi1 > box_cpsi1_exp_0.9_250_1000_300_25.log 2>&1"

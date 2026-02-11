@@ -1189,7 +1189,7 @@ function main()
     consecutive_perfect_recoveries = 0
     last_completed_idx = 0
 
-    algo_names = [L"NSPG+CPSI1", L"NSPG+PGCCD+CPSI1", L"L0LearnCPSI1\ val", L"L0Learn\ val\ (CD\ only)", L"L0Learn+CPSI1\ val\ \lambda\ cv\ path"]
+    algo_names = [L"NSPG+CPSI1", L"NSPG+PGCCD+CPSI1", L"L0LearnCPSI1\ val", L"L0Learn\ val\ (CD\ only)", L"L0Learn+CPSI1\ val\ path"]
     n_algos = length(algo_names)
     @info "Experiment configuration" samples = ns_range trials = T algorithms = algo_names
 
@@ -1264,7 +1264,7 @@ function main()
                 dt = time() - trial_start
                 SUPhist[t, 5] += SUP; Predhist[t, 5] += Pred; Simhist[t, 5] += Sim; Infhist[t, 5] += Infv; Timehist[t, 5] += dt
                 # Refinement metrics disabled for Algo 5
-                @show "L0Learn+P1 val l-cv" SUP Pred Sim Infv round(dt, digits=1)
+                @show "L0Learn+P1 val path" SUP Pred Sim Infv round(dt, digits=1)
             end
 
             @info "Trial $i/$T completed"
@@ -1283,7 +1283,7 @@ function main()
         @printf("SPGpCDSS+PSI1   | %-5.1f | %-7.4f | %-5.3f | %-8.1f | %3d / %-3d | %-8.4f | (%d/%d/%d)\n", SUPhist[t, 2] / T, Predhist[t, 2] / T, Simhist[t, 2] / T, Timehist[t, 2] / T, Int(ZWhist[t, 2] + ZThist[t, 2] + ZLhist[t, 2]), T, SIhist[t, 2] / T, Int(ZWhist[t, 2]), Int(ZThist[t, 2]), Int(ZLhist[t, 2]))
         @printf("L0LearnPSI1 val | %-5.1f | %-7.4f | %-5.3f | %-8.1f |    N/A     |    N/A   | N/A\n", SUPhist[t, 3] / T, Predhist[t, 3] / T, Simhist[t, 3] / T, Timehist[t, 3] / T)
         @printf("L0Learn val CD  | %-5.1f | %-7.4f | %-5.3f | %-8.1f |    N/A     |    N/A   | N/A\n", SUPhist[t, 4] / T, Predhist[t, 4] / T, Simhist[t, 4] / T, Timehist[t, 4] / T)
-        @printf("L0Learn+P1 l-cv | %-5.1f | %-7.4f | %-5.3f | %-8.1f |    N/A     |    N/A   | N/A\n", SUPhist[t, 5] / T, Predhist[t, 5] / T, Simhist[t, 5] / T, Timehist[t, 5] / T)
+        @printf("L0Learn+P1 path | %-5.1f | %-7.4f | %-5.3f | %-8.1f |    N/A     |    N/A   | N/A\n", SUPhist[t, 5] / T, Predhist[t, 5] / T, Simhist[t, 5] / T, Timehist[t, 5] / T)
         println("----------------|-------|---------|-------|----------|------------|----------|-------------------\n")
         flush(stdout)
 
