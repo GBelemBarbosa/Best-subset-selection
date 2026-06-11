@@ -1,5 +1,5 @@
-# CDSS vs L0Learn+PSI1 Hybrid Comparison
-# Tests L0Learn's coordinate descent with PSI1 verification using CDSS CV framework
+# PGCCD vs L0Learn+PSI1 Hybrid Comparison
+# Tests L0Learn's coordinate descent with PSI1 verification using PGCCD CV framework
 # Based on new_test_terminal.jl experimental setup
 
 @info "Loading packages..."
@@ -146,10 +146,10 @@ function funcs(X, y, XTX, λ₀)
 end
 
 # ============================================================================
-# SPG Algorithm
+# NSPG Algorithm
 # ============================================================================
 
-function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0, kwargs...)
+function NSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0, kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, y, XTX = funcs
 
     # Pre-allocate all work arrays
@@ -216,10 +216,10 @@ function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ
 end
 
 # ============================================================================
-# CDSS Algorithm with Active Set Convergence
+# PGCCD Algorithm with Active Set Convergence
 # ============================================================================
 
-function CDSS(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
+function PGCCD(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, y, XTX = funcs
 
     xᵏ = copy(x⁰)
@@ -283,12 +283,12 @@ function has_same_support(x, y)
 end
 
 # ============================================================================
-# SPG + CDSS Combined
+# NSPG + PGCCD Combined
 # ============================================================================
 
-function SPGpCDSS(x⁰, funcs; γₖ=0.0, kwargs...)
-    x, k = SPG(x⁰, funcs; γₖ=γₖ, kwargs...)
-    x, k2 = CDSS(x, funcs; kwargs...)
+function NSPG_PGCCD(x⁰, funcs; γₖ=0.0, kwargs...)
+    x, k = NSPG(x⁰, funcs; γₖ=γₖ, kwargs...)
+    x, k2 = PGCCD(x, funcs; kwargs...)
     return x, k + k2
 end
 
@@ -371,7 +371,7 @@ end
 # Cross Validation - STANDARD (with tracking of which refinement wins)
 # ============================================================================
 
-function cross_validation_with_tracking(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true)
+function cross_validation_with_tracking(solver, vars; λ_min_ratio=10^-5, NSPG=false, stagnation_handling=true)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -381,7 +381,7 @@ function cross_validation_with_tracking(solver, vars; λ_min_ratio=10^-5, SPG=fa
 
     ∇fxᵏ = -X'y
 
-    if SPG
+    if NSPG
         XTX∇fxᵏ = X' * X * ∇fxᵏ
         γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
     else
@@ -397,7 +397,7 @@ function cross_validation_with_tracking(solver, vars; λ_min_ratio=10^-5, SPG=fa
 
     while λ > λ_min && norm(β, 0) != p
         # Pass lambda_val=λ so solvers that need it (like L0LearnStep) can use it
-        β, kᵢ, kₒ = solver(β, funcs(X, y, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+        β, kᵢ, kₒ = solver(β, funcs(X, y, XTX, λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
 
         mse = norm(yval .- X * β)
         if mse < best
@@ -410,7 +410,7 @@ function cross_validation_with_tracking(solver, vars; λ_min_ratio=10^-5, SPG=fa
             break
         end
 
-        if SPG
+        if NSPG
             ∇fxᵏ = X' * (X * β - y)
             XTX∇fxᵏ = X' * X * ∇fxᵏ
             γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
@@ -452,8 +452,8 @@ function cross_validation_with_tracking(solver, vars; λ_min_ratio=10^-5, SPG=fa
     end
 
     # Final refinement with BOTH options and TRACKING
-    β_best_refined, kᵢ, kₒ = solver(β_best, funcs(X, y, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_from_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_refined, kᵢ, kₒ = solver(β_best, funcs(X, y, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_from_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     pred_refined = predval(β_best_refined)
     pred_zero = predval(β_from_zero)
@@ -468,7 +468,7 @@ end
 # Cross Validation - BETA BEST ONLY (no zero start comparison)
 # ============================================================================
 
-function cross_validation_beta_best_only(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true)
+function cross_validation_beta_best_only(solver, vars; λ_min_ratio=10^-5, NSPG=false, stagnation_handling=true)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -478,7 +478,7 @@ function cross_validation_beta_best_only(solver, vars; λ_min_ratio=10^-5, SPG=f
 
     ∇fxᵏ = -X'y
 
-    if SPG
+    if NSPG
         XTX∇fxᵏ = X' * X * ∇fxᵏ
         γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
     else
@@ -493,7 +493,7 @@ function cross_validation_beta_best_only(solver, vars; λ_min_ratio=10^-5, SPG=f
     prev_computed_λ = λ
 
     while λ > λ_min && norm(β, 0) != p
-        β, kᵢ, kₒ = solver(β, funcs(X, y, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+        β, kᵢ, kₒ = solver(β, funcs(X, y, XTX, λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
 
         mse = norm(yval .- X * β)
         if mse < best
@@ -506,7 +506,7 @@ function cross_validation_beta_best_only(solver, vars; λ_min_ratio=10^-5, SPG=f
             break
         end
 
-        if SPG
+        if NSPG
             ∇fxᵏ = X' * (X * β - y)
             XTX∇fxᵏ = X' * X * ∇fxᵏ
             γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
@@ -549,7 +549,7 @@ function cross_validation_beta_best_only(solver, vars; λ_min_ratio=10^-5, SPG=f
 
     # Final refinement - ONLY β_best, track change
     β_before = copy(β_best)
-    β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best, kᵢ, kₒ = solver(β_best, funcs(X, y, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     # Track if refinement changed β significantly
     norm_before = norm(β_before)
@@ -731,7 +731,7 @@ end
 function smart_adaptive_cross_validation(solver, vars;
     λ_min_ratio=10^-5,
     λ_max_ratio=floatmax(),
-    SPG=false,
+    NSPG=false,
     stagnation_handling=true)
 
     X, y, yval, XTX, p, β⃰, k⃰ = vars
@@ -744,7 +744,7 @@ function smart_adaptive_cross_validation(solver, vars;
     max_corr = ThreadsX.maximum(correlations)
     min_corr = ThreadsX.minimum(correlations)
 
-    if SPG
+    if NSPG
         XTX∇fxᵏ = X' * X * ∇fxᵏ
         γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
     else
@@ -754,10 +754,10 @@ function smart_adaptive_cross_validation(solver, vars;
     λ_low = (1.01^-1) * γₖ * min_corr^2 / 2
     λ_high = 1.01 * γₖ * max_corr^2 / 2
     # Pass lambda_val=λ so solvers that need it can use it
-    β_low, _, _ = solver(zeros(p), funcs(X, y, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
+    β_low, _, _ = solver(zeros(p), funcs(X, y, XTX, λ_low); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
     mse_low = calc_mse(β_low)
 
-    β_high, _, _ = solver(zeros(p), funcs(X, y, XTX, λ_high); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_high, X_data=X, y_data=y)
+    β_high, _, _ = solver(zeros(p), funcs(X, y, XTX, λ_high); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ_high, X_data=X, y_data=y)
     mse_high = calc_mse(β_high)
 
     if mse_low < mse_high
@@ -828,7 +828,7 @@ function smart_adaptive_cross_validation(solver, vars;
         end
 
         probe_λ = computed_λ
-        probe_β, _, _ = solver(current_β, funcs(X, y, XTX, probe_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=probe_λ, X_data=X, y_data=y)
+        probe_β, _, _ = solver(current_β, funcs(X, y, XTX, probe_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=probe_λ, X_data=X, y_data=y)
         probe_mse = calc_mse(probe_β)
 
         min_improvement = 0.01
@@ -849,7 +849,7 @@ function smart_adaptive_cross_validation(solver, vars;
                 alt_λ = 0.9 * min(current_λ, raw_λ)
             end
 
-            alt_β, _, _ = solver(current_β, funcs(X, y, XTX, alt_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=alt_λ, X_data=X, y_data=y)
+            alt_β, _, _ = solver(current_β, funcs(X, y, XTX, alt_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=alt_λ, X_data=X, y_data=y)
             alt_mse = calc_mse(alt_β)
 
             if alt_mse < probe_mse * (1 - min_improvement)
@@ -880,7 +880,7 @@ function smart_adaptive_cross_validation(solver, vars;
             break
         end
 
-        if SPG
+        if NSPG
             ∇fxᵏ = X' * (X * current_β - y)
             XTX∇fxᵏ = X' * X * ∇fxᵏ
             γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
@@ -888,8 +888,8 @@ function smart_adaptive_cross_validation(solver, vars;
         i += 1
     end
 
-    β_best, kᵢ, kₒ = solver(best_β, funcs(X, y, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best, kᵢ, kₒ = solver(best_β, funcs(X, y, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_0, kᵢ, kₒ = solver(zeros(p), funcs(X, y, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     pred_refined = predval(β_best)
     pred_zero = predval(β_best_0)
@@ -911,15 +911,15 @@ function main()
 
     # Algorithm names grouped
     algo_names = [
-        "CDSS+PSI1", "CDSS+PSI1 w/o refinement", 
-        "SPGpCDSS+PSI1", "SPGpCDSS+PSI1 w/o refinement",
+        "PGCCD+PSI1", "PGCCD+PSI1 w/o refinement", 
+        "NSPG_PGCCD+PSI1", "NSPG_PGCCD+PSI1 w/o refinement",
         "L0Learn", "L0Learn+PSI1", "L0Learn+PSI1 val", "L0Learn+PSI1 val w/o refinement"
     ]
     n_algos = length(algo_names)
 
     # Reordered Labels and specific colors for groups
     labels = reshape(algo_names, 1, :)
-    # Blue shades for CDSS, Green for SPG, Purple/Warm for L0Learn, Teal for Hybrid
+    # Blue shades for PGCCD, Green for NSPG, Purple/Warm for L0Learn, Teal for Hybrid
     colors = [:blue, :skyblue, :green, :lightgreen, :purple, :darkgoldenrod, :deeppink, :teal]
 
     @info "Experiment configuration" samples = ns_range trials = T algorithms = algo_names
@@ -938,9 +938,9 @@ function main()
     Timehist_mean = zeros(length(ns_range), 8)
 
     # Refinement tracking
-    beta_best_chosen_count = zeros(length(ns_range))  # For standard CDSS
+    beta_best_chosen_count = zeros(length(ns_range))  # For standard PGCCD
     refinement_changes = zeros(length(ns_range))       # For β-only variant
-    spgpcdss_beta_best_chosen_count = zeros(length(ns_range))  # For SPGpCDSS
+    spgpcdss_beta_best_chosen_count = zeros(length(ns_range))  # For NSPG_PGCCD
 
     for (t, n) in enumerate(ns_range)
         @info "Sample size n=$n" progress = "$(t)/$(length(ns_range))"
@@ -960,42 +960,42 @@ function main()
                 RCall.globalEnv[:y_train] = collect(y)
             end
 
-            # --- Group 1: CDSS+PSI1 ---
-            # Alg 1: CDSS+PSI1
+            # --- Group 1: PGCCD+PSI1 ---
+            # Alg 1: PGCCD+PSI1
             trial_start = time()
             β_cdss, best_λ_cdss, SUP, Pred, Sim, Infv, chose_beta_best = cross_validation_with_tracking(
-                (x, f; kw...) -> SolverPSI1(CDSS, x, f; kw...), vars)
+                (x, f; kw...) -> SolverPSI1(PGCCD, x, f; kw...), vars)
             elapsed = time() - trial_start
             SUPhist[i, 1] = SUP; Predhist[i, 1] = Pred; Simhist[i, 1] = Sim; Infhist[i, 1] = Infv; Timehist[i, 1] = elapsed
             beta_best_chosen_count[t] += chose_beta_best ? 1 : 0
-            @show "CDSS+PSI1" SUP Pred Sim Infv round(elapsed, digits=2)
+            @show "PGCCD+PSI1" SUP Pred Sim Infv round(elapsed, digits=2)
 
-            # Alg 2: CDSS+PSI1 w/o refinement
+            # Alg 2: PGCCD+PSI1 w/o refinement
             trial_start = time()
             β, best_λ, SUP, Pred, Sim, Infv, refinement_change = cross_validation_beta_best_only(
-                (x, f; kw...) -> SolverPSI1(CDSS, x, f; kw...), vars)
+                (x, f; kw...) -> SolverPSI1(PGCCD, x, f; kw...), vars)
             elapsed = time() - trial_start
             SUPhist[i, 2] = SUP; Predhist[i, 2] = Pred; Simhist[i, 2] = Sim; Infhist[i, 2] = Infv; Timehist[i, 2] = elapsed
             refinement_changes[t] += refinement_change
-            @show "CDSS+PSI1 w/o refinement" SUP Pred Sim Infv round(elapsed, digits=2)
+            @show "PGCCD+PSI1 w/o refinement" SUP Pred Sim Infv round(elapsed, digits=2)
 
-            # --- Group 2: SPGpCDSS+PSI1 ---
-            # Alg 3: SPGpCDSS+PSI1
+            # --- Group 2: NSPG_PGCCD+PSI1 ---
+            # Alg 3: NSPG_PGCCD+PSI1
             trial_start = time()
             β, best_λ, SUP, Pred, Sim, Infv, spgpcdss_chose_beta = smart_adaptive_cross_validation(
-                (x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars, SPG=true)
+                (x, f; kw...) -> SolverPSI1(NSPG_PGCCD, x, f; kw...), vars, NSPG=true)
             elapsed = time() - trial_start
             SUPhist[i, 3] = SUP; Predhist[i, 3] = Pred; Simhist[i, 3] = Sim; Infhist[i, 3] = Infv; Timehist[i, 3] = elapsed
             spgpcdss_beta_best_chosen_count[t] += spgpcdss_chose_beta ? 1 : 0
-            @show "SPGpCDSS+PSI1" SUP Pred Sim Infv round(elapsed, digits=2)
+            @show "NSPG_PGCCD+PSI1" SUP Pred Sim Infv round(elapsed, digits=2)
 
-            # Alg 4: SPGpCDSS+PSI1 w/o refinement
+            # Alg 4: NSPG_PGCCD+PSI1 w/o refinement
             trial_start = time()
             β, best_λ, SUP, Pred, Sim, Infv, _ = cross_validation_beta_best_only(
-                (x, f; kw...) -> SolverPSI1(SPGpCDSS, x, f; kw...), vars, SPG=true)
+                (x, f; kw...) -> SolverPSI1(NSPG_PGCCD, x, f; kw...), vars, NSPG=true)
             elapsed = time() - trial_start
             SUPhist[i, 4] = SUP; Predhist[i, 4] = Pred; Simhist[i, 4] = Sim; Infhist[i, 4] = Infv; Timehist[i, 4] = elapsed
-            @show "SPGpCDSS+PSI1 w/o refinement" SUP Pred Sim Infv round(elapsed, digits=2)
+            @show "NSPG_PGCCD+PSI1 w/o refinement" SUP Pred Sim Infv round(elapsed, digits=2)
 
             # --- Group 3: L0Learn (R-Backend) ---
             # Alg 5: L0Learn (Pure, with R Internal CV)
@@ -1014,8 +1014,8 @@ function main()
 
             # Alg 7: L0Learn+PSI1 val (was L0Hybrid)
             trial_start = time()
-            # 1. CDSS for init (already available from Algorithm 1)
-            # 2. R CD with warm start using CDSS's best lambda
+            # 1. PGCCD for init (already available from Algorithm 1)
+            # 2. R CD with warm start using PGCCD's best lambda
             β = solve_l0_single_lambda_R(best_λ_cdss, β_cdss, X, y)
             elapsed = time() - trial_start
             SUPhist[i, 7] = norm(β, 0); Predhist[i, 7] = norm(yval .- X * β)^2 / norm(yval)^2; Simhist[i, 7] = suppsim(β); Infhist[i, 7] = norm(β - β⃰_local, Inf); Timehist[i, 7] = elapsed
@@ -1100,13 +1100,13 @@ function main()
     for (i, n) in enumerate(ns_final)
         println("  n=$n: $(round(100 * beta_best_chosen_count[i], digits=1))% chose β_best")
     end
-    println("Overall CDSS: $(round(100 * mean(beta_best_chosen_count), digits=1))% chose β_best")
+    println("Overall PGCCD: $(round(100 * mean(beta_best_chosen_count), digits=1))% chose β_best")
     
     println("\nSPGpCDSS - β_best chosen percentage (vs zero start) per n:")
     for (i, n) in enumerate(ns_final)
         println("  n=$n: $(round(100 * spgpcdss_beta_best_chosen_count[i], digits=1))% chose β_best")
     end
-    println("Overall SPGpCDSS: $(round(100 * mean(spgpcdss_beta_best_chosen_count), digits=1))% chose β_best")
+    println("Overall NSPG_PGCCD: $(round(100 * mean(spgpcdss_beta_best_chosen_count), digits=1))% chose β_best")
     
     println("\nRefinement change magnitude (β-only variant) per n:")
     for (i, n) in enumerate(ns_final)
@@ -1123,13 +1123,13 @@ function main()
         for (i, n) in enumerate(ns_final)
             println(f, "  n=$n: $(round(100 * beta_best_chosen_count[i], digits=1))%")
         end
-        println(f, "Overall CDSS: $(round(100 * mean(beta_best_chosen_count), digits=1))%")
+        println(f, "Overall PGCCD: $(round(100 * mean(beta_best_chosen_count), digits=1))%")
         println(f, "\nSPGpCDSS - β_best chosen percentage (vs zero start):")
         for (i, n) in enumerate(ns_final)
             println(f, "  n=$n: $(round(100 * spgpcdss_beta_best_chosen_count[i], digits=1))%")
         end
-        println(f, "Overall SPGpCDSS: $(round(100 * mean(spgpcdss_beta_best_chosen_count), digits=1))%")
-        println(f, "\nRefinement change magnitude (CDSS w/o refinement variant):")
+        println(f, "Overall NSPG_PGCCD: $(round(100 * mean(spgpcdss_beta_best_chosen_count), digits=1))%")
+        println(f, "\nRefinement change magnitude (PGCCD w/o refinement variant):")
         for (i, n) in enumerate(ns_final)
             println(f, "  n=$n: $(round(refinement_changes[i], sigdigits=3))")
         end

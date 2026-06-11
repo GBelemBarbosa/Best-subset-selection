@@ -189,3 +189,43 @@ tmux new -s box_cpsi1_con_0.5_500_2000_300_100 -d "julia --project=. boxplot_ter
 
 # Config 4: exp, ρ=0.9, n=250, p=1000, SNR=300, k†=25
 tmux new -s box_cpsi1_exp_0.9_250_1000_300_25 -d "julia --project=. boxplot_terminal.jl exp 0.9 250 1000 300 25 50 cpsi1 > box_cpsi1_exp_0.9_250_1000_300_25.log 2>&1"
+
+# ------------------------------------------------------------------------------
+# PART 9: SPECTRAL CDSS EXPERIMENT (spectral_cdss_experiment.jl)
+# Strategy: Compare SolverPSI1 variants with SPGpCDSS using Smart Adaptive CV
+# 1. Reset γ (original) — γₖ=0 after first outer iter, SPG recomputes Rayleigh
+# 2. Spectral γ (BB1)   — BB1 step from CDSS+PSI1 displacement
+# No L0Learn dependency (pure Julia solvers only)
+# Usage: julia spectral_cdss_experiment.jl [corr] [ρ] [p] [SNR] [k⃰] [ns_range] [T] [tridiagonal]
+# ------------------------------------------------------------------------------
+
+# SCENARIO A: p=2000, k=100, SNR=10.0
+# Standard
+tmux new -s spectral_exp_0.5_p2000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl exp 0.5 2000 10.0 100 200:200:2000 10 false > spectral_exp_0.5_p2000.log 2>&1"
+tmux new -s spectral_const_0.5_p2000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl const 0.5 2000 10.0 100 200:200:2000 10 false > spectral_const_0.5_p2000.log 2>&1"
+
+# Tridiagonal
+tmux new -s spectral_tri_exp_0.5_p2000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl exp 0.5 2000 10.0 100 200:200:2000 10 true > spectral_tri_exp_0.5_p2000.log 2>&1"
+tmux new -s spectral_tri_const_0.5_p2000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl const 0.5 2000 10.0 100 200:200:2000 10 true > spectral_tri_const_0.5_p2000.log 2>&1"
+
+# SCENARIO B: p=1000, k=20, SNR=5.0
+# Standard
+tmux new -s spectral_exp_0.9_p1000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl exp 0.9 1000 5.0 20 100:100:1000 10 false > spectral_exp_0.9_p1000.log 2>&1"
+tmux new -s spectral_const_0.9_p1000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl const 0.9 1000 5.0 20 100:100:1000 10 false > spectral_const_0.9_p1000.log 2>&1"
+
+# Tridiagonal
+tmux new -s spectral_tri_exp_0.9_p1000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl exp 0.9 1000 5.0 20 100:100:1000 10 true > spectral_tri_exp_0.9_p1000.log 2>&1"
+tmux new -s spectral_tri_const_0.9_p1000 -d "julia --project=. -t 12 spectral_cdss_experiment.jl const 0.9 1000 5.0 20 100:100:1000 10 true > spectral_tri_const_0.9_p1000.log 2>&1"
+
+# ------------------------------------------------------------------------------
+# PART 10: VARYING SNR EXPERIMENTS (snr_experiment.jl)
+# Strategy: Sweep SNR on a logarithmic scale from 0.01 to 100
+# Compares 6 variants (L0 and L0L2 variants of NSPG+PGCCD+CPSI1, NSPG+CPSI1, L0Learn+CPSI1)
+# Usage: julia snr_experiment.jl [corr] [ρ] [n] [p] [k⃰] [snr_range] [T] [tridiagonal]
+# ------------------------------------------------------------------------------
+
+# SCENARIO A: Constant Correlation (p=1000, n=250, k=20)
+tmux new -s snr_const_0.9_n250 -d "julia --project=. -t 12 snr_experiment.jl const 0.4 1000 2000 50 -2.0:0.5:2.0 10 false > snr_const_0.9_n250.log 2>&1"
+
+# SCENARIO B: Exponential Correlation (p=1000, n=250, k=20)
+tmux new -s snr_exp_0.9_n250 -d "julia --project=. -t 12 snr_experiment.jl exp 0.4 1000 2000 50 -2.0:0.5:2.0 10 false > snr_exp_0.9_n250.log 2>&1"

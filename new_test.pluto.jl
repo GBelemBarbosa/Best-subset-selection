@@ -79,7 +79,7 @@ end;
 # ╔═╡ d7fbd2ce-8c0c-45d8-8757-b6a150a2b953
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "d7fbd2ce-8c0c-45d8-8757-b6a150a2b953"
-function VMSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), µ=10^-3)
+function VMNSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), µ=10^-3)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
     sᵏ = xᵏ⁻¹ = xᵏ = x⁰
@@ -138,7 +138,7 @@ end;
 # ╔═╡ 2ba39b49-487d-424d-b898-d4c8a76cb4f0
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "2ba39b49-487d-424d-b898-d4c8a76cb4f0"
-function SPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64))
+function NSPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64))
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
     sᵏ = xᵏ⁻¹ = xᵏ = x⁰
@@ -197,7 +197,7 @@ end;
 # ╔═╡ 196b60fd-6d2e-4083-867f-844b3cdd187d
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "196b60fd-6d2e-4083-867f-844b3cdd187d"
-function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0)
+function NSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
     sᵏ = xᵏ⁻¹ = xᵏ = x⁰
@@ -255,7 +255,7 @@ end;
 # ╔═╡ 3c06123a-f43e-4df5-8f28-838ee68b9712
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "3c06123a-f43e-4df5-8f28-838ee68b9712"
-function CDSS(x⁰, funcs; sortperc=1 / 4)
+function PGCCD(x⁰, funcs; sortperc=1 / 4)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, X, XTX = funcs
 
     xᵏ = copy(x⁰)
@@ -290,9 +290,9 @@ end;
 # ╔═╡ 737b576a-dc16-4c1e-ab15-bd8f193f77f4
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "737b576a-dc16-4c1e-ab15-bd8f193f77f4"
-function SPGpCDSS(x⁰, funcs)
-    x, k = SPG(x⁰, funcs)
-    x, k2 = CDSS(x, funcs)
+function NSPG_PGCCD(x⁰, funcs)
+    x, k = NSPG(x⁰, funcs)
+    x, k2 = PGCCD(x, funcs)
 
     return x, k + k2
 end;
@@ -350,7 +350,7 @@ end;
 # ╔═╡ 0467f015-bd57-4379-b192-367a5287d31c
 # ╠═╡ show_logs = false
 # ╠═╡ pluto_cell_id = "0467f015-bd57-4379-b192-367a5287d31c"
-function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false)
+function cross_validation(solver, vars; λ_min_ratio=10^-5, NSPG=false)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -359,7 +359,7 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false)
     β = β_best = zeros(p)
     best = best_λ = Inf
 
-    if SPG
+    if NSPG
         #∇fxᵏ = -X'y
         #γₖ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/dot(∇fxᵏ+X'*(y+X*∇fxᵏ*10^-5), ∇fxᵏ)
         #λ = 1.01*γₖ*ThreadsX.maximum(abs(dot(view(X, :, j), y)) for j=1:p)^2/2
@@ -385,7 +385,7 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false)
 
         β = zeros(p)
 
-        if SPG
+        if NSPG
             #∇fxᵏ = X'*(X*β-y)
             #γₖ = dot(∇fxᵏ, ∇fxᵏ)*10^-5/dot(∇fxᵏ+X'*(y-X*(β-∇fxᵏ*10^-5)), ∇fxᵏ)
             #λ = norm(β, 0)!=p ? 0.9*γₖ*min(λ, ThreadsX.maximum(abs(dot(view(X, :, j), X*β-y)) for j=1:p if iszero(β[j]))^2/2) : 0.0
@@ -425,19 +425,19 @@ begin
         for i = 1:T
             vars = variables(corr=corr, ρ=ρ, n=n, p=p, SNR=SNR, k⃰=k⃰)
 
-            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(CDSS, x, f), vars)
+            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(PGCCD, x, f), vars)
             SUPhist[t, 1] += SUP
             Predhist[t, 1] += Pred
             Simhist[t, 1] += Sim
             Infhist[t, 1] += Infv
 
-            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(SPG, x, f), vars, SPG=true)
+            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(NSPG, x, f), vars, NSPG=true)
             SUPhist[t, 2] += SUP
             Predhist[t, 2] += Pred
             Simhist[t, 2] += Sim
             Infhist[t, 2] += Infv
 
-            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(SPGpCDSS, x, f), vars, SPG=true)
+            β, best_λ, SUP, Pred, Sim, Infv = cross_validation((x, f) -> SolverPSI1(NSPG_PGCCD, x, f), vars, NSPG=true)
             SUPhist[t, 3] += SUP
             Predhist[t, 3] += Pred
             Simhist[t, 3] += Sim

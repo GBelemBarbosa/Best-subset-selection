@@ -30,8 +30,8 @@ flush(stdout)
 # ============================================================================
 # Parameters (can be overridden via command-line arguments)
 # Usage: julia script.jl [corr] [ρ] [p] [SNR] [k⃰] [ns_start:ns_step:ns_end] [algo] [T]
-# Example: julia script.jl const 0.9 1000 5 20 100:100:1000 CDSS 10
-# algo options: CDSS, SPG, SPGpL0Learn
+# Example: julia script.jl const 0.9 1000 5 20 100:100:1000 PGCCD 10
+# algo options: PGCCD, NSPG, SPGpL0Learn
 # ============================================================================
 
 # Defaults
@@ -52,9 +52,9 @@ else
     ns_range = 100:100:1000  # Default
 end
 
-# algo options: CDSS, SPG, SPGpL0Learn, L0Learn
-algo_name = length(ARGS) >= 7 ? ARGS[7] : "CDSS"
-use_SPG = algo_name in ["SPG", "SPGpL0Learn"]  # SPG step logic
+# algo options: PGCCD, NSPG, SPGpL0Learn, L0Learn
+algo_name = length(ARGS) >= 7 ? ARGS[7] : "PGCCD"
+use_SPG = algo_name in ["NSPG", "SPGpL0Learn"]  # NSPG step logic
 T = length(ARGS) >= 8 ? parse(Int, ARGS[8]) : 10
 use_refinement = length(ARGS) >= 9 ? parse(Bool, ARGS[9]) : (use_SPG ? true : false)
 
@@ -124,10 +124,10 @@ function funcs(X, y, yval, XTX, λ₀)
 end
 
 # ============================================================================
-# VMSPG Algorithm
+# VMNSPG Algorithm
 # ============================================================================
 
-function VMSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), µ=10^-3)
+function VMNSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), µ=10^-3)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, y, XTX = funcs
 
     n_vars = length(x⁰)
@@ -147,7 +147,7 @@ function VMSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐ�
     ∇f!(∇fxᵏ, rᵏ)
     Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
 
-    # Initial SPG step computation using BB formula
+    # Initial NSPG step computation using BB formula
     # sᵏ = 10⁻⁵ * ∇f(x⁰), the artificial step in gradient direction
     # yᵏ = ∇f(x⁰) - ∇f(x⁰ - sᵏ) = X'X * sᵏ (gradient difference)
     ε = 10^-5
@@ -237,10 +237,10 @@ function VMSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐ�
 end
 
 # ============================================================================
-# SPGH Algorithm
+# NSPGH Algorithm
 # ============================================================================
 
-function SPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64))
+function NSPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64))
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, y, XTX = funcs
 
     # Pre-allocate all work arrays
@@ -256,7 +256,7 @@ function SPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐ�
     ∇f!(∇fxᵏ, rᵏ)
     Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
 
-    # Initial SPG step computation using BB formula
+    # Initial NSPG step computation using BB formula
     # sᵏ = 10⁻⁵ * ∇f(x⁰), yᵏ = ε * X'X∇f(x⁰)
     ε = 10^-5
     XTX∇fxᵏ = XTX * ∇fxᵏ                  # X'X∇f(x⁰)
@@ -317,10 +317,10 @@ function SPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐ�
 end
 
 # ============================================================================
-# SPG Algorithm
+# NSPG Algorithm
 # ============================================================================
 
-function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0, kwargs...)
+function NSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0, kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, y, XTX = funcs
 
     # Pre-allocate all work arrays
@@ -337,14 +337,14 @@ function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ
     Fxᵏ⁻¹ = Fxᵏ = F(rᵏ, xᵏ)
 
     if iszero(γₖ)
-        # Initial SPG step via BB1: γₖ = ⟨sᵏ,sᵏ⟩/⟨yᵏ,sᵏ⟩
+        # Initial NSPG step via BB1: γₖ = ⟨sᵏ,sᵏ⟩/⟨yᵏ,sᵏ⟩
         # sᵏ = ε∇f, yᵏ = ∇fxᵏ + X'(y - X(β - ε∇f)) = εX'X∇f
         # γₖ = ε‖∇f‖² / ⟨yᵏ, ∇f⟩ = ε‖∇f‖² / (ε⟨X'X∇f,∇f⟩)
         # ε = 10^-5
         XTX∇fxᵏ = XTX * ∇fxᵏ
         γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
     end
-    #@info "Initial γₖ (SPG)" γₖ
+    #@info "Initial γₖ (NSPG)" γₖ
     nsᵏ = γₖ
     lastₘ = fill(Fxᵏ, m)
 
@@ -393,13 +393,13 @@ function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ
 end
 
 # ============================================================================
-# CDSS Algorithm with Active Set Convergence
+# PGCCD Algorithm with Active Set Convergence
 # Based on L0Learn paper: Hazimeh & Mazumder (2018)
 # Active Set Strategy: Full cycles until support stabilizes, then active set only,
 # then verify with CW minimum check on coordinates outside support.
 # ============================================================================
 
-function CDSS(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
+function PGCCD(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, y, XTX = funcs
 
     xᵏ = copy(x⁰)
@@ -466,11 +466,11 @@ function has_same_support(x, y)
 end
 
 # ============================================================================
-# SPG + L0Learn Combined
+# NSPG + L0Learn Combined
 # ============================================================================
 
 function SPGpL0Learn(x⁰, funcs; γₖ=0.0, lambda_val=nothing, X_data=nothing, y_data=nothing, kwargs...)
-    x, k = SPG(x⁰, funcs; γₖ=γₖ, kwargs...)
+    x, k = NSPG(x⁰, funcs; γₖ=γₖ, kwargs...)
     x, k2 = L0LearnStep(x, funcs; lambda_val=lambda_val, X_data=X_data, y_data=y_data, kwargs...)
 
     return x, k + k2
@@ -611,7 +611,7 @@ end
 # Cross Validation
 # ============================================================================
 
-function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnation_handling=true, use_refinement=true)
+function cross_validation(solver, vars; λ_min_ratio=10^-5, NSPG=false, stagnation_handling=true, use_refinement=true)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -621,7 +621,7 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
 
     ∇fxᵏ = -X'y
 
-    if SPG
+    if NSPG
         # ε = 10^-5, sᵏ = ε∇f
         # yᵏ = ∇fxᵏ + X'(y - X(β - ε∇f)) = εX'X∇f
         # γₖ = ε‖∇f‖² / ⟨yᵏ, ∇f⟩ = ε‖∇f‖² / (ε⟨X'X∇f,∇f⟩)
@@ -631,7 +631,7 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
         γₖ = 1.0
     end
 
-    # λ formula always uses γₖ (computed SPG val or 1.0)
+    # λ formula always uses γₖ (computed NSPG val or 1.0)
     λ = 1.01 * γₖ * ThreadsX.maximum(abs(∇fxᵏ[j]) for j = 1:p)^2 / 2
     λ_min = λ * λ_min_ratio
 
@@ -640,8 +640,8 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
     prev_computed_λ = λ  # Track what formula computes (before any bump)
 
     while λ > λ_min && norm(β, 0) != p
-        # Run solver - only pass γₖ if we are in SPG mode
-        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+        # Run solver - only pass γₖ if we are in NSPG mode
+        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
 
         mse = norm(yval .- X * β)
         if mse < best
@@ -654,7 +654,7 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
             break
         end
 
-        if SPG
+        if NSPG
             # ε = 10^-5, sᵏ = ε∇f
             # yᵏ = ∇fxᵏ + X'(y - X(β - ε∇f)) = εX'X∇f
             ∇fxᵏ = X' * (X * β - y)
@@ -695,8 +695,8 @@ function cross_validation(solver, vars; λ_min_ratio=10^-5, SPG=false, stagnatio
     end
 
     # Final refinement with best λ
-    β_best_path, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_path, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     zero_won = predval(β_best_zero) < predval(β_best_path)
     if zero_won
@@ -716,7 +716,7 @@ end
 # Inverse Cross Validation (lambda grows instead of shrinks)
 # ============================================================================
 
-function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, stagnation_handling=true, use_refinement=true)
+function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, NSPG=false, stagnation_handling=true, use_refinement=true)
     X, y, yval, XTX, p, β⃰, k⃰ = vars
     suppsim(β) = count(i -> !iszero(β⃰[i]) && !iszero(β[i]), 1:p) / max(k⃰, norm(β, 0))
     predval(β) = norm(X * β .- yval)^2 / norm(yval)^2
@@ -731,7 +731,7 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
     # Using min_corr fails for exp correlation where min_corr ≈ 0
     min_corr = ThreadsX.minimum(abs(∇fxᵏ[j]) for j = 1:p)
 
-    if SPG
+    if NSPG
         # ε = 10^-5, sᵏ = ε∇f
         # yᵏ = ∇fxᵏ + X'(y - X(β - ε∇f)) = εX'X∇f
         # γₖ = ε‖∇f‖² / ⟨yᵏ, ∇f⟩ = ε‖∇f‖² / (ε⟨X'X∇f,∇f⟩)
@@ -747,11 +747,11 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
 
     # --- PRE-LOOP WARMUP: Reduce λ until we get non-zero support ---
     # For L0Learn with const correlation, the initial λ may be too large.
-    β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+    β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
     warmup_iters = 0
     while iszero(norm(β_warmup, 0)) && warmup_iters < 50
         λ *= 0.9
-        β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+        β_warmup, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
         warmup_iters += 1
     end
     if warmup_iters >= 50 && iszero(norm(β_warmup, 0))
@@ -771,7 +771,7 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
         λ = max(λ, eps())
 
         # Run solver
-        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, λ); γₖ=SPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
+        β, kᵢ, kₒ = solver(β, funcs(X, y, yval, XTX, λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ, X_data=X, y_data=y)
 
         mse = norm(yval .- X * β)
         if mse < best
@@ -785,7 +785,7 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
             break
         end
 
-        if SPG
+        if NSPG
             ∇fxᵏ = X' * (X * β - y)
             XTX∇fxᵏ = X' * X * ∇fxᵏ
             γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
@@ -825,8 +825,8 @@ function inverse_cross_validation(solver, vars; λ_max_ratio=1e30, SPG=false, st
     end
 
     # Final refinement with best λ
-    β_best_path, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_path, kᵢ, kₒ = solver(β_best, funcs(X, y, yval, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     zero_won = predval(β_best_zero) < predval(β_best_path)
     if zero_won
@@ -853,7 +853,7 @@ end
 function smart_adaptive_cross_validation(solver, vars;
     λ_min_ratio=10^-5,
     λ_max_ratio=floatmax(),
-    SPG=false,
+    NSPG=false,
     stagnation_handling=true,
     use_refinement=true)
 
@@ -868,7 +868,7 @@ function smart_adaptive_cross_validation(solver, vars;
     max_corr = ThreadsX.maximum(correlations)
     min_corr = ThreadsX.minimum(correlations)
 
-    if SPG
+    if NSPG
         XTX∇fxᵏ = X' * X * ∇fxᵏ
         γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
     else
@@ -879,14 +879,14 @@ function smart_adaptive_cross_validation(solver, vars;
     λ_high = 1.01 * γₖ * max_corr^2 / 2
 
     # Probe Low
-    β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
+    β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
     
     # --- PRE-LOOP WARMUP: Reduce λ_low until we get non-zero support ---
     # For L0Learn with const correlation, λ_low may still be too large.
     warmup_iters = 0
     while iszero(norm(β_low, 0)) && warmup_iters < 50
         λ_low *= 0.9
-        β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
+        β_low, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_low); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ_low, X_data=X, y_data=y)
         warmup_iters += 1
     end
     if warmup_iters >= 50 && iszero(norm(β_low, 0))
@@ -897,7 +897,7 @@ function smart_adaptive_cross_validation(solver, vars;
     mse_low = calc_mse(β_low)
 
     # Probe High
-    β_high, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_high); γₖ=SPG ? γₖ : 0.0, lambda_val=λ_high, X_data=X, y_data=y)
+    β_high, _, _ = solver(zeros(p), funcs(X, y, yval, XTX, λ_high); γₖ=NSPG ? γₖ : 0.0, lambda_val=λ_high, X_data=X, y_data=y)
     mse_high = calc_mse(β_high)
 
     # Select Best Start
@@ -981,7 +981,7 @@ function smart_adaptive_cross_validation(solver, vars;
 
         # B. Probe Next Step
         probe_λ = computed_λ
-        probe_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, probe_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=probe_λ, X_data=X, y_data=y)
+        probe_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, probe_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=probe_λ, X_data=X, y_data=y)
         probe_mse = calc_mse(probe_β)
 
         # C. Check Improvement
@@ -1005,7 +1005,7 @@ function smart_adaptive_cross_validation(solver, vars;
                 alt_λ = 0.9 * min(current_λ, raw_λ)
             end
 
-            alt_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, alt_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=alt_λ, X_data=X, y_data=y)
+            alt_β, _, _ = solver(current_β, funcs(X, y, yval, XTX, alt_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=alt_λ, X_data=X, y_data=y)
             alt_mse = calc_mse(alt_β)
 
             # Pick whichever direction gives the smaller MSE
@@ -1044,8 +1044,8 @@ function smart_adaptive_cross_validation(solver, vars;
             break
         end
 
-        # Update γₖ if SPG mode
-        if SPG
+        # Update γₖ if NSPG mode
+        if NSPG
             ∇fxᵏ = X' * (X * current_β - y)
             XTX∇fxᵏ = X' * X * ∇fxᵏ
             γₖ = dot(∇fxᵏ, ∇fxᵏ) / dot(XTX∇fxᵏ, ∇fxᵏ)
@@ -1057,8 +1057,8 @@ function smart_adaptive_cross_validation(solver, vars;
     end
 
     # Final refinement with best λ
-    β_best_path, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
-    β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=SPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_path, kᵢ, kₒ = solver(best_β, funcs(X, y, yval, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
+    β_best_zero, kᵢ, kₒ = solver(zeros(p), funcs(X, y, yval, XTX, best_λ); γₖ=NSPG ? γₖ : 0.0, lambda_val=best_λ, X_data=X, y_data=y)
     
     zero_won = predval(β_best_zero) < predval(β_best_path)
     if zero_won
@@ -1078,14 +1078,14 @@ function main()
     x⁰ = zeros(Float64, p)
 
     # Resolve algorithm function here (after definitions are loaded)
-    algo_func = if algo_name == "SPG"
-        SPG
+    algo_func = if algo_name == "NSPG"
+        NSPG
     elseif algo_name == "SPGpL0Learn"
         SPGpL0Learn
     elseif algo_name == "L0Learn"
         L0LearnStep
     else
-        CDSS
+        PGCCD
     end
 
     strategies = ["Regular CV", "Inverse CV", "Smart Adaptive"]
@@ -1117,7 +1117,7 @@ function main()
 
             # 1. Regular CV (Standard cross_validation)
             trial_start = time()
-            β, _, SUP, Pred, Sim, Infv, zw, ss, zi = cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG, use_refinement=use_refinement)
+            β, _, SUP, Pred, Sim, Infv, zw, ss, zi = cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, NSPG=use_SPG, use_refinement=use_refinement)
             trial_time = time() - trial_start
             SUPhist[t, 1] += SUP
             Predhist[t, 1] += Pred
@@ -1135,7 +1135,7 @@ function main()
 
             # 2. Inverse CV (inverse_cross_validation)
             trial_start = time()
-            β, _, SUP, Pred, Sim, Infv, zw, ss, zi = inverse_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG, use_refinement=use_refinement)
+            β, _, SUP, Pred, Sim, Infv, zw, ss, zi = inverse_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, NSPG=use_SPG, use_refinement=use_refinement)
             trial_time = time() - trial_start
             SUPhist[t, 2] += SUP
             Predhist[t, 2] += Pred
@@ -1153,7 +1153,7 @@ function main()
 
             # 3. Smart Adaptive CV
             trial_start = time()
-            β, _, SUP, Pred, Sim, Infv, zw, ss, zi = smart_adaptive_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, SPG=use_SPG, use_refinement=use_refinement)
+            β, _, SUP, Pred, Sim, Infv, zw, ss, zi = smart_adaptive_cross_validation((x, f; kwargs...) -> SolverPSI1(algo_func, x, f; y_data_top=y_curr, kwargs...), vars, NSPG=use_SPG, use_refinement=use_refinement)
             trial_time = time() - trial_start
             SUPhist[t, 3] += SUP
             Predhist[t, 3] += Pred
@@ -1222,9 +1222,9 @@ function main()
 
     # Plotting
     names = strategies |> permutedims
-    display_name = if algo_name == "SPG"
+    display_name = if algo_name == "NSPG"
         "NSPG+CPSI1"
-    elseif algo_name == "SPGpCDSS"
+    elseif algo_name == "NSPG_PGCCD"
         "NSPG+PGCCD+CPSI1"
     elseif algo_name == "L0Learn"
         "L0LearnCPSI1"

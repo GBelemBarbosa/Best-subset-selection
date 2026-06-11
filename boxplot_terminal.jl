@@ -93,10 +93,10 @@ function make_funcs(X, y, XTX, λ₀)
 end
 
 # ============================================================================
-# VMSPG Algorithm (from new_test_terminal.jl)
+# VMNSPG Algorithm (from new_test_terminal.jl)
 # ============================================================================
 
-function VMSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), µ=10^-3, kwargs...)
+function VMNSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), µ=10^-3, kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
 
     n_vars = length(x⁰)
@@ -187,10 +187,10 @@ function VMSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐ�
 end
 
 # ============================================================================
-# SPGH Algorithm (from new_test_terminal.jl)
+# NSPGH Algorithm (from new_test_terminal.jl)
 # ============================================================================
 
-function SPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), kwargs...)
+function NSPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
 
     xᵏ = copy(x⁰)
@@ -260,10 +260,10 @@ function SPGH(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐ�
 end
 
 # ============================================================================
-# SPG Algorithm (from new_test_terminal.jl)
+# NSPG Algorithm (from new_test_terminal.jl)
 # ============================================================================
 
-function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0, kwargs...)
+function NSPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ=typemax(Int64), γₖ=0.0, kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
 
     xᵏ = copy(x⁰)
@@ -336,7 +336,7 @@ function SPG(x⁰, funcs; m=15, δ=0.01, τ=0.25, γₘᵢₙ=eps(), γₘₐₓ
 end
 
 # ============================================================================
-# CDSS Algorithm (from new_test_terminal.jl)
+# PGCCD Algorithm (from new_test_terminal.jl)
 # ============================================================================
 
 function has_same_support(x, y)
@@ -348,7 +348,7 @@ function has_same_support(x, y)
     return true
 end
 
-function CDSS(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
+function PGCCD(x⁰, funcs; sortperc=1 / 4, ActiveSetNum=10, kwargs...)
     r!, r, ∇f!, f, F, ∇f, proxl0, proxl0VM, proxl0!, proxl0VM!, X, XTX = funcs
 
     xᵏ = copy(x⁰)
@@ -426,9 +426,9 @@ end
 # Combined Algorithms
 # ============================================================================
 
-function SPGpCDSS(x⁰, funcs; γₖ=0.0, kwargs...)
-    x, k = SPG(x⁰, funcs; γₖ=γₖ, kwargs...)
-    x, k2 = CDSS(x, funcs; kwargs...)
+function NSPG_PGCCD(x⁰, funcs; γₖ=0.0, kwargs...)
+    x, k = NSPG(x⁰, funcs; γₖ=γₖ, kwargs...)
+    x, k2 = PGCCD(x, funcs; kwargs...)
     return x, k + k2
 end
 
@@ -555,25 +555,25 @@ function main()
             x⁰[supp] = rand(Uniform(0, 1), k⃰_local)
 
             # 1. PGCCD
-            β, k = CDSS(copy(x⁰), fns)
+            β, k = PGCCD(copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 1] = SUP; Fhist[t, 1] = Fval; Khist[t, 1] = k
             @show "PGCCD" SUP Fval k
 
             # 2. NSPG
-            β, k = SPG(copy(x⁰), fns)
+            β, k = NSPG(copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 2] = SUP; Fhist[t, 2] = Fval; Khist[t, 2] = k
             @show "NSPG" SUP Fval k
 
             # 3. NSPGH
-            β, k = SPGH(copy(x⁰), fns)
+            β, k = NSPGH(copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 3] = SUP; Fhist[t, 3] = Fval; Khist[t, 3] = k
             @show "NSPGH" SUP Fval k
 
             # 4. VMNSPG
-            β, k = VMSPG(copy(x⁰), fns)
+            β, k = VMNSPG(copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 4] = SUP; Fhist[t, 4] = Fval; Khist[t, 4] = k
             @show "VMNSPG" SUP Fval k
@@ -645,25 +645,25 @@ function main()
             x⁰[supp] = rand(Uniform(0, 1), k⃰_local)
 
             # 1. PGCCD+CPSI1
-            β, kᵢ, kₒ = SolverPSI1(CDSS, copy(x⁰), fns)
+            β, kᵢ, kₒ = SolverPSI1(PGCCD, copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 1] = SUP; Fhist[t, 1] = Fval; Khist[t, 1] = kᵢ; Kouthist[t, 1] = kₒ
             @show "PGCCD+CPSI1" SUP Fval kᵢ kₒ
 
             # 2. NSPG+CPSI1
-            β, kᵢ, kₒ = SolverPSI1(SPG, copy(x⁰), fns)
+            β, kᵢ, kₒ = SolverPSI1(NSPG, copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 2] = SUP; Fhist[t, 2] = Fval; Khist[t, 2] = kᵢ; Kouthist[t, 2] = kₒ
             @show "NSPG+CPSI1" SUP Fval kᵢ kₒ
 
             # 3. NSPG+PGCCD+CPSI1
-            β, kᵢ, kₒ = SolverPSI1(SPGpCDSS, copy(x⁰), fns)
+            β, kᵢ, kₒ = SolverPSI1(NSPG_PGCCD, copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 3] = SUP; Fhist[t, 3] = Fval; Khist[t, 3] = kᵢ; Kouthist[t, 3] = kₒ
             @show "NSPG+PGCCD+CPSI1" SUP Fval kᵢ kₒ
 
-            # 4. NSPG (no CPSI1) — plain SPG
-            β, k = SPG(copy(x⁰), fns)
+            # 4. NSPG (no CPSI1) — plain NSPG
+            β, k = NSPG(copy(x⁰), fns)
             SUP = suppsim(β); Fval = F(r(β), β)
             SUPhist[t, 4] = SUP; Fhist[t, 4] = Fval; Khist[t, 4] = k; Kouthist[t, 4] = 0
             @show "NSPG (no CPSI)" SUP Fval k
